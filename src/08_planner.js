@@ -46,6 +46,27 @@ J.komaOf = fx => (fx.koma != null ? +fx.koma : (fx.onTwos === false ? 0 : 12));
 J.stepDur = (fx, fps) => { const k = J.komaOf(fx); return k > 0 ? 1 / k : 1 / (fps || 24); };
 
 /* ---------------- lyric parsing ---------------- */
+const srtTimestamp = (h, m, s, ms) => (+h * 3600 + +m * 60 + +s) + +ms / 1000;
+J.srtToLyrics = raw => {
+  const rows = String(raw || '').replace(/^\ufeff/, '').replace(/\r/g, '').split('\n');
+  const cues = [];
+  for (let i = 0; i < rows.length; i++) {
+    const m = rows[i].match(/^\s*(?:(\d+)\s*)?(\d{2,}):(\d{2}):(\d{2})[,.](\d{3})\s*-->\s*(\d{2,}):(\d{2}):(\d{2})[,.](\d{3})(?:\s+.*)?$/);
+    if (!m) continue;
+    const start = srtTimestamp(m[2], m[3], m[4], m[5]);
+    const end = srtTimestamp(m[6], m[7], m[8], m[9]);
+    const text = [];
+    for (i++; i < rows.length && !/^\s*(?:\d+\s*)?\d{2,}:\d{2}:\d{2}[,.]\d{3}\s*-->/.test(rows[i]); i++) {
+      const line = rows[i].trim(); if (line) text.push(line);
+    }
+    i--;
+    if (end <= start || !text.length) continue;
+    const clean = text.join(' ').replace(/<\/?(?:i|b|u|font|c)(?:[ ._-][^>]*)?>/gi, '').replace(/&nbsp;/gi, ' ').replace(/&amp;/gi, '&').replace(/&lt;/gi, '<').replace(/&gt;/gi, '>').replace(/&quot;/gi, '"').replace(/&#39;/gi, "'");
+    const stamp = (t) => { const ms = Math.round(t * 1000), h = Math.floor(ms / 3600000), mm = Math.floor(ms / 60000) % 60, ss = Math.floor(ms / 1000) % 60, msec = ms % 1000; return `${String(h).padStart(2, '0')}:${String(mm).padStart(2, '0')}:${String(ss).padStart(2, '0')}.${String(msec).padStart(3, '0')}`; };
+    cues.push(`[SRT:${stamp(start)}-->${stamp(end)}]${clean}`);
+  }
+  return cues.join('\n');
+};
 J.parseLyrics = (raw) => {
   const lines = []; const meta = {};
   let pendingGap = false;
@@ -57,35 +78,46 @@ J.parseLyrics = (raw) => {
     const mm = s0.match(/^\[(ti|ar|al|by|offset):(.*)\]$/i);
     if (mm) { meta[mm[1].toLowerCase()] = mm[2].trim(); continue; }
     let s = s0; const times = [];
+    // GOVERSE Motion SRT cue marker: [SRT:00:00:01.000-->00:00:02.300]text
+    // Keeping both bounds inline lets the existing editable lyric field and project format stay in sync.
+    const sm = s.match(/^\[SRT:(\d{2,}):(\d{2}):(\d{2})[,.](\d{3})\s*-->\s*(\d{2,}):(\d{2}):(\d{2})[,.](\d{3})\]/i);
+    let srtStart = null, srtEnd = null;
+    if (sm) {
+      srtStart = (+sm[1] * 3600 + +sm[2] * 60 + +sm[3]) + +sm[4] / 1000;
+      srtEnd = (+sm[5] * 3600 + +sm[6] * 60 + +sm[7]) + +sm[8] / 1000;
+      if (srtEnd <= srtStart) { srtStart = null; srtEnd = null; }
+      else { times.push(srtStart); s = s.slice(sm[0].length); }
+    }
     let m;
     while ((m = s.match(/^\[(\d+):(\d+(?:[.:]\d+)?)\]/))) { times.push(+m[1] * 60 + parseFloat(m[2].replace(':', '.'))); s = s.slice(m[0].length); }
+    const isSrt = srtEnd != null;
     s = s.trim();
     // 間奏: [間奏] / [間奏 8] (8 seconds) — also [interlude] [inst] [间奏] [간주]; no lyrics, only background and decorations
     const im = s.match(/^\[\s*(間奏|间奏|interlude|instrumental|inst|간주)(?:\s*[:：]?\s*(\d+(?:\.\d+)?)\s*(?:s|sec|秒|초)?)?\s*\]$/i);
-    if (im) {
+    if (!isSrt && im) {
       const base = { text: '', interlude: true, secs: im[2] ? parseFloat(im[2]) : null, note: null, impact: false, emph: [], manual: null, gapBefore: pendingGap, src: ri };
       pendingGap = false;
-      if (times.length) times.forEach(t => lines.push(Object.assign({}, base, { lrc: t })));
+      if (times.length) times.forEach(t => lines.push(Object.assign({}, base, { lrc: t, srtEnd })));
       else lines.push(Object.assign({}, base, { lrc: null }));
       continue;
     }
     let note = null;
-    const bar = s.indexOf('|');
+    const bar = isSrt ? -1 : s.indexOf('|');
     if (bar >= 0) { note = s.slice(bar + 1).trim() || null; s = s.slice(0, bar).trim(); }
     let impact = false;
-    if (/[!！]$/.test(s) && s.length > 1 && /!$/.test(s)) { impact = true; s = s.slice(0, -1).trim(); }
+    if (!isSrt && /[!！]$/.test(s) && s.length > 1 && /!$/.test(s)) { impact = true; s = s.slice(0, -1).trim(); }
     const emph = [];
-    s = s.replace(/\*([^*]+)\*/g, (_, w) => { emph.push(w); return w; });
+    if (!isSrt) s = s.replace(/\*([^*]+)\*/g, (_, w) => { emph.push(w); return w; });
     let manual = null;
-    if (s.includes('/')) {
+    if (!isSrt && s.includes('/')) {
       manual = s.split('/').map(x => x.trim()).filter(Boolean);
       const latin = manual.some(x => /[A-Za-z]/.test(x));
       s = manual.join(latin ? ' ' : '');
     }
     if (!s) continue;
-    const base = { text: s, note, impact, emph, manual, gapBefore: pendingGap, src: ri };
+    const base = { text: s, note, impact, emph, manual, srt: isSrt, gapBefore: pendingGap, src: ri };
     pendingGap = false;
-    if (times.length) times.forEach(t => lines.push(Object.assign({}, base, { lrc: t })));
+    if (times.length) times.forEach(t => lines.push(Object.assign({}, base, { lrc: t, srtEnd })));
     else lines.push(Object.assign({}, base, { lrc: null }));
   }
   // LRC: order by time. A line without a tag (an interlude, a line added by hand) stays right after the line it
@@ -213,9 +245,10 @@ J.computeTiming = (project, parsed, audio) => {
     if (man != null && isFinite(man)) return Math.max(0, man);
     return l.lrc != null && isFinite(l.lrc) ? l.lrc : null;
   });
-  // a fixed time may not go back past an earlier one (the saved value itself is left alone)
+  const hasSrt = lines.some(l => l.srtEnd != null);
+  // SRT cue positions are authoritative; preserve overlaps and sub-50ms spacing from the source file.
   let lastFix = -Infinity;
-  for (let i = 0; i < fixed.length; i++) if (fixed[i] != null) { if (fixed[i] < lastFix + 0.05) fixed[i] = lastFix + 0.05; lastFix = fixed[i]; }
+  if (!hasSrt) for (let i = 0; i < fixed.length; i++) if (fixed[i] != null) { if (fixed[i] < lastFix + 0.05) fixed[i] = lastFix + 0.05; lastFix = fixed[i]; }
   const natural = i => {         // estimated length of line i
     const n = [...lines[i].text].length, L = lines[i];
     let d = L.interlude ? (L.secs > 0 ? L.secs : 4) : J.clamp(0.8 + n * 0.17, 1.3, 5.2) * (T.lineScale || 1);
@@ -245,14 +278,20 @@ J.computeTiming = (project, parsed, audio) => {
     i = j;
   }
   const ends = starts.map((s, i) => {
+    if (lines[i].srtEnd != null) {
+      const manual = T.lineTimes && T.lineTimes[i] != null ? +T.lineTimes[i] : null;
+      const shift = manual != null && isFinite(manual) ? Math.max(0, manual) - lines[i].lrc : 0;
+      return lines[i].srtEnd + shift;
+    }
     if (i < starts.length - 1) return Math.max(s + 0.35, starts[i + 1]);
     const n = [...lines[i].text].length, L = lines[i];
     let d = L.interlude ? (L.secs > 0 ? L.secs : 4) : J.clamp(0.8 + n * 0.17, 1.5, 5.2) * (T.lineScale || 1);
     if (beat && !(L.interlude && L.secs > 0)) d = Math.max(2, Math.round(d / beat)) * beat;
     return s + d;
   });
-  let duration = (ends.length ? ends[ends.length - 1] : 3) + (T.tail ?? 0.9);
-  if (audio && audio.duration && T.useAudioLength !== false) duration = Math.max(audio.duration, ends.length ? ends[ends.length - 1] + 0.2 : 1);
+  const lastEnd = ends.reduce((max, t) => Math.max(max, t), 0);
+  let duration = (ends.length ? lastEnd : 3) + (T.tail ?? 0.9);
+  if (audio && audio.duration && T.useAudioLength !== false) duration = Math.max(audio.duration, ends.length ? lastEnd + 0.2 : 1);
   return { starts, ends, duration };
 };
 
@@ -273,7 +312,7 @@ J.plan = (project, audio) => {
   const artist = project.artist || parsed.meta.ar || '';
   const tm = J.computeTiming(project, parsed, audio);
   // 文字整列: the lyrics appear 0.2 s before the voice (reading ahead feels in time)
-  if (project.typeset) {
+  if (project.typeset && !parsed.lines.some(l => l.srtEnd != null)) {
     const LEAD = 0.2;
     tm.starts = tm.starts.map(t => Math.max(0, t - LEAD));
     tm.ends = tm.ends.map((t, i) => Math.max(tm.starts[i] + 0.3, t - LEAD));

@@ -1,12 +1,20 @@
 # 変更の記録（CHANGELOG）
 
+## 0.11.0 — GOVERSE Motion
+
+- Rebranded the fork as GOVERSE Motion and added a Korean-first product plan.
+- Added direct SRT subtitle import while preserving each cue's start and end times and silent gaps.
+- Added UTF-8, UTF-16, and Korean Windows-encoded subtitle reading.
+- Reused LRC export to convert imported SRT cue starts when an LRC file is needed.
+- Kept the upstream MIT license and third-party notices.
+
 JIZURA のバージョンは `メジャー.マイナー.パッチ` の形で付けます。
 
 - **マイナー**（0.6 → 0.7）：機能の追加や、見た目・操作が変わる変更
 - **パッチ**（0.7.0 → 0.7.1）：不具合の修正だけの更新
 - **メジャー**（0.x → 1.0）：プロジェクトファイルや AE 用 JSON の形式が変わるなど、互換性に関わる変更
 
-いまのバージョンはリポジトリ直下の `VERSION` に書いてあり、ブラウザ版の左上（JIZURA のロゴの横）、AE パネル（スクリプト版の見出しと、診断レポート）に表示されます。保存したプロジェクトファイルと AE 用 JSON にも `appVersion` として記録されます。
+いまのバージョンはリポジトリ直下の `VERSION` に書いてあり、ブラウザ版の左上（GOVERSE Motion のロゴ横）と、保存したプロジェクトファイル・AE 用 JSON に記録されます。
 
 ## v0.10.1 — 2026-10-01
 

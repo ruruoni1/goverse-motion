@@ -111,7 +111,7 @@ J.lrcText = (project, lines, range) => {
   const from = range ? range.from : 0, to = range ? range.to : parsed.lines.length - 1, t0 = range ? range.t0 : 0;
   for (let i = from; i <= to && i < parsed.lines.length; i++) {
     const L = parsed.lines[i];
-    let txt = clean(rows[L.src]);
+    let txt = L.srt ? L.text : clean(rows[L.src]);
     if (L.interlude && !/^\[/.test(txt)) txt = '[間奏]';
     out.push(stamp(tm.starts[i] - t0) + txt);
   }

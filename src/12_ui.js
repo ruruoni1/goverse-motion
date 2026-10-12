@@ -788,17 +788,18 @@ function edGo(d) {
   toast(d < 0 ? '元に戻しました' : 'やり直しました');
 }
 // LRC を読み込む: replaces the lyrics (and everything tied to line numbers, like 歌詞を消す); undoable
-function loadLrc(text) {
+function loadSubtitles(text, format = 'lrc') {
   if (S.tap || S.exporting) return;
   const P = S.project;
   const snap = JSON.parse(edSnap()); snap.ov = P.overrides || {}; snap.range = P.exportRange || null;
   ED.undo.push(JSON.stringify(snap)); if (ED.undo.length > 60) ED.undo.shift(); ED.redo = [];
   pause();
-  P.lyrics = String(text).replace(/^\ufeff/, '').replace(/\r\n?/g, '\n').trim(); P.timing.lineTimes = {}; P.overrides = {}; P.exportRange = null;
+  P.lyrics = format === 'srt' ? J.srtToLyrics(text) : String(text).replace(/^\ufeff/, '').replace(/\r\n?/g, '\n').trim();
+  P.timing.lineTimes = {}; P.overrides = {}; P.exportRange = null;
   $('lyrics').value = P.lyrics;
   replan(); flushSave(); updateEditBtns(); seek(0);
   const n = J.parseLyrics(P.lyrics).lines.filter(l => l.lrc != null).length;
-  toast(`LRC を読み込みました（時刻付き ${n} 行・「元に戻す」で戻せます）`);
+  toast(format === 'srt' ? `SRT を読み込みました（${n} 件・開始/終了時刻を保持。「LRC を書き出す」で変換できます）` : `LRC を読み込みました（時刻付き ${n} 行・「元に戻す」で戻せます）`);
 }
 function saveLrc() {
   const R = exportRangeLines(), r = exportRange();
@@ -1780,12 +1781,21 @@ function bind() {
   }));
   $('fileLrc').addEventListener('change', async e => {
     const f = e.target.files && e.target.files[0]; e.target.value = ''; if (!f) return;
-    if (f.size > 2e6) { toast('LRC ファイルが大きすぎます'); return; }
+    if (f.size > 2e6) { toast('字幕ファイルが大きすぎます'); return; }
     let text = '';
-    try { const buf = await f.arrayBuffer(); try { text = new TextDecoder('utf-8', { fatal: true }).decode(buf); } catch (e2) { text = new TextDecoder('shift_jis').decode(buf); } }
-    catch (err) { toast('LRC を読み込めませんでした'); return; }
-    if (S.project.lyrics.trim() && !window.confirm('今の歌詞を LRC の内容に置き換えます（行ごとの時刻・指定・書き出す範囲も消えます。「元に戻す」で戻せます）。よろしいですか？')) return;
-    loadLrc(text);
+    try {
+      const buf = await f.arrayBuffer(), bytes = new Uint8Array(buf);
+      if (bytes[0] === 0xff && bytes[1] === 0xfe) text = new TextDecoder('utf-16le').decode(buf);
+      else if (bytes[0] === 0xfe && bytes[1] === 0xff) text = new TextDecoder('utf-16be').decode(buf);
+      else {
+        try { text = new TextDecoder('utf-8', { fatal: true }).decode(buf); }
+        catch (e2) { text = new TextDecoder('euc-kr').decode(buf); }
+      }
+    } catch (err) { toast('字幕ファイルを読み込めませんでした'); return; }
+    const format = /\.srt$/i.test(f.name) || /^\s*(?:\d+\s*\r?\n)?\d{2}:\d{2}:\d{2}[,.]\d{3}\s*-->\s*\d{2}:\d{2}:\d{2}[,.]\d{3}/m.test(text) ? 'srt' : 'lrc';
+    if (format === 'srt' && !J.srtToLyrics(text).trim()) { toast('有効な字幕行が見つかりませんでした'); return; }
+    if (S.project.lyrics.trim() && !window.confirm(format === 'srt' ? '今の歌詞を SRT 字幕に置き換えます（行ごとの指定・書き出す範囲も消えます。「元に戻す」で戻せます）。よろしいですか？' : '今の歌詞を LRC の内容に置き換えます（行ごとの時刻・指定・書き出す範囲も消えます。「元に戻す」で戻せます）。よろしいですか？')) return;
+    loadSubtitles(text, format);
   });
   ['btnLRC', 'eLRC'].forEach(id => $(id).addEventListener('click', saveLrc));
   $('btnReset').addEventListener('click', () => {

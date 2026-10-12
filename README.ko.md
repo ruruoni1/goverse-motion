@@ -1,15 +1,15 @@
-# JIZURA — 가사 모션 비디오 메이커
+# GOVERSE Motion — 무료 모션 자막 제작기
 
-가사를 입력하면 브라우저에서 리릭 모션 영상을 자동으로 구성하고 MP4로 내보낼 수 있습니다. JIZURA는 레이아웃, 등장, 유지, 퇴장, 장식, 글자 효과, 배경, 카메라, 화면 효과, 전환을 조합하며, 시드를 바꾸거나 **자동으로 만들기**를 누르면 다른 구성을 만들 수 있습니다.
+SRT 자막이나 LRC 가사를 불러와 브라우저에서 모션 자막 영상을 만들고 MP4로 내보내는 무료 도구입니다. JIZURA의 모션 그래픽 엔진을 바탕으로 고버스TV용 SRT 자막 작업 흐름을 더합니다.
 
-**[한국어판 열기](https://852wa.github.io/JIZURA/ko/)** · [Tiếng Việt](https://852wa.github.io/JIZURA/vi/) · [日本語版](https://852wa.github.io/JIZURA/) · [English](https://852wa.github.io/JIZURA/en/) · [일본어 가이드](README.md)
+**[GOVERSE Motion 저장소](https://github.com/ruruoni1/goverse-motion)** · [원본 JIZURA](https://github.com/852wa/JIZURA)
 
-한국어·영어·일본어 브라우저판은 같은 프로젝트 형식과 브라우저 저장 데이터를 사용합니다. 편집기 상단의 언어 링크로 UI 언어를 바꿔도 가사와 설정은 그대로 유지됩니다.
+GitHub Pages에는 한국어판만 공개합니다. 저장소 루트의 `index.html`이 서비스 페이지이며, 화면과 안내는 한국어로 제공됩니다.
 
 <details>
 <summary><h2>빠른 시작</h2></summary>
 
-1. 왼쪽 가사 입력란에 한 줄당 한 프레이즈씩 가사를 붙여 넣습니다.
+1. **SRT/LRC 불러오기**로 자막 파일을 가져오거나, 가사 입력란에 한 줄씩 직접 입력합니다.
 2. 필요하면 음원을 불러옵니다. JIZURA가 박자를 감지해 컷을 맞출 수 있으며, **탭으로 동기화**에서 각 줄이 시작될 때 Space를 눌러 직접 타이밍을 지정할 수도 있습니다.
 3. **자동으로 만들기**(또는 R)를 눌러 스타일, 분위기, 움직임, 배색, 구성을 랜덤으로 만듭니다. **이전 / 다음**으로 버전을 오가거나 **이 부분만 변경**으로 일부만 다시 만들 수 있습니다.
 4. 화면비, 해상도, 프레임레이트를 선택하고 MP4로 내보냅니다. 고급 모드에서는 PNG 시퀀스, 투명 PNG, 합성용 배경, 개별 기법 설정도 사용할 수 있습니다.
@@ -32,24 +32,35 @@
 
 </details>
 
+<details>
+<summary><h2>SRT 자막 불러오기</h2></summary>
+
+1. **SRT/LRC 불러오기**를 눌러 `.srt` 파일을 선택합니다.
+2. SRT의 각 자막 문장은 `[SRT:시작-->종료]` 표식과 함께 편집란에 들어옵니다. 이 표식은 시작·종료 시각과 자막 사이의 공백을 보존합니다.
+3. 기존 **LRC 내보내기**를 누르면 시작 시각을 담은 `.lrc` 파일로 변환해 저장할 수 있습니다. LRC 형식에는 종료 시각이 없으므로 SRT 시간 구간을 모두 보존하려면 프로젝트에서 SRT 자막을 직접 사용하세요.
+
+UTF-8, UTF-16, 한국어 Windows 인코딩 파일을 지원합니다. 파일 크기는 2 MB까지이며, 자막과 음원은 브라우저 안에서 처리합니다.
+
+</details>
+
 </details>
 
 <details>
 <summary><h2>개인정보와 출력물</h2></summary>
 
-가사와 음원은 브라우저 안에서 처리되며 서버로 전송되지 않습니다. 필요한 Google Fonts만 외부에서 불러옵니다.
+자막과 음원은 브라우저 안에서 처리되며 서버로 전송되지 않습니다. 필요한 Google Fonts만 외부에서 불러옵니다.
 
-이 도구로 만든 동영상과 이미지의 권리는 제작자에게 있으며, 사용한 가사와 음원의 권리는 각각의 권리자에게 있습니다. JIZURA 자체는 MIT License로 공개되어 있습니다. 자세한 내용은 [LICENSE](LICENSE)와 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)를 확인해 주세요.
+이 도구로 만든 동영상과 이미지의 권리는 제작자에게 있으며, 사용한 자막·가사와 음원의 권리는 각각의 권리자에게 있습니다. GOVERSE Motion은 MIT License인 JIZURA를 바탕으로 수정한 프로젝트입니다. 원본 저작권 고지와 서드파티 고지를 유지합니다. 자세한 내용은 [LICENSE](LICENSE)와 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)를 확인해 주세요.
 
 </details>
 
 <details>
 <summary><h2>빌드</h2></summary>
 
-저장소 루트에서 python3 build.py 를 실행합니다.
+저장소 루트에서 `python3 build.py`를 실행합니다.
 
-index.html, en/index.html, ko/index.html이 생성됩니다. 세 파일은 GitHub Pages에서 각각 일본어, 영어, 한국어판으로 사용할 수 있는 단일 HTML 파일입니다.
+한국어판 단일 HTML 파일인 `index.html`과 검색 엔진용 `sitemap.xml`이 생성됩니다. GitHub Pages는 저장소 루트를 기준으로 이 한국어판을 제공합니다.
 
-한국어판은 브라우저 UI 번역만 추가합니다. After Effects 패널의 프로젝트 JSON 형식은 기존과 동일하며, 가사의 한국어 감지와 한국어 글꼴 매핑은 기존 엔진을 그대로 사용합니다.
+After Effects 패널의 프로젝트 JSON 형식은 기존과 동일하며, 가사의 한국어 감지와 한국어 글꼴 매핑은 기존 엔진을 그대로 사용합니다.
 
 </details>

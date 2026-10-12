@@ -1,6 +1,7 @@
 """English copy for the browser edition. The Japanese source stays authoritative."""
 
 BODY = {
+    'SRT 字幕または LRC 歌詞を読み込みます。SRT は開始・終了時刻を保持します。">字幕ファイルを読み込む': 'Load SRT subtitles or LRC lyrics. SRT keeps both start and end times.">Import SRT / LRC',
     '1行に複数のカットがあるときは、カットが切り替わる瞬間に <span class="kbd">Tab</span> を押すと、その行のカットの開始時刻も合わせられます。': 'If a line has several cuts, press <span class="kbd">Tab</span> the moment the cut should change to time the cuts of that line too.',
     '<label>速さ <select id="tapRate" aria-label="タップ中の再生速度">': '<label>Speed <select id="tapRate" aria-label="Playback speed while tapping">',
     '<input type="checkbox" id="tapCount"> カウントダウン</label>': '<input type="checkbox" id="tapCount"> Count-in</label>',
@@ -178,10 +179,13 @@ UI = {
     "'このカットの開始時刻（自動）。数値を入れると固定します'": "'Start of this cut (automatic). Type a time to fix it'",
     '`${i + 1}行目 カット${k + 1}の開始時刻`': '`Line ${i + 1}, start of cut ${k + 1}`',
     '`LRC を読み込みました（時刻付き ${n} 行・「元に戻す」で戻せます）`': '`LRC loaded (${n} timed lines · Undo brings the old lyrics back)`',
+    '`SRT を読み込みました（${n} 件・開始/終了時刻を保持。「LRC を書き出す」で変換できます）`': '`SRT loaded (${n} cues · start/end times preserved. Use “Save LRC” to convert.)`',
+    "'今の歌詞を SRT 字幕に置き換えます（行ごとの指定・書き出す範囲も消えます。「元に戻す」で戻せます）。よろしいですか？'": "'Replace the current lyrics with the SRT subtitles? Per-line settings and export range will be cleared too. Undo can restore them.'",
+    "'今の歌詞を LRC の内容に置き換えます（行ごとの時刻・指定・書き出す範囲も消えます。「元に戻す」で戻せます）。よろしいですか？'": "'Replace the current lyrics with the LRC file? Line times, per-line settings and export range will be cleared too. Undo can restore them.'",
     "'この行にはこれ以上カットがありません'": "'This line has no more cuts'",
-    "'LRC ファイルが大きすぎます'": "'The LRC file is too large'",
-    "'LRC を読み込めませんでした'": "'Could not read the LRC file'",
-    "'今の歌詞を LRC の内容に置き換えます（行ごとの時刻・指定・書き出す範囲も消えます。「元に戻す」で戻せます）。よろしいですか？'": "'Replace the current lyrics with the LRC file? (Line times, per-line settings and the export range are cleared too. Undo brings them back.)'",
+    "'字幕ファイルが大きすぎます'": "'The subtitle file is too large'",
+    "'字幕ファイルを読み込めませんでした'": "'Could not read the subtitle file'",
+    "'有効な字幕行が見つかりませんでした'": "'No valid subtitle cues were found'",
     '`おまかせ（${themeName(th)}）：`': '`Randomized (${themeName(th)}): `',
     "'文字PV系の部品：使う'": "'Typographic parts: on'",
     "'文字PV系の部品：使わない（おまかせ・シャッフルで選ばれません）'": "'Typographic parts: off (not picked by Randomize or Shuffle)'",

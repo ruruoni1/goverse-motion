@@ -6,13 +6,7 @@ import importlib, json
 
 # code, output folder, html lang, native name
 EDITIONS = [
-    ('ja', '', 'ja', '日本語'),
-    ('en', 'en', 'en', 'English'),
-    ('zh-Hant', 'zh-hant', 'zh-Hant', '繁體中文'),
-    ('zh-Hans', 'zh-hans', 'zh-Hans', '简体中文'),
-    ('ko', 'ko', 'ko', '한국어'),
-    ('id', 'id', 'id-ID', 'Bahasa Indonesia'),
-    ('vi', 'vi', 'vi', 'Tiếng Việt'),
+    ('ko', '', 'ko', '한국어'),
 ]
 MODULES = {
     'zh-Hant': 'app.i18n_zh_hant', 'zh-Hans': 'app.i18n_zh_hans',
@@ -23,7 +17,7 @@ MODULES = {
 COMMUNITY = {'zh-Hant': ('app.chinese', 'app/chinese.js'), 'ko': ('app.korean', 'app/korean.js')}
 # part-name scripts for editions without a community glossary (after app/english.js and the edition's own names)
 PART_NAMES = {'zh-Hans': 'app/chinese_hans.js'}
-BASE = 'https://852wa.github.io/JIZURA/'
+BASE = 'https://ruruoni1.github.io/goverse-motion/'
 
 
 class _Merged:
@@ -85,6 +79,8 @@ def names_js(code):
 
 def nav(code):
     """language menu (a select, so the editions fit the header), links relative to the edition's folder"""
+    if len(EDITIONS) < 2:
+        return ''
     here = dict((c, f) for c, f, _, _ in EDITIONS)[code]
     up = '../' if here else ''
     opts = []

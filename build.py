@@ -1,5 +1,5 @@
-"""Build the single-file browser editions from src/, app/ and vendor/: Japanese, English, 繁體中文, 简体中文, 한국어, Bahasa Indonesia, Tiếng Việt.
-usage: python3 build.py            -> index.html, en/, zh-hant/, zh-hans/, ko/, id/, vi/ index.html (GitHub Pages)
+"""Build the Korean single-file browser edition from src/, app/ and vendor/.
+usage: python3 build.py            -> index.html (Korean GitHub Pages edition)
        python3 build.py --dev      -> also dev/www/jizura.js + dev/www/test.html for the test tools"""
 import glob, os, sys
 from app.english import localize_body, localize_js
@@ -15,12 +15,14 @@ def build(lang):
     english = lang == 'en'
     local = lang in i18n.MODULES
     m = i18n.module(lang) if local else None
-    title = 'JIZURA — Lyric Motion Video Maker' if english else m.TITLE if local else 'JIZURA 字面'
-    description = ('Turn lyrics into animated lyric videos in your browser and export MP4.' if english else m.DESCRIPTION if local else '歌詞を入れると文字PV（リリックモーション）を自動で組み立てて MP4 に書き出すブラウザアプリ')
+    title = 'GOVERSE Motion — 무료 모션 자막 제작기'
+    description = 'SRT 자막의 시작·종료 시각을 살려 모션 영상으로 만드는 무료 브라우저 편집기입니다.'
     folder = dict((c, f) for c, f, _, _ in i18n.EDITIONS)[lang]
     canonical = i18n.BASE + (folder + '/' if folder else '')
     language_nav = i18n.nav(lang)
-    body = read('app/body.html').replace('@VERSION@', VERSION).replace('    <div class="acts">', '    ' + language_nav + '\n    <div class="acts">', 1)
+    body = read('app/body.html').replace('@VERSION@', VERSION)
+    if language_nav:
+        body = body.replace('    <div class="acts">', '    ' + language_nav + '\n    <div class="acts">', 1)
     if english: body = localize_body(body)
     elif local: body = i18n.localize_body(lang, body)
     if english: script = '\n'.join(localize_js(read(f), f) for f in sources)
