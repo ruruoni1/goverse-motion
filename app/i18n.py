@@ -7,6 +7,12 @@ import importlib, json
 # code, output folder, html lang, native name
 EDITIONS = [
     ('ko', '', 'ko', '한국어'),
+    ('ja', 'ja', 'ja', '日本語'),
+    ('en', 'en', 'en', 'English'),
+    ('zh-Hant', 'zh-hant', 'zh-Hant', '繁體中文'),
+    ('zh-Hans', 'zh-hans', 'zh-Hans', '简体中文'),
+    ('id', 'id', 'id-ID', 'Bahasa Indonesia'),
+    ('vi', 'vi', 'vi', 'Tiếng Việt'),
 ]
 MODULES = {
     'zh-Hant': 'app.i18n_zh_hant', 'zh-Hans': 'app.i18n_zh_hans',
@@ -89,7 +95,11 @@ def nav(code):
     for c, folder, hl, name in EDITIONS:
         href = up + (folder + '/' if folder else '') + 'index.html'
         opts.append(f'<option value="{href}" lang="{hl}"{" selected" if c == code else ""}>{name}</option>')
-    label = 'Bahasa' if code == 'id' else 'Ngôn ngữ' if code == 'vi' else 'Language'
+    label = {
+        'ko': '화면 언어', 'ja': '画面の言語', 'en': 'Interface language',
+        'zh-Hant': '介面語言', 'zh-Hans': '界面语言',
+        'id': 'Bahasa antarmuka', 'vi': 'Ngôn ngữ giao diện',
+    }[code]
     return (f'<label class="lang-switch"><span class="sr-only">{label}</span>'
             f'<select aria-label="{label}" onchange="if(this.value)location.href=this.value">' + ''.join(opts) + '</select></label>')
 

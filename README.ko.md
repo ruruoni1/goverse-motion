@@ -4,7 +4,9 @@ GULZA는 한국어 ‘글자’를 영문으로 짧게 쓴 이름입니다. SRT 
 
 **[GULZA 웹사이트](https://ruruoni1.github.io/gulza/)** · [GULZA 저장소](https://github.com/ruruoni1/gulza) · [원본 JIZURA](https://github.com/852wa/JIZURA)
 
-GitHub Pages에는 한국어판만 공개합니다. 저장소 루트의 `index.html`이 서비스 페이지이며, 화면과 안내는 한국어로 제공됩니다.
+다른 언어 안내: [日本語](README.ja.md) · [English](README.en.md) · [繁體中文](README.zh-Hant.md) · [简体中文](README.zh-Hans.md) · [Bahasa Indonesia](README.id.md) · [Tiếng Việt](README.vi.md)
+
+기본 화면은 한국어입니다. 사이트 위쪽의 **화면 언어** 메뉴에서 다른 언어로 바꿀 수 있습니다.
 
 <details>
 <summary><h2>빠른 시작</h2></summary>
@@ -35,7 +37,7 @@ GitHub Pages에는 한국어판만 공개합니다. 저장소 루트의 `index.h
 <details>
 <summary><h2>SRT 자막 불러오기</h2></summary>
 
-1. **SRT/LRC 불러오기**를 눌러 `.srt` 파일을 선택합니다.
+1. SRT를 LRC로 변환하지 말고 **SRT/LRC 불러오기**에서 `.srt` 파일을 바로 선택합니다.
 2. SRT의 각 자막 문장은 `[SRT:시작-->종료]` 표식과 함께 편집란에 들어옵니다. 이 표식은 시작·종료 시각과 자막 사이의 공백을 보존합니다.
 3. 기존 **LRC 내보내기**를 누르면 시작 시각을 담은 `.lrc` 파일로 변환해 저장할 수 있습니다. LRC 형식에는 종료 시각이 없으므로 SRT 시간 구간을 모두 보존하려면 프로젝트에서 SRT 자막을 직접 사용하세요.
 
@@ -59,7 +61,7 @@ UTF-8, UTF-16, 한국어 Windows 인코딩 파일을 지원합니다. 파일 크
 
 저장소 루트에서 `python3 build.py`를 실행합니다.
 
-한국어판 단일 HTML 파일인 `index.html`과 검색 엔진용 `sitemap.xml`이 생성됩니다. GitHub Pages는 저장소 루트를 기준으로 이 한국어판을 제공합니다.
+한국어 기본 화면인 `index.html`, 여섯 개 언어 폴더의 HTML, 검색 엔진용 `sitemap.xml`이 생성됩니다.
 
 After Effects 패널은 `python3 build_ae.py`와 `python3 build_cep.py`로 빌드합니다. 배포 파일은 [GULZA_AE.jsx](GULZA_AE.jsx)와 [GULZA_CEP.zip](GULZA_CEP.zip)입니다. 프로젝트 JSON 형식은 기존과 같습니다.
 

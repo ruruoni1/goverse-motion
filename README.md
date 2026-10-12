@@ -2,6 +2,8 @@
 
 **[웹사이트에서 바로 사용하기](https://ruruoni1.github.io/gulza/)** · [빠른 사용 안내](README.ko.md) · [원본 JIZURA](https://github.com/852wa/JIZURA)
 
+**다른 언어:** [日本語](README.ja.md) · [English](README.en.md) · [繁體中文](README.zh-Hant.md) · [简体中文](README.zh-Hans.md) · [Bahasa Indonesia](README.id.md) · [Tiếng Việt](README.vi.md)
+
 GULZA는 가사와 자막으로 모션 영상을 만들고 MP4로 저장하는 무료 브라우저 도구입니다.
 
 이름은 한국어 ‘글자’를 짧게 옮긴 것입니다.
@@ -10,14 +12,14 @@ GULZA는 가사와 자막으로 모션 영상을 만들고 MP4로 저장하는 �
 
 이 포크에서는 SRT 자막 파일을 LRC로 변환하지 않고 바로 불러올 수 있습니다.
 
-**현재 버전: v0.13.0** · 설치와 회원가입 없이 [한국어 웹사이트](https://ruruoni1.github.io/gulza/)에서 바로 사용할 수 있습니다.
+**현재 버전: v0.14.0** · 설치와 회원가입 없이 [웹사이트](https://ruruoni1.github.io/gulza/)에서 바로 사용할 수 있습니다. 첫 화면은 한국어이며 화면 위쪽에서 언어를 바꿀 수 있습니다.
 
 ## 이 포크에서 추가한 기능
 
 - **SRT 직접 불러오기:** `.srt` 파일을 그대로 열어 자막 영상 작업을 시작합니다. 자막이 없는 구간도 영상에 반영합니다.
 - **한국어 자막 파일 읽기:** UTF-8, UTF-16, 한국어 Windows 인코딩의 SRT/LRC 파일을 읽습니다. 파일 크기는 2 MB까지 지원합니다.
 - **LRC 내보내기:** 각 자막의 시작 시각을 LRC 파일로 저장합니다. 종료 시각까지 보존하려면 SRT가 포함된 프로젝트를 저장하세요.
-- **한국어 화면:** 편집기와 사용 안내를 한국어로 제공합니다.
+- **화면 언어 전환:** 한국어를 기본값으로 일본어, 영어, 중국어(번체·간체), 인도네시아어, 베트남어 화면을 선택할 수 있습니다.
 - **GULZA 파일명:** 제목이 없으면 `gulza.mp4`, `gulza.project.json`으로 저장합니다.
 
 SRT 시간 표식은 편집란에 `[SRT:00:00:01.000-->00:00:02.300]자막`처럼 표시됩니다.
@@ -34,7 +36,7 @@ SRT 시간 표식은 편집란에 `[SRT:00:00:01.000-->00:00:02.300]자막`처�
 
 | 저장소의 파일 | 용도 |
 |---|---|
-| [`index.html`](index.html) | GitHub Pages가 제공하는 한국어 브라우저판. 단일 HTML 파일입니다. |
+| [`index.html`](index.html) | GitHub Pages의 기본 한국어 화면. 다른 언어는 각 폴더의 `index.html`에 있습니다. |
 | [`src/`](src/) · [`app/`](app/) | 모션 엔진, 화면, 한국어 번역과 빌드 소스 |
 | [`GULZA_AE.jsx`](GULZA_AE.jsx) | GULZA용 한국어 After Effects ScriptUI 패널 |
 | [`GULZA_CEP.zip`](GULZA_CEP.zip) | GULZA용 한국어 After Effects CEP 패널 |
@@ -330,7 +332,7 @@ CEP는 AE 2022 이상을 대상으로 합니다. 원본 JIZURA와 다른 확장 
 
 ## 개발과 배포
 
-한국어 브라우저판은 저장소 루트에서 다음처럼 빌드합니다.
+브라우저판은 저장소 루트에서 다음처럼 빌드합니다.
 
 ```sh
 python build.py
@@ -338,9 +340,9 @@ python build.py
 
 `src/`, `app/`, `vendor/`에서 루트의 `index.html`과 `sitemap.xml`을 생성합니다.
 
-GitHub Pages는 `main` 브랜치의 저장소 루트를 게시합니다. [공개 주소](https://ruruoni1.github.io/gulza/)에서 한국어판을 열 수 있습니다.
+GitHub Pages는 `main` 브랜치의 저장소 루트를 게시합니다. [기본 주소](https://ruruoni1.github.io/gulza/)는 한국어 화면입니다.
 
-원본의 다른 언어 번역 모듈은 소스에 남아 있습니다. 별도 언어판 HTML은 게시하지 않습니다.
+일본어·영어·중국어(번체·간체)·인도네시아어·베트남어 HTML도 각 언어 폴더에 생성합니다.
 
 원본의 After Effects 관련 빌드 도구도 저장소에 있습니다.
 

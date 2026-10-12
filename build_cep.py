@@ -4,7 +4,7 @@ usage: python3 build_cep.py [--debug]
      <out>/GULZA_CEP.zip         that folder + install notes + signing scripts
 Needs the built browser app (index.html) — run build.py first.
 --debug adds a .debug file (Chrome DevTools on http://localhost:8098) — for development only."""
-import argparse, glob, os, shutil, subprocess, sys, zipfile
+import argparse, glob, os, re, shutil, subprocess, sys, zipfile
 from app.english import localize_cep
 from app.cep_ko import localize_cep as localize_cep_ko
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -37,13 +37,14 @@ def es_escape(src):
 
 # 1) panel page: the browser app + a Node-context guard for the MP4 muxer + the AE bridge
 html = open(app_html, encoding='utf-8').read()
+# CEP packages one language at a time; remove links to browser editions absent from this package.
+html = re.sub(r'<label class="lang-switch">.*?</label>', '', html, count=1, flags=re.DOTALL)
 guard = "<script>if(!window.Mp4Muxer&&typeof module!=='undefined'&&module&&module.exports&&module.exports.Muxer)window.Mp4Muxer=module.exports;</script>\n"
 i = html.index('</script>') + len('</script>\n')          # right after the mp4-muxer script
 html = html[:i] + guard + html[i:]
 bridge = open('cep/cep.js', encoding='utf-8').read()
 if english:
     bridge = localize_cep(bridge)
-    html = html.replace('</style>', 'html.cep .lang-switch{display:none}\n</style>', 1)
 elif a.lang == 'ko':
     bridge = localize_cep_ko(bridge)
 html = html.replace('</body>', '<script>\n' + bridge + '\n</script>\n</body>', 1)

@@ -1,5 +1,5 @@
-"""Build the Korean single-file browser edition from src/, app/ and vendor/.
-usage: python3 build.py            -> index.html (Korean GitHub Pages edition)
+"""Build the seven localized single-file browser editions from src/, app/ and vendor/.
+usage: python3 build.py            -> Korean index.html and six language folders
        python3 build.py --dev      -> also dev/www/jizura.js + dev/www/test.html for the test tools"""
 import glob, os, sys
 from app.english import localize_body, localize_js
@@ -15,16 +15,26 @@ def build(lang):
     english = lang == 'en'
     local = lang in i18n.MODULES
     m = i18n.module(lang) if local else None
-    title = 'GULZA — 무료 모션 자막 제작기'
-    description = 'SRT 자막의 시작·종료 시각을 살려 모션 영상으로 만드는 무료 브라우저 편집기입니다.'
+    title = ('GULZA — ' + m.TITLE.split(' — ', 1)[-1]) if local else (
+        'GULZA — Lyric Motion Video Maker' if english else 'GULZA — 歌詞モーション動画メーカー')
+    description = m.DESCRIPTION if local else (
+        'Create motion lyric videos from SRT subtitles or lyrics in your browser.' if english
+        else 'SRT字幕や歌詞からモーション動画をブラウザーで作成できます。')
     folder = dict((c, f) for c, f, _, _ in i18n.EDITIONS)[lang]
     canonical = i18n.BASE + (folder + '/' if folder else '')
     language_nav = i18n.nav(lang)
     body = read('app/body.html').replace('@VERSION@', VERSION)
-    if language_nav:
-        body = body.replace('    <div class="acts">', '    ' + language_nav + '\n    <div class="acts">', 1)
+    tag = {
+        'ko': '모션 자막 스튜디오', 'ja': '歌詞モーションスタジオ',
+        'en': 'Lyric motion studio', 'zh-Hant': '動態字幕工作室',
+        'zh-Hans': '动态字幕工作室', 'id': 'Studio lirik bergerak',
+        'vi': 'Studio lời bài hát chuyển động',
+    }[lang]
+    body = body.replace('모션 자막 스튜디오', tag, 1)
     if english: body = localize_body(body)
     elif local: body = i18n.localize_body(lang, body)
+    if language_nav:
+        body = body.replace('    <div class="acts">', '    ' + language_nav + '\n    <div class="acts">', 1)
     if english: script = '\n'.join(localize_js(read(f), f) for f in sources)
     elif local: script = '\n'.join(i18n.localize_js(lang, read(f), f) for f in sources)
     else: script = js
