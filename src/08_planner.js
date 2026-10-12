@@ -56,8 +56,11 @@ J.srtToLyrics = raw => {
     const start = srtTimestamp(m[2], m[3], m[4], m[5]);
     const end = srtTimestamp(m[6], m[7], m[8], m[9]);
     const text = [];
-    for (i++; i < rows.length && !/^\s*(?:\d+\s*)?\d{2,}:\d{2}:\d{2}[,.]\d{3}\s*-->/.test(rows[i]); i++) {
-      const line = rows[i].trim(); if (line) text.push(line);
+    for (i++; i < rows.length; i++) {
+      const line = rows[i].trim();
+      if (!line || /^\d{2,}:\d{2}:\d{2}[,.]\d{3}\s*-->/.test(line)) break;
+      if (/^\d+$/.test(line) && /^\s*\d{2,}:\d{2}:\d{2}[,.]\d{3}\s*-->/.test(rows[i + 1] || '')) break;
+      text.push(line);
     }
     i--;
     if (end <= start || !text.length) continue;

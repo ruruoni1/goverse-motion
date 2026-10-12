@@ -30,4 +30,4 @@ This project is based on [852wa/JIZURA](https://github.com/852wa/JIZURA), licens
 
 ## Current status
 
-The GitHub fork exists. The local app shell, direct SRT import, cue-time preservation, and LRC conversion path are implemented on the working branch; generated browser editions are up to date. GitHub Pages has not been enabled and no public release has been made.
+The public GitHub Pages site now serves the Korean edition at https://ruruoni1.github.io/goverse-motion/. Direct SRT import, cue-time preservation, and LRC conversion are included in the published browser app.

@@ -1,5 +1,9 @@
 # 変更の記録（CHANGELOG）
 
+## 0.11.1 — SRT 자막 번호 처리
+
+- SRT 자막 구간 사이의 번호가 앞 자막에 붙는 문제를 수정했습니다.
+
 ## 0.11.0 — GOVERSE Motion
 
 - Rebranded the fork as GOVERSE Motion and added a Korean-first product plan.
