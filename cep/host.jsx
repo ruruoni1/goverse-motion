@@ -1,6 +1,6 @@
-/*  JIZURA 字面 — host script of the After Effects CEP panel (ExtendScript, ES3).
+/*  GULZA — host script of the After Effects CEP panel (ExtendScript, ES3).
     The panel (index.html) talks to After Effects through evalScript('JZCEP.xxx(...)'); every call returns a JSON string.
-    The build engine itself (jizura_core.jsx, the same code as JIZURA_AE.jsx without its ScriptUI) is loaded once by init().  */
+    The build engine itself (gulza_core.jsx, the same code as GULZA_AE.jsx without its ScriptUI) is loaded once by init().  */
 var JZCEP = (function () {
     var ROOT = null, lastComp = null, lastPlan = null;
     try { ROOT = File($.fileName).parent.parent.fsName; } catch (e) {}
@@ -30,14 +30,20 @@ var JZCEP = (function () {
 
     function core() {
         if (!$.global.JZ_CORE) {
-            var f = File(ROOT + '/jsx/jizura_core.jsx');
-            if (!f.exists) throw new Error('jizura_core.jsx not found: ' + f.fsName);
+            var f = File(ROOT + '/jsx/gulza_core.jsx');
+            if (!f.exists) throw new Error('gulza_core.jsx not found: ' + f.fsName);
             $.evalFile(f);
         }
         return $.global.JZ_CORE;
     }
-    // fonts: the same settings as the ScriptUI panel (JIZURA_AE.jsx → フォント tab), defaults otherwise
-    function setting(k, d) { try { if (app.settings.haveSetting('JIZURA', k)) return decodeURIComponent(app.settings.getSetting('JIZURA', k)); } catch (e) {} return d; }
+    // fonts: the same settings as the ScriptUI panel (GULZA_AE.jsx → font tab), defaults otherwise
+    function setting(k, d) {
+        try {
+            if (app.settings.haveSetting('GULZA', k)) return decodeURIComponent(app.settings.getSetting('GULZA', k));
+            if (app.settings.haveSetting('JIZURA', k)) return decodeURIComponent(app.settings.getSetting('JIZURA', k));
+        } catch (e) {}
+        return d;
+    }
     function roles(C) {
         var d = C.roleDefault;
         return { display: setting('font_display', d.display), serif: setting('font_serif', d.serif), body: setting('font_body', d.body), mono: setting('font_mono', d.mono), __force: setting('forceFonts', '0') === '1' };
@@ -62,10 +68,10 @@ var JZCEP = (function () {
         job = null; jobT0 = new Date().getTime();
         try { C = core(); } catch (e0) { return fail('engine: ' + e0.toString()); }
         try { plan = C.parse(s); } catch (e1) { return fail('JSON: ' + e1.toString()); }
-        if (!plan || !plan.cuts || !plan.style) return fail('JIZURA の構成データではありません');
-        if (!C.start) return fail('engine: jizura_core.jsx is too old — reinstall the panel');
+        if (!plan || !plan.cuts || !plan.style) return fail('GULZA 구성 데이터가 아닙니다');
+        if (!C.start) return fail('engine: gulza_core.jsx is too old — reinstall the panel');
         var au = audioId ? findItem(audioId) : null, err = null, off = +plan.audioOffset || 0;
-        app.beginUndoGroup('JIZURA');
+        app.beginUndoGroup('GULZA');
         try { job = C.start(plan, { roles: roles(C), audioItem: au, audioStart: -off, light: !!light }); }
         catch (e2) { err = e2.toString() + (e2.line ? ' (line ' + e2.line + ')' : ''); job = null; }
         finally { app.endUndoGroup(); }
@@ -83,7 +89,7 @@ var JZCEP = (function () {
     function step(ms) {
         if (!job) return fail('生成中のコンポがありません');
         var C = core(), err = null;
-        app.beginUndoGroup('JIZURA');
+        app.beginUndoGroup('GULZA');
         try { job.step(ms > 0 ? ms : 1200); }
         catch (e) { err = e.toString() + (e.line ? ' (line ' + e.line + ')' : ''); }
         finally { app.endUndoGroup(); }
@@ -148,7 +154,7 @@ var JZCEP = (function () {
         startFromString: function (enc, audioId, light) { return start(decodeURIComponent(enc), audioId, light); },
         step: function (ms) { return step(ms); },
         cancel: function () { if (job) job.cancelled = true; return str({ ok: true }); },
-        // check the last built comp in this AE session: evaluates every expression and saves JIZURA_report.txt
+        // check the last built comp in this AE session: evaluates every expression and saves GULZA_report.txt
         diagnose: function () {
             var C; try { C = core(); } catch (e0) { return fail(e0.toString()); }
             var ok = false; try { ok = !!(lastComp && lastComp.name); } catch (e) { ok = false; }

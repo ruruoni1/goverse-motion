@@ -61,6 +61,6 @@ UTF-8, UTF-16, 한국어 Windows 인코딩 파일을 지원합니다. 파일 크
 
 한국어판 단일 HTML 파일인 `index.html`과 검색 엔진용 `sitemap.xml`이 생성됩니다. GitHub Pages는 저장소 루트를 기준으로 이 한국어판을 제공합니다.
 
-After Effects 패널의 프로젝트 JSON 형식은 기존과 동일하며, 가사의 한국어 감지와 한국어 글꼴 매핑은 기존 엔진을 그대로 사용합니다.
+After Effects 패널은 `python3 build_ae.py`와 `python3 build_cep.py`로 빌드합니다. 배포 파일은 [GULZA_AE.jsx](GULZA_AE.jsx)와 [GULZA_CEP.zip](GULZA_CEP.zip)입니다. 프로젝트 JSON 형식은 기존과 같습니다.
 
 </details>

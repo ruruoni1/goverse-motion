@@ -4,7 +4,7 @@
 
 GULZA는 가사나 자막을 넣으면 문자 중심의 모션 영상을 자동으로 구성하고 MP4로 내보내는 브라우저 도구입니다. 이름은 한국어 **‘글자’**를 영문으로 짧게 쓴 것입니다. [JIZURA](https://github.com/852wa/JIZURA)의 **860개 표현 부품과 27개 스타일**을 바탕으로 하며, 이 포크에는 **SRT 자막을 파일 그대로 불러와 시작·종료 시각과 자막 사이의 공백을 유지하는 기능**을 더했습니다. 공개 웹사이트는 한국어 화면 한 가지만 제공합니다.
 
-현재 버전은 **v0.12.0**입니다. 설치나 회원가입 없이 사이트에서 바로 작업할 수 있습니다.
+현재 버전은 **v0.13.0**입니다. 설치나 회원가입 없이 사이트에서 바로 작업할 수 있습니다.
 
 ## 이 포크에서 추가한 기능
 
@@ -30,8 +30,8 @@ SRT 자막은 편집란에서 `[SRT:00:00:01.000-->00:00:02.300]자막` 형태�
 |---|---|
 | [`index.html`](index.html) | GitHub Pages가 제공하는 한국어 브라우저판. 단일 HTML 파일입니다. |
 | [`src/`](src/) · [`app/`](app/) | 모션 엔진, 화면, 한국어 번역과 빌드 소스 |
-| [`JIZURA_AE.jsx`](JIZURA_AE.jsx) | 원본에서 이어받은 After Effects ScriptUI 패널 |
-| [`JIZURA_CEP.zip`](JIZURA_CEP.zip) | 원본에서 이어받은 After Effects CEP 패널 |
+| [`GULZA_AE.jsx`](GULZA_AE.jsx) | GULZA용 한국어 After Effects ScriptUI 패널 |
+| [`GULZA_CEP.zip`](GULZA_CEP.zip) | GULZA용 한국어 After Effects CEP 패널 |
 | [`ae/`](ae/) · [`cep/`](cep/) | After Effects 패널의 소스와 설치 자료 |
 | [`docs/EXPRESSION_PACKS.md`](docs/EXPRESSION_PACKS.md) | 표현 부품을 추가하는 개발자를 위한 문서 |
 
@@ -135,7 +135,7 @@ MP4 내보내기에는 브라우저의 WebCodecs 지원이 필요합니다. Chro
 | 투명 PNG ZIP | 배경 없이 글자와 연출을 합성할 때 사용합니다. |
 | 전경·후경 분리 PNG ZIP | `front/`와 `back/` 폴더에 한 프레임의 앞뒤 요소를 따로 저장합니다. |
 | LRC | 각 줄의 시작 시각을 기록한 가사 파일입니다. |
-| After Effects용 JSON | 현재 타이밍과 구성 정보를 원본 AE 패널로 옮길 때 사용합니다. |
+| After Effects용 JSON | 현재 타이밍과 구성 정보를 GULZA AE 패널로 옮길 때 사용합니다. |
 
 **내보낼 범위**에서 처음·끝 줄을 고르거나 줄 목록에서 범위를 지정하면 선택한 줄만 출력합니다. 파일명에 `_L03-05`처럼 줄 번호가 붙습니다. Chrome·Edge에서는 큰 영상을 위해 저장할 파일을 먼저 고르고 직접 기록하는 기능도 사용할 수 있습니다. GPU 인코딩이 실패하면 다른 인코딩 방법을 시도합니다. 브라우저에서 AAC 음성으로 저장하지 못하는 경우에는 별도의 WAV 파일이 함께 저장될 수 있습니다.
 
@@ -191,22 +191,34 @@ MP4 내보내기에는 브라우저의 WebCodecs 지원이 필요합니다. Chro
 
 ## After Effects 패널
 
-저장소에는 원본 JIZURA의 두 패널이 함께 들어 있습니다. 브라우저의 **AE용 내보내기**는 각 컷의 시작·종료 시각을 JSON에 담고, ScriptUI 패널은 이 시각을 AE 레이어의 시작·종료 지점에 적용합니다. 실제 After Effects에서의 결과는 사용하는 AE 버전과 설치 환경에서 확인하세요.
+GULZA 이름으로 빌드한 두 패널을 제공합니다. 메뉴 이름, 생성되는 컴포지션 이름, 진단 보고서 파일명과 CEP 확장 ID도 GULZA에 맞췄습니다.
+
+브라우저의 **AE용 내보내기**는 각 컷의 시작·종료 시각을 JSON에 담습니다. ScriptUI 패널은 이 시각을 AE 레이어의 시작·종료 지점에 적용합니다.
 
 | 종류 | 파일 | 용도 |
 |---|---|---|
-| ScriptUI | [`JIZURA_AE.jsx`](JIZURA_AE.jsx) | AE 안에서 가사로 컴포지션을 만들거나 브라우저판의 구성 JSON을 읽습니다. |
-| CEP | [`JIZURA_CEP.zip`](JIZURA_CEP.zip) | 브라우저판과 비슷한 편집 화면을 AE 패널 안에서 사용합니다. |
+| ScriptUI | [`GULZA_AE.jsx`](GULZA_AE.jsx) | AE 안에서 가사로 컴포지션을 만들거나 브라우저판의 구성 JSON을 읽습니다. |
+| CEP | [`GULZA_CEP.zip`](GULZA_CEP.zip) | 한국어 브라우저 편집 화면을 AE 패널 안에서 사용합니다. |
 
-### 설치와 사용
+### ScriptUI 설치
 
-ScriptUI 패널은 `JIZURA_AE.jsx`를 After Effects의 `Scripts/ScriptUI Panels` 폴더에 넣고 AE를 다시 시작한 뒤 **창 → JIZURA_AE.jsx**에서 엽니다. Windows에서는 보통 `C:\Program Files\Adobe\Adobe After Effects <버전>\Support Files\Scripts\ScriptUI Panels\`, macOS에서는 `/Applications/Adobe After Effects <버전>/Scripts/ScriptUI Panels/` 아래에 있습니다. 시험 삼아 실행할 때는 AE의 스크립트 파일 실행 메뉴를 사용할 수도 있습니다.
+1. `GULZA_AE.jsx`를 내려받습니다.
+2. AE 설치 폴더의 `Scripts/ScriptUI Panels`에 파일을 넣습니다.
+3. AE를 다시 시작하고 **창 → GULZA_AE.jsx**에서 엽니다.
 
-가사·스타일·화면 크기·연출을 고르고 컴포지션을 만듭니다. 시작 시각은 자동 계산, 선택한 오디오 레이어의 마커, 컴포지션 마커 중에서 정할 수 있습니다. 자동 생성은 스타일·분위기·색·시드를 바꿉니다. 브라우저판의 **AE용 내보내기** JSON을 읽으면 그 구성으로 컴포지션을 만듭니다. 원본 설명에 따르면 가사는 텍스트 레이어로 남아 나중에 교체할 수 있습니다.
+가사·스타일·화면 크기·연출을 고르고 컴포지션을 만듭니다. 시작 시각은 자동 계산, 선택한 음원 레이어의 마커, 컴포지션 마커 중에서 정할 수 있습니다.
 
-CEP 파일은 압축을 푼 뒤 포함된 설치 스크립트와 [`cep/dist/README_CEP.md`](cep/dist/README_CEP.md)의 안내를 따릅니다. AE 2022 이상에서 **창 → 확장 기능 → JIZURA 字面**로 엽니다. 선택한 줄만 컴포지션으로 만들거나, AE에서 선택한 음원과 마커를 사용할 수 있습니다.
+브라우저판에서 저장한 **AE용 JSON**을 읽어 같은 타이밍과 구성으로 컴포지션을 만들 수도 있습니다. 생성된 가사는 텍스트 레이어로 남아 나중에 바꿀 수 있습니다.
 
-원본 패널은 색 어긋남 복제·입자 등을 줄이는 가벼운 생성 모드, 긴 곡 생성 진행률과 중지 기능, 오류·대체 부품 진단 보고서를 제공합니다. AE 2020 이상에서는 JavaScript 표현식 엔진을 전제로 합니다. 원본 문서는 실제 AE 기기에서 모든 경우를 확인한 것은 아니라고 밝히므로, 중요한 작업에서는 작은 프로젝트로 먼저 결과를 확인하세요.
+### CEP 설치
+
+1. `GULZA_CEP.zip`을 내려받아 압축을 풉니다.
+2. 운영체제에 맞는 `install_win.bat` 또는 `install_mac.command`를 실행합니다.
+3. AE를 다시 시작하고 **창 → 확장 기능 → GULZA**에서 엽니다.
+
+CEP는 AE 2022 이상을 대상으로 하며, 원본 JIZURA와 다른 확장 ID(`com.ruruoni1.gulza`)를 사용합니다. 설치 파일은 사용자 확장 폴더에 패널을 복사하고 Adobe의 서명되지 않은 CEP 패널 실행 설정을 켭니다. 자세한 단계는 [CEP 설치 안내](cep/dist/README_CEP.md)를 참고하세요.
+
+두 패널은 가벼운 생성, 진행률·중지, 진단 보고서 기능을 제공합니다. 이 PC에는 After Effects가 없어 실제 AE 화면에서의 동작은 확인하지 못했습니다.
 
 ## 개발과 배포
 

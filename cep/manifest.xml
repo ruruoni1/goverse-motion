@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ExtensionManifest Version="7.0" ExtensionBundleId="com.852wa.jizura" ExtensionBundleVersion="@VERSION@" ExtensionBundleName="JIZURA" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.ruruoni1.gulza" ExtensionBundleVersion="@VERSION@" ExtensionBundleName="GULZA" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ExtensionList>
-    <Extension Id="com.852wa.jizura.panel" Version="@VERSION@"/>
+    <Extension Id="com.ruruoni1.gulza.panel" Version="@VERSION@"/>
   </ExtensionList>
   <ExecutionEnvironment>
     <HostList>
@@ -16,7 +16,7 @@
     </RequiredRuntimeList>
   </ExecutionEnvironment>
   <DispatchInfoList>
-    <Extension Id="com.852wa.jizura.panel">
+    <Extension Id="com.ruruoni1.gulza.panel">
       <DispatchInfo>
         <Resources>
           <MainPath>./index.html</MainPath>
@@ -30,7 +30,7 @@
         </Lifecycle>
         <UI>
           <Type>Panel</Type>
-          <Menu>JIZURA 字面</Menu>
+          <Menu>GULZA</Menu>
           <Geometry>
             <Size>
               <Height>860</Height>

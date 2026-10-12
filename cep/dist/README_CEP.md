@@ -1,46 +1,45 @@
-# JIZURA 字面 — After Effects パネル（CEP 版）
+# GULZA — After Effects CEP 패널
 
-ブラウザ版 JIZURA の画面を、そのまま After Effects の中で使えるパネルです。構成を決めて「AEでコンポを生成」を押すと、その場で編集できるコンポが組み上がります（JSON の書き出し・読み込みは不要です）。
+브라우저판 GULZA의 편집 화면을 After Effects 안에서 사용하는 패널입니다. 현재 구성을 AE 컴포지션으로 만들 수 있습니다.
 
-- 対応：After Effects 2022（22.0）以降（Windows / Mac）
-- 中身：`com.852wa.jizura` フォルダがパネル本体です。
+- 권장 환경: After Effects 2022(22.0) 이상, Windows 또는 macOS
+- 패널 ID: `com.ruruoni1.gulza`
+- 패널 메뉴: **창 → 확장 기능 → GULZA**
 
-## 入れ方（いちばん簡単な方法）
+## 설치
 
-1. このフォルダ一式を、分かりやすい場所に置きます（中の `com.852wa.jizura` を移動しないでください）。
-2. OS に合わせてインストール用のファイルを実行します。
-   - **Mac**：`install_mac.command` をダブルクリックします。「開けません」と出たら、右クリック →「開く」を選びます。
-   - **Windows**：`install_win.bat` をダブルクリックします。
-3. After Effects を再起動し、メニューの **ウィンドウ → エクステンション → JIZURA 字面** を開きます。
+1. ZIP 압축을 풀고 `GULZA_CEP` 폴더 안에서 운영체제에 맞는 설치 파일을 실행합니다.
+   - Windows: `install_win.bat`
+   - macOS: `install_mac.command`
+2. After Effects를 완전히 종료하고 다시 엽니다.
+3. **창 → 확장 기능 → GULZA**에서 패널을 엽니다.
 
-インストール用のファイルは、次の2つを行います。
+설치 파일은 `com.ruruoni1.gulza`를 사용자 CEP 확장 폴더에 복사하고 Adobe의 서명되지 않은 CEP 패널 실행 설정(PlayerDebugMode)을 켭니다. 원본 JIZURA 패널의 별도 ID는 건드리지 않습니다.
 
-- `com.852wa.jizura` を、ユーザーの CEP エクステンションのフォルダにコピーする
-  - Mac：`~/Library/Application Support/Adobe/CEP/extensions/`
-  - Windows：`%APPDATA%\Adobe\CEP\extensions\`
-- 署名なしのパネルを読み込めるようにする（Adobe の「PlayerDebugMode」の設定。CSXS 10〜14）
+| 운영체제 | 확장 폴더 |
+|---|---|
+| Windows | `%APPDATA%\Adobe\CEP\extensions\` |
+| macOS | `~/Library/Application Support/Adobe/CEP/extensions/` |
 
-手作業で入れる場合は、上の2つを自分で行ってください。
+## 사용
 
-## 使い方
+- 가사·SRT/LRC 파일, 스타일과 타이밍을 브라우저판처럼 편집합니다.
+- **AE에서 컴포지션 만들기**를 누르면 현재 구성을 새 컴포지션으로 만듭니다.
+- **AE에서 선택한 음원**은 선택한 오디오 레이어를 읽어 박자를 맞춥니다.
+- **AE 마커를 줄 시작에 적용**은 선택한 레이어 또는 컴포지션의 마커를 줄 타이밍에 사용합니다.
+- **가벼운 생성**은 일부 질감·입자 효과를 생략해 AE에서 재생할 때 부담을 줄입니다.
+- **진단 보고서 저장**은 마지막으로 만든 컴포지션을 검사하고 `GULZA_report.txt`를 저장합니다.
 
-- 歌詞・スタイル・演出を決める操作は、ブラウザ版と同じです。プレビューもパネルの中で動きます。
-- **AEでコンポを生成**（画面右上、かんたんモードでは書き出し欄）：今の構成で新しいコンポを作ります。1回の生成は 1 回の「取り消し」で戻せます。
-- **AEで選択中の曲**（曲とタイミング欄）：AE で開いているコンポの、曲のレイヤーを選んでから押します。曲を解析して拍に合わせます。コンポを作るときに、その曲のレイヤーも入ります。
-- **AEのマーカーを行頭に**：選択したレイヤー（無ければコンポ）のマーカーを、各行の開始時刻にします。曲のレイヤーを選んでいるときは、曲の頭からの時刻に直して使います。
-- 画面比・解像度・fps・背景（通常 / グリーンバック / ブラックバック）は、書き出し欄の設定がそのままコンポに使われます。
-- MP4・連番PNG の書き出しもパネルから使えます。保存先はダイアログで選びます。お使いの AE のパネル環境が MP4 の書き出しに対応していない場合は、書き出し欄にそう表示されます（そのときは連番PNG を使うか、AE でレンダリングしてください）。
-- 書体は、スクリプト版パネル（`JIZURA_AE.jsx`）の「フォント」タブで設定した内容を使います。未設定のときは PC に入っている書体から自動で選びます。
-- **診断レポートを保存**（書き出しタブの After Effects 欄）：最後に作ったコンポのエクスプレッションを AE に計算させて、エラーや置き換えを `JIZURA_report.txt` にまとめます。思ったとおりにできないときは、このファイルを添えて報告してください。
+CEP 패널은 ScriptUI 패널의 글꼴 설정을 함께 사용합니다. 브라우저와 동일한 서체가 필요하면 해당 글꼴을 PC에도 설치하세요.
 
-## 配布用の .zxp を作る（配布する人向け）
+## 배포용 ZXP 만들기
 
-1. Adobe の署名ツール **ZXPSignCmd** を入手します（GitHub の Adobe-CEP / CEP-Resources にあります）。このフォルダに置くか、PATH を通します。
-2. `sign_zxp_mac.sh`（Mac）または `sign_zxp_win.bat`（Windows）を実行すると、自己署名の証明書を作って `JIZURA.zxp` を作ります。パスワードは環境変数 `JIZURA_CERT_PASS` で指定できます。
-3. 受け取った人は、aescripts の「ZXP Installer」などで `JIZURA.zxp` をインストールします。この場合、PlayerDebugMode の設定は不要です。
+Adobe CEP용 `ZXPSignCmd`를 준비하고 `sign_zxp_win.bat` 또는 `sign_zxp_mac.sh`를 실행합니다. 서명 암호는 `GULZA_CERT_PASS` 환경 변수로 지정하며, 결과물은 `GULZA.zxp`입니다. 이 절차는 패널 ZIP을 단순히 설치할 때는 필요하지 않습니다.
 
-## うまく動かないとき
+## 문제가 있을 때
 
-- メニューに出てこない：After Effects を完全に終了してから開き直してください。PlayerDebugMode の設定が効いていない場合は、インストール用のファイルをもう一度実行してください。
-- 「After Effects に接続できませんでした」：パネルを閉じて開き直してください。`com.852wa.jizura/jsx/` の中に `host.jsx` と `jizura_core.jsx` があるか確認してください。
-- コンポの作成で問題が出た項目は、パネルの書き出し欄に件数が表示されます。
+- 메뉴에 보이지 않으면 AE를 완전히 종료하고 다시 시작한 뒤 설치 경로와 PlayerDebugMode를 확인하세요.
+- 연결에 실패하면 `com.ruruoni1.gulza/jsx/` 안에 `host.jsx`와 `gulza_core.jsx`가 있는지 확인하세요.
+- 컴포지션 내용이 다르면 진단 보고서를 저장해 오류와 대체 부품을 확인하세요.
+
+GULZA는 MIT 라이선스의 [JIZURA](https://github.com/852wa/JIZURA)를 바탕으로 합니다. 라이선스와 외부 소프트웨어 고지는 ZIP 안의 `LICENSE`, `THIRD_PARTY_NOTICES.md`를 확인하세요.
