@@ -1,5 +1,10 @@
 """Korean copy for the browser edition (same glossary keys as app/english.py). The Japanese source stays authoritative."""
 
+LANG_LABELS = {
+    'auto': '자동 감지', 'ja': '일본어', 'zh-Hant': '중국어(번체)',
+    'zh-Hans': '중국어(간체)', 'ko': '한국어', 'en': '영어',
+}
+
 BODY = {
     'SRT 字幕または LRC 歌詞を読み込みます。SRT は開始・終了時刻を保持します。">字幕ファイルを読み込む': 'SRT 자막 또는 LRC 가사를 불러옵니다. SRT는 시작·종료 시각을 유지합니다.">SRT/LRC 불러오기',
     '<span class="tag">motion subtitle studio</span>': '<span class="tag">모션 자막 편집기</span>',

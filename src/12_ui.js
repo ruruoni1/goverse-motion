@@ -168,7 +168,8 @@ function audioLike() {
 /* 自動判定のとき、判定結果を言語欄の横に出す */
 function langNote() {
   const el = $('langNote'); if (!el) return;
-  el.textContent = (S.project.lang || 'auto') === 'auto' ? '→ ' + J.LANG_LABEL[J.resolveLang(S.project)] : '';
+  const hasText = !!(S.project.lyrics || '').trim() || !!(S.project.title || '').trim();
+  el.textContent = hasText && (S.project.lang || 'auto') === 'auto' ? '→ ' + J.LANG_LABEL[J.resolveLang(S.project)] : '';
   if (langNote.last !== undefined && langNote.last !== J.lang) { try { renderFontRoles(); } catch (e) {} }   // font menus show the language's faces
   langNote.last = J.lang;
 }

@@ -69,7 +69,9 @@ def localize_js(code, source, filename):
 def names_js(code):
     """styles / moods / sample lyrics in the edition's language (after app/english.js, which names the parts)"""
     m = module(code)
-    return ('(() => {\n  const S = ' + json.dumps({k: list(v) for k, v in m.STYLES.items()}, ensure_ascii=False) + ';\n'
+    labels = getattr(m, 'LANG_LABELS', None)
+    label_js = ('  Object.assign(J.LANG_LABEL, ' + json.dumps(labels, ensure_ascii=False) + ');\n') if labels else ''
+    return ('(() => {\n' + label_js + '  const S = ' + json.dumps({k: list(v) for k, v in m.STYLES.items()}, ensure_ascii=False) + ';\n'
             '  for (const [k, [n, d]] of Object.entries(S)) if (J.STYLES[k]) { J.STYLES[k].name = n; J.STYLES[k].desc = d; }\n'
             '  const M = ' + json.dumps(m.MOODS, ensure_ascii=False) + ';\n'
             '  for (const [k, n] of Object.entries(M)) if (J.MOODS[k]) J.MOODS[k].name = n;\n'

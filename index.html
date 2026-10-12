@@ -472,7 +472,7 @@ button.small.primary { padding: 4px 12px; }
 </div>
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="mark" aria-hidden="true">GV</span><span class="word">GOVERSE Motion</span><span class="tag">모션 자막 편집기</span><span class="ver">v0.11.1</span></div>
+    <div class="brand"><span class="mark" aria-hidden="true">GV</span><span class="word">GOVERSE Motion</span><span class="tag">모션 자막 편집기</span><span class="ver">v0.11.2</span></div>
     <div class="proj">
       <input id="songTitle" type="text" placeholder="곡 제목 (타이틀 카드와 HUD에 표시)" aria-label="곡 제목">
       <input id="songArtist" type="text" placeholder="아티스트" aria-label="아티스트">
@@ -3760,7 +3760,7 @@ J.plan = (project, audio) => {
   const zoneOf = () => (zones ? Object.assign({}, zones[0]) : null);
   if (zones && en.bg) en.bg.bigChar = false;               // the one background that draws the lyric itself (big, centred)
   const plan = {
-    version: 1, generator: 'JIZURA', appVersion: '0.11.1', title, artist, W, H, fps: project.fps || 24,
+    version: 1, generator: 'JIZURA', appVersion: '0.11.2', title, artist, W, H, fps: project.fps || 24,
     duration: tm.duration, styleKey: project.style, style: st, fx, seed: project.seed,
     lines: [], cuts: [], events: [], beats: audio && audio.beats ? audio.beats.slice() : [],
     hud: fx.hud === 'on' ? true : fx.hud === 'off' ? false : !!st.hud,
@@ -36088,6 +36088,7 @@ J.randomOk = (project, g, k) => {
 })();
 
 (() => {
+  Object.assign(J.LANG_LABEL, {"auto": "자동 감지", "ja": "일본어", "zh-Hant": "중국어(번체)", "zh-Hans": "중국어(간체)", "ko": "한국어", "en": "영어"});
   const S = {"noir": ["누아르 크로마", "흑백에 시안과 앰버의 색 어긋남"], "crimson": ["크림슨 시그널", "짙은 빨강, 모노크롬 서체와 깨진 데이터"], "caution": ["코션", "노랑·빨강·파랑과 계기판 그래픽"], "magenta": ["팝 마젠타", "핫핑크, 둥글고 굵은 서체와 지시선"], "paper": ["종이와 잉크", "종이 질감, 남색·마젠타와 세리프 잔상"], "hud": ["다크 HUD", "차콜, 가는 프레임, 오렌지 포인트와 일식"], "mint": ["민트 터미널", "검정·청록·라임과 스캔 효과"], "specimen": ["타입 스페시멘", "잉크색 배경과 세리프 주석"], "transit": ["트랜짓", "올리브와 노랑, 안내 표지와 망점"], "blueprint": ["블루프린트", "파랑·흰색·검정의 그래픽 콜라주"], "rouge": ["루주 그라데이션", "밝은 회색과 빨강 그라데이션, 캡슐"], "mono": ["모노 RGB", "회색 공간, 흰 세리프와 강한 RGB 분리"], "sakura": ["벚꽃", "부드러운 벚꽃색과 자두색, 둥근 서체와 세리프"], "ocean": ["심해", "네이비, 빛나는 시안, 물방울과 가는 산세리프"], "sunset": ["선셋 그라데이션", "오렌지에서 보라로, 굵은 세리프와 역광"], "forest": ["숲의 노트", "이끼색, 내추럴한 종이와 연필 글씨"], "vapor": ["베이퍼웨이브", "파스텔 핑크와 블루, VHS 번짐"], "newsprint": ["신문지", "회색 종이, 검정과 빨강, 망점과 인쇄 어긋남"], "synth80": ["신스 80s", "검정 바탕에 네온 마젠타·시안과 주사선"], "kraft": ["크라프트지", "따뜻한 종이, 빨강·남색 도장과 마스킹 테이프"], "candy": ["캔디", "민트와 과일 파스텔 색, 통통 튀는 글자"], "acid": ["애시드", "검정, 애시드 그린과 마젠타, 거친 서체"], "sumi": ["먹과 주홍", "화지, 붓글씨와 붉은 낙관"], "gold": ["골든 나이트", "깊은 검정, 금박, 아이보리 세리프와 반짝임"]};
   for (const [k, [n, d]] of Object.entries(S)) if (J.STYLES[k]) { J.STYLES[k].name = n; J.STYLES[k].desc = d; }
   const M = {"glitch": "글리치", "calm": "잔잔함", "pop": "팝", "graphic": "그래픽", "editorial": "에디토리얼", "emotional": "감성", "chaos": "자유분방"};
@@ -36536,7 +36537,8 @@ function audioLike() {
 /* 자동判定のとき、判定結果を言語欄の横に出す */
 function langNote() {
   const el = $('langNote'); if (!el) return;
-  el.textContent = (S.project.lang || 'auto') === 'auto' ? '→ ' + J.LANG_LABEL[J.resolveLang(S.project)] : '';
+  const hasText = !!(S.project.lyrics || '').trim() || !!(S.project.title || '').trim();
+  el.textContent = hasText && (S.project.lang || 'auto') === 'auto' ? '→ ' + J.LANG_LABEL[J.resolveLang(S.project)] : '';
   if (langNote.last !== undefined && langNote.last !== J.lang) { try { renderFontRoles(); } catch (e) {} }   // font menus show the language's faces
   langNote.last = J.lang;
 }
@@ -38138,7 +38140,7 @@ function bind() {
   const openTerms = () => { if (dlg.showModal) { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', ''); };
   document.querySelectorAll('.terms-open').forEach(b => b.addEventListener('click', openTerms));
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close ? dlg.close() : dlg.removeAttribute('open'); });   // click on the backdrop
-  $('btnSave').addEventListener('click', () => J.saveFile(baseName() + '.jizura.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.11.1' }), null, 1)));
+  $('btnSave').addEventListener('click', () => J.saveFile(baseName() + '.jizura.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.11.2' }), null, 1)));
   $('btnAE').addEventListener('click', () => J.saveFile(baseName() + rangeSuffix() + '_ae.json', JSON.stringify(J.planForAE(S.plan, S.project, exportRange()), null, 1)));
   audioNameDefault = $('audioName').textContent;
   $('btnClearLyrics').addEventListener('click', clearLyrics);
