@@ -81,7 +81,7 @@ J.parseLyrics = (raw) => {
     const mm = s0.match(/^\[(ti|ar|al|by|offset):(.*)\]$/i);
     if (mm) { meta[mm[1].toLowerCase()] = mm[2].trim(); continue; }
     let s = s0; const times = [];
-    // GOVERSE Motion SRT cue marker: [SRT:00:00:01.000-->00:00:02.300]text
+    // GULZA SRT cue marker: [SRT:00:00:01.000-->00:00:02.300]text
     // Keeping both bounds inline lets the existing editable lyric field and project format stay in sync.
     const sm = s.match(/^\[SRT:(\d{2,}):(\d{2}):(\d{2})[,.](\d{3})\s*-->\s*(\d{2,}):(\d{2}):(\d{2})[,.](\d{3})\]/i);
     let srtStart = null, srtEnd = null;
@@ -991,6 +991,7 @@ function pickFx(rng, st, en, fx, emph, fxHist, kind) {
 /* one-cut (or two-cut, for transitions) plan used by the 手法 tab thumbnails */
 J.previewPlan = (project, group, key) => {
   const enUI = typeof document !== 'undefined' && document.documentElement && document.documentElement.lang === 'en';
+  const koUI = typeof document !== 'undefined' && document.documentElement && document.documentElement.lang === 'ko';
   const st = J.resolveStyle(project);
   const fx = Object.assign({}, J.defaultProject().fx, project.fx || {}, {
     glitch: group === 'fx' ? 0.85 : 0,
@@ -1000,12 +1001,12 @@ J.previewPlan = (project, group, key) => {
   });
   const [W, H] = J.designSize(project.aspect || '16:9');
   const rng = J.rng(J.h(J.sid(String(group) + ':' + String(key)), 11, 22));
-  let text = enUI ? 'Lyric' : '字面';
+  let text = 'GULZA';
   if (group === 'layout') {
     const L0 = J.LAYOUTS[key];
     const n2 = [...text.replace(/\s+/g, '')].length;
-    if (L0 && L0.fits && !L0.fits(n2)) text = enUI ? 'color of dawn' : '夜明けの色を';
-    if (L0 && L0.fits && !L0.fits([...text.replace(/\s+/g, '')].length)) text = enUI ? 'I remember the color of dawn' : '夜明けの色を覚えてる';
+    if (L0 && L0.fits && !L0.fits(n2)) text = enUI ? 'color of dawn' : koUI ? '새벽의 빛' : '夜明けの色を';
+    if (L0 && L0.fits && !L0.fits([...text.replace(/\s+/g, '')].length)) text = enUI ? 'I remember the color of dawn' : koUI ? '새벽의 빛을 기억해' : '夜明けの色を覚えてる';
   }
   const nn = [...text.replace(/\s+/g, '')].length;
   const dur = 2.4;
@@ -1050,8 +1051,8 @@ J.previewPlan = (project, group, key) => {
     const TD = J.TRANS[key];
     const transDur = J.clamp(TD.dur || 0.35, 0.18, 0.7);
     const transP = TD.plan ? (TD.plan(rng, st) || {}) : {};
-    const tA = enUI ? 'BEFORE' : '前のカット';
-    const tB = enUI ? 'AFTER' : '字面';
+    const tA = enUI ? 'BEFORE' : koUI ? '이전 컷' : '前のカット';
+    const tB = 'GULZA';
     let pA = {}, pB = {};
     try { pA = J.LAYOUTS.center.plan(rng, { text: tA, n: [...tA].length, W, H, dur: 1.2 }, st) || {}; } catch (e) {}
     try { pB = J.LAYOUTS.center.plan(rng, { text: tB, n: [...tB].length, W, H, dur: 1.2 }, st) || {}; } catch (e) {}

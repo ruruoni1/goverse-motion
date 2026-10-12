@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>GOVERSE Motion — 무료 모션 자막 제작기</title>
+<title>GULZA — 무료 모션 자막 제작기</title>
 <meta name="description" content="SRT 자막의 시작·종료 시각을 살려 모션 영상으로 만드는 무료 브라우저 편집기입니다.">
-<link rel="canonical" href="https://ruruoni1.github.io/goverse-motion/">
-<link rel="alternate" hreflang="ko" href="https://ruruoni1.github.io/goverse-motion/">
+<link rel="canonical" href="https://ruruoni1.github.io/gulza/">
+<link rel="alternate" hreflang="ko" href="https://ruruoni1.github.io/gulza/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="GOVERSE Motion — 무료 모션 자막 제작기">
+<meta property="og:title" content="GULZA — 무료 모션 자막 제작기">
 <meta property="og:description" content="SRT 자막의 시작·종료 시각을 살려 모션 영상으로 만드는 무료 브라우저 편집기입니다.">
-<meta property="og:url" content="https://ruruoni1.github.io/goverse-motion/">
+<meta property="og:url" content="https://ruruoni1.github.io/gulza/">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -472,7 +472,7 @@ button.small.primary { padding: 4px 12px; }
 </div>
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="mark" aria-hidden="true">GV</span><span class="word">GOVERSE Motion</span><span class="tag">모션 자막 편집기</span><span class="ver">v0.11.3</span></div>
+    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">모션 자막 스튜디오</span><span class="ver">v0.12.0</span></div>
     <div class="proj">
       <input id="songTitle" type="text" placeholder="곡 제목 (타이틀 카드와 HUD에 표시)" aria-label="곡 제목">
       <input id="songArtist" type="text" placeholder="아티스트" aria-label="아티스트">
@@ -761,7 +761,7 @@ button.small.primary { padding: 4px 12px; }
       <p class="terms-sub">※ 사용한 가사와 음원의 권리는 각각의 권리자에게 있습니다.</p>
     </div>
     <p>도구 자체는 <strong>MIT 라이선스</strong>로 공개되어 있습니다. 자세한 라이선스:</p>
-    <p><a href="https://github.com/852wa/JIZURA" target="_blank" rel="noopener">https://github.com/852wa/JIZURA</a></p>
+    <p><a href="https://github.com/ruruoni1/gulza" target="_blank" rel="noopener">https://github.com/ruruoni1/gulza</a></p>
     <p class="muted terms-note">입력한 가사와 음원은 이 브라우저 안에서만 처리되며 서버로 전송되지 않습니다.</p>
     <details class="terms-oss"><summary>사용 중인 오픈소스</summary>
       <p>MP4 내보내기: mp4-muxer (MIT License)<br>글꼴: Google Fonts 배포 서체 (SIL Open Font License 1.1)</p>
@@ -3509,7 +3509,7 @@ J.parseLyrics = (raw) => {
     const mm = s0.match(/^\[(ti|ar|al|by|offset):(.*)\]$/i);
     if (mm) { meta[mm[1].toLowerCase()] = mm[2].trim(); continue; }
     let s = s0; const times = [];
-    // GOVERSE Motion SRT cue marker: [SRT:00:00:01.000-->00:00:02.300]text
+    // GULZA SRT cue marker: [SRT:00:00:01.000-->00:00:02.300]text
     // Keeping both bounds inline lets the existing editable lyric field and project format stay in sync.
     const sm = s.match(/^\[SRT:(\d{2,}):(\d{2}):(\d{2})[,.](\d{3})\s*-->\s*(\d{2,}):(\d{2}):(\d{2})[,.](\d{3})\]/i);
     let srtStart = null, srtEnd = null;
@@ -3760,7 +3760,7 @@ J.plan = (project, audio) => {
   const zoneOf = () => (zones ? Object.assign({}, zones[0]) : null);
   if (zones && en.bg) en.bg.bigChar = false;               // the one background that draws the lyric itself (big, centred)
   const plan = {
-    version: 1, generator: 'JIZURA', appVersion: '0.11.3', title, artist, W, H, fps: project.fps || 24,
+    version: 1, generator: 'JIZURA', appVersion: '0.12.0', title, artist, W, H, fps: project.fps || 24,
     duration: tm.duration, styleKey: project.style, style: st, fx, seed: project.seed,
     lines: [], cuts: [], events: [], beats: audio && audio.beats ? audio.beats.slice() : [],
     hud: fx.hud === 'on' ? true : fx.hud === 'off' ? false : !!st.hud,
@@ -4419,6 +4419,7 @@ function pickFx(rng, st, en, fx, emph, fxHist, kind) {
 /* one-cut (or two-cut, for transitions) plan used by the 手法 tab thumbnails */
 J.previewPlan = (project, group, key) => {
   const enUI = typeof document !== 'undefined' && document.documentElement && document.documentElement.lang === 'en';
+  const koUI = typeof document !== 'undefined' && document.documentElement && document.documentElement.lang === 'ko';
   const st = J.resolveStyle(project);
   const fx = Object.assign({}, J.defaultProject().fx, project.fx || {}, {
     glitch: group === 'fx' ? 0.85 : 0,
@@ -4428,12 +4429,12 @@ J.previewPlan = (project, group, key) => {
   });
   const [W, H] = J.designSize(project.aspect || '16:9');
   const rng = J.rng(J.h(J.sid(String(group) + ':' + String(key)), 11, 22));
-  let text = enUI ? 'Lyric' : '字面';
+  let text = 'GULZA';
   if (group === 'layout') {
     const L0 = J.LAYOUTS[key];
     const n2 = [...text.replace(/\s+/g, '')].length;
-    if (L0 && L0.fits && !L0.fits(n2)) text = enUI ? 'color of dawn' : '夜明けの色を';
-    if (L0 && L0.fits && !L0.fits([...text.replace(/\s+/g, '')].length)) text = enUI ? 'I remember the color of dawn' : '夜明けの色を覚えてる';
+    if (L0 && L0.fits && !L0.fits(n2)) text = enUI ? 'color of dawn' : koUI ? '새벽의 빛' : '夜明けの色を';
+    if (L0 && L0.fits && !L0.fits([...text.replace(/\s+/g, '')].length)) text = enUI ? 'I remember the color of dawn' : koUI ? '새벽의 빛을 기억해' : '夜明けの色を覚えてる';
   }
   const nn = [...text.replace(/\s+/g, '')].length;
   const dur = 2.4;
@@ -4478,8 +4479,8 @@ J.previewPlan = (project, group, key) => {
     const TD = J.TRANS[key];
     const transDur = J.clamp(TD.dur || 0.35, 0.18, 0.7);
     const transP = TD.plan ? (TD.plan(rng, st) || {}) : {};
-    const tA = enUI ? 'BEFORE' : '前のカット';
-    const tB = enUI ? 'AFTER' : '字面';
+    const tA = enUI ? 'BEFORE' : koUI ? '이전 컷' : '前のカット';
+    const tB = 'GULZA';
     let pA = {}, pB = {};
     try { pA = J.LAYOUTS.center.plan(rng, { text: tA, n: [...tA].length, W, H, dur: 1.2 }, st) || {}; } catch (e) {}
     try { pB = J.LAYOUTS.center.plan(rng, { text: tB, n: [...tB].length, W, H, dur: 1.2 }, st) || {}; } catch (e) {}
@@ -5602,7 +5603,7 @@ J.exportPNGZip = async ({ plan, project, transparent, layers, onProgress, signal
   const scale = w / plan.W;
   for (let i = 0; i < total; i += every) {
     if (signal && signal.aborted) throw new Error('취소했습니다');
-    const name = `goverse-motion_${String(i).padStart(5, '0')}.png`;
+    const name = `gulza_${String(i).padStart(5, '0')}.png`;
     for (const layer of layers ? ['back', 'front'] : [null]) {
       R.frame(ctx, plan, span.t0 + i / fps, { scale, transparent: transparent || !!layers, layer });
       const blob = await new Promise(r => canvas.toBlob(r, 'image/png'));
@@ -25327,7 +25328,7 @@ reg('magazine', {
     const dper = Math.max(4, Math.floor(aw / (ds * 1.05)));
     const dt = J.splitLines(deck, dper).split('\n').slice(0, 3).join('\n');
     env.draw({ text: dt, font: serifF(env), size: ds, lead: 1.55, align: 'left', x: ax, y: ry + ds * 1.2 + (dt.split('\n').length - 1) * ds * 0.78, color: C.text, alpha: fa * 0.75, ghost: false });
-    env.draw({ text: pad3(p.folio) + '   ' + (romajiOf(env) || 'JIZURA').slice(0, 18), font: monoF(env), size: ls * 0.85, track: 0.1, align: 'left', x: A.x + mx * 0.5, y: A.y + ph - my * 0.45, color: C.text, alpha: fa * 0.8, ghost: false });
+    env.draw({ text: pad3(p.folio) + '   ' + (romajiOf(env) || 'GULZA').slice(0, 18), font: monoF(env), size: ls * 0.85, track: 0.1, align: 'left', x: A.x + mx * 0.5, y: A.y + ph - my * 0.45, color: C.text, alpha: fa * 0.8, ghost: false });
     return bb || box(ax, hy - m.h / 2, ax + m.w, hy + m.h / 2);
     };
     const res = drawA();
@@ -25991,7 +25992,7 @@ reg('swissGrid', {
     }
     if (p.label) {
       const a = tin(env, 0.3, 0.4, E.outCubic) * out;
-      env.draw({ text: 'JIZURA  ／  No.' + lineNo(env) + '  ／  ' + J.fmtTime(env.cut.start), font: monoF(env), size: ls * 0.8, track: 0.25, x: m * 0.62, y: (gy0 + gy1) / 2, rot: -90, color: sc.sub, alpha: a, ghost: false });
+      env.draw({ text: 'GULZA  ／  No.' + lineNo(env) + '  ／  ' + J.fmtTime(env.cut.start), font: monoF(env), size: ls * 0.8, track: 0.25, x: m * 0.62, y: (gy0 + gy1) / 2, rot: -90, color: sc.sub, alpha: a, ghost: false });
     }
     return bb;
   },
@@ -26286,7 +26287,7 @@ reg('newspaper', {
   enterBias: { cut: 1.4, zoom: 1.3, slice: 1.2 },
   plan: (rng, cut, st) => ({
     font: rng.pick(fontsOf(st, ['display', 'serif'])), variant: hasLatin(cut.text) ? 'yoko' : rng.pick(['yoko', 'tate', 'tate']),
-    spin: rng.chance(0.45), rev: rng.chance(0.6), seed: rng.int(1, 9999), mast: rng.pick(['字面新聞', '歌詞新報', '夜更新聞']), issue: rng.int(1000, 29999),
+    spin: rng.chance(0.45), rev: rng.chance(0.6), seed: rng.int(1, 9999), mast: rng.pick(['GULZA NEWS', '가사 신보', '밤의 신문']), issue: rng.int(1000, 29999),
   }),
   render(env) {
     const { W, H, sc, ctx } = env, p = env.cut.params, u = U(env), port = isPort(env);
@@ -26750,7 +26751,7 @@ reg('stampSheet', {
     shadowR(env, sx - m, sy - m * 1.8, sw + m * 2, sh + m * 2.8, 0, sa, u * 0.012);
     env.rect(sx - m, sy - m * 1.8, sw + m * 2, sh + m * 2.8, C.fill, sa, false);
     if (C.edge) env.line([[sx - m, sy - m * 1.8], [sx + sw + m, sy - m * 1.8], [sx + sw + m, sy + sh + m], [sx - m, sy + sh + m], [sx - m, sy - m * 1.8]], C.line, 1.2, sa, false);
-    env.draw({ text: 'JIZURA POST  ·  ' + p.val + ' × ' + (cols * rows - 3) + '  ·  No.' + lineNo(env), font: monoF(env), size: Math.min(ls * 0.8, m * 0.7), track: 0.2, align: 'left', x: sx, y: sy - m * 0.9, color: C.text, alpha: sa * 0.7, ghost: false });
+    env.draw({ text: 'GULZA POST  ·  ' + p.val + ' × ' + (cols * rows - 3) + '  ·  No.' + lineNo(env), font: monoF(env), size: Math.min(ls * 0.8, m * 0.7), track: 0.2, align: 'left', x: sx, y: sy - m * 0.9, color: C.text, alpha: sa * 0.7, ghost: false });
     const port2 = rows > cols;
     const spc = port2 ? 2 : 3, spr = port2 ? 3 : 2;
     const hc = Math.min(p.hc, cols - spc), hr = Math.min(p.hr, rows - spr);
@@ -27786,7 +27787,7 @@ reg('clapper', {
     lab('PROD.', x0 + pad, y0 + pad + ls * 0.4);
     const rowH = r2 - r1;
     [['SCENE', lineNo(env)], ['TAKE', String(p.take)], ['ROLL', p.roll]].forEach(([k2, v], i) => { lab(k2, x0 + bw * i / 3 + pad, r1 + ls * 0.6); val(v, x0 + bw * i / 3 + pad, r1 + rowH * 0.62, rowH * 0.46); });
-    [['DATE', J.fmtTime(env.cut.start)], ['DIR.', 'JIZURA'], ['CAM.', 'A']].forEach(([k2, v], i) => { lab(k2, x0 + bw * i / 3 + pad, r2 + ls * 0.6); val(v, x0 + bw * i / 3 + pad + ls * 3.2, r2 + (y0 + bh - r2) * 0.55, Math.min((y0 + bh - r2) * 0.42, ls * 1.3)); });
+    [['DATE', J.fmtTime(env.cut.start)], ['DIR.', 'GULZA'], ['CAM.', 'A']].forEach(([k2, v], i) => { lab(k2, x0 + bw * i / 3 + pad, r2 + ls * 0.6); val(v, x0 + bw * i / 3 + pad + ls * 3.2, r2 + (y0 + bh - r2) * 0.55, Math.min((y0 + bh - r2) * 0.42, ls * 1.3)); });
     const fb = fitBlock(env.cut.text.trim(), p.font, bw - pad * 2, (r1 - y0) - ls * 1.6, { lead: 1.08 }, 2);
     const size = Math.min(fb.size, bh * 0.3);
     const bb = J.mainDraw(env, { text: fb.text, font: p.font, size, x: x0 + pad * 1.4, y: y0 + ls * 1.2 + ((r1 - y0) - ls * 1.2) / 2, align: 'left', lead: 1.08, color: chalk, noHold: plateHold(env), mi: miAt(env, 0.25) });
@@ -36595,7 +36596,7 @@ async function ensureFonts() {
 // style thumbnails need two glyphs of every style's display face — fetched only once the style grid is actually shown
 function loadThumbFonts() {
   if (thumbFonts || !$('styleGrid').offsetParent) return;
-  thumbFonts = J.ensureFonts('JIZURA', [...new Set(J.STYLE_ORDER.map(k => J.STYLES[k].fonts.display[0]))]).then(() => drawStyleGrid()).catch(() => {});
+  thumbFonts = J.ensureFonts('GULZA', [...new Set(J.STYLE_ORDER.map(k => J.STYLES[k].fonts.display[0]))]).then(() => drawStyleGrid()).catch(() => {});
 }
 function showMsg(m) { const el = $('viewMsg'); if (!m) { el.hidden = true; return; } el.textContent = m; el.hidden = false; }
 
@@ -37305,9 +37306,9 @@ function drawStyleGrid() {
     st.schemes.slice(1, 4).forEach((s2, i) => { x.fillStyle = s2.bg; x.fillRect(192 - 14 * (i + 1), 0, 14, 10); });
     const f = st.fonts.display[0];
     x.font = J.fontCSS(f, 46); x.textAlign = 'center'; x.textBaseline = 'middle';
-    x.fillStyle = sc.ghostB; x.fillText('JIZURA', 96 - 3, 54 - 1);
-    x.fillStyle = sc.ghostA; x.fillText('JIZURA', 96 + 3, 54 + 2);
-    x.fillStyle = sc.fg; x.fillText('JIZURA', 96, 54);
+    x.fillStyle = sc.ghostB; x.fillText('GULZA', 96 - 3, 54 - 1);
+    x.fillStyle = sc.ghostA; x.fillText('GULZA', 96 + 3, 54 + 2);
+    x.fillStyle = sc.fg; x.fillText('GULZA', 96, 54);
     x.fillStyle = sc.accent; x.fillRect(12, 90, 30, 4);
     x.font = J.fontCSS('mono', 9); x.textAlign = 'left'; x.fillStyle = sc.sub; x.fillText(k.toUpperCase(), 48, 93);
   });
@@ -37772,7 +37773,7 @@ async function codecNote() {
 const EXP_BTNS = ['btnMP4', 'btnPNG', 'btnPNGA', 'btnPNGL', 'eMP4', 'btnMP4File', 'eMP4File', 'ePNG', 'ePNGA', 'ePNGL'];
 function baseName() {
   const k = J.keyMode(S.project);
-  return ((S.project.title || 'goverse-motion').replace(/[\\/:*?"<>|]+/g, '_').slice(0, 60) || 'goverse-motion') + (k ? (k === 'green' ? '_greenback' : '_blackback') : '');
+  return ((S.project.title || 'gulza').replace(/[\\/:*?"<>|]+/g, '_').slice(0, 60) || 'gulza') + (k ? (k === 'green' ? '_greenback' : '_blackback') : '');
 }
 const canPickFile = () => typeof window.showSaveFilePicker === 'function' && !document.documentElement.classList.contains('cep') && typeof VideoEncoder !== 'undefined';
 async function runExport(kind) {
@@ -38140,7 +38141,7 @@ function bind() {
   const openTerms = () => { if (dlg.showModal) { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', ''); };
   document.querySelectorAll('.terms-open').forEach(b => b.addEventListener('click', openTerms));
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close ? dlg.close() : dlg.removeAttribute('open'); });   // click on the backdrop
-  $('btnSave').addEventListener('click', () => J.saveFile(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.11.3' }), null, 1)));
+  $('btnSave').addEventListener('click', () => J.saveFile(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.12.0' }), null, 1)));
   $('btnAE').addEventListener('click', () => J.saveFile(baseName() + rangeSuffix() + '_ae.json', JSON.stringify(J.planForAE(S.plan, S.project, exportRange()), null, 1)));
   audioNameDefault = $('audioName').textContent;
   $('btnClearLyrics').addEventListener('click', clearLyrics);

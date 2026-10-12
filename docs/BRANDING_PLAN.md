@@ -1,33 +1,18 @@
-# GOVERSE Motion: name and first release plan
+# GULZA 이름과 공개 방향
 
-## Name
+## 이름
 
-- Product name: **GOVERSE Motion**
-- Korean descriptor: **무료 모션 자막 제작기**
-- Repository: `ruruoni1/goverse-motion`
-- Short description: **SRT 자막을 시간에 맞춰 움직이는 영상으로 만드는 무료 브라우저 도구**
+- 프로그램 이름: **GULZA** — 한국어 ‘글자’를 영문으로 짧게 표기
+- 설명 문구: **무료 모션 자막 제작기**
+- 저장소: [`ruruoni1/gulza`](https://github.com/ruruoni1/gulza)
+- 웹사이트: <https://ruruoni1.github.io/gulza/>
 
-“Motion” names the animated output, while “GOVERSE” ties the tool to the user's existing channel brand. The Korean descriptor makes clear that this is a subtitle workflow as well as a lyric-video engine. Treat the name as a working product name until a public launch; no trademark clearance has been performed.
+## 사용 대상과 기능
 
-## Audience and promise
+한국어 영상 제작자가 SRT 자막을 별도 변환 없이 가져와 모션 자막 영상을 만들 수 있습니다. SRT의 시작·종료 시각과 자막 사이의 공백을 유지하고, LRC 가사도 불러옵니다. 브라우저에서 미리보고 MP4와 이미지 시퀀스로 내보낼 수 있습니다.
 
-Korean creators who already produce subtitles in Vrew, CapCut, or another editor can bring those SRT files into a browser-based motion graphics editor without converting them first. Cue start and end times, including silent gaps, should remain aligned with the source subtitle file.
+웹사이트는 한국어판만 게시합니다. 다른 언어 번역 모듈은 원본 소스와의 연결을 위해 저장소에 남아 있지만 별도 언어판 HTML은 생성하지 않습니다.
 
-## First release
+## 원본 표기
 
-1. Import SRT and LRC files from the lyric editor.
-2. Preserve SRT cue start/end times and gaps between cues.
-3. Read UTF-8, UTF-16, and Korean Windows-encoded subtitle files.
-4. Keep the inherited animation, preview, and video export workflows.
-5. Let users export the imported cue starts as LRC when another tool needs that format; explain that LRC cannot retain SRT end times.
-6. Publish the free, account-free browser app from GitHub Pages after local review.
-
-GitHub Pages serves only the Korean edition from the repository root. The page title, description, navigation, and user-facing instructions must remain Korean; other upstream translations can remain in source modules but are not generated as Pages editions.
-
-## Attribution and source lineage
-
-This project is based on [852wa/JIZURA](https://github.com/852wa/JIZURA), licensed under MIT. Preserve the upstream `LICENSE` and `THIRD_PARTY_NOTICES.md`; identify the fork in public project documentation. The output rights for users' own media do not change the copyright in lyrics, music, fonts, or other assets they provide.
-
-## Current status
-
-The public GitHub Pages site now serves the Korean edition at https://ruruoni1.github.io/goverse-motion/. Direct SRT import, cue-time preservation, and LRC conversion are included in the published browser app.
+GULZA는 MIT 라이선스의 [852wa/JIZURA](https://github.com/852wa/JIZURA)를 바탕으로 합니다. 원본의 `LICENSE`와 `THIRD_PARTY_NOTICES.md`, 소스 식별자와 기여자 표기를 유지합니다. 사용자가 제공한 가사·자막·음원 등의 권리는 각각의 권리자에게 있습니다.

@@ -15,7 +15,7 @@ def build(lang):
     english = lang == 'en'
     local = lang in i18n.MODULES
     m = i18n.module(lang) if local else None
-    title = 'GOVERSE Motion — 무료 모션 자막 제작기'
+    title = 'GULZA — 무료 모션 자막 제작기'
     description = 'SRT 자막의 시작·종료 시각을 살려 모션 영상으로 만드는 무료 브라우저 편집기입니다.'
     folder = dict((c, f) for c, f, _, _ in i18n.EDITIONS)[lang]
     canonical = i18n.BASE + (folder + '/' if folder else '')

@@ -304,7 +304,7 @@ UI = {
     'プロジェクトを読み込めませんでした': '프로젝트를 불러오지 못했습니다',
     '解析中…': '분석 중…', '読み込めませんでした: ': '불러오지 못했습니다: ',
     '約': '약 ', '（PC）': ' (PC)',
-    '字面': 'JIZURA', '追加': 'NEW', '和': 'JP',
+    '字面': 'GULZA', '追加': 'NEW', '和': 'JP',
     # extra keys: Korean word order, labels with full-width colons / parentheses
     '`${cuts.length} カット・レイアウト ${kinds} 種`': '`컷 ${cuts.length}개 · 레이아웃 ${kinds}종`',
     '`${j + 1} / ${H.list.length} 案目`': '`${H.list.length}개 중 ${j + 1}번째 안`',
@@ -391,6 +391,6 @@ MOODS = {'glitch': '글리치', 'calm': '잔잔함', 'pop': '팝', 'graphic': '�
 
 SAMPLE = '새벽의 색을/기억해\n멀어진 목소리가 아득히 울렸어\n아직 늦지 않았을까\n*투명*한 채로는 끝낼 수 없어!'
 
-TITLE = 'GOVERSE Motion — 무료 모션 자막 제작기'
+TITLE = 'GULZA — 무료 모션 자막 제작기'
 
 DESCRIPTION = '브라우저에서 가사를 움직이는 가사 영상으로 만들고 MP4로 내보내세요.'

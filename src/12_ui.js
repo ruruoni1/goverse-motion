@@ -226,7 +226,7 @@ async function ensureFonts() {
 // style thumbnails need two glyphs of every style's display face — fetched only once the style grid is actually shown
 function loadThumbFonts() {
   if (thumbFonts || !$('styleGrid').offsetParent) return;
-  thumbFonts = J.ensureFonts('字面', [...new Set(J.STYLE_ORDER.map(k => J.STYLES[k].fonts.display[0]))]).then(() => drawStyleGrid()).catch(() => {});
+  thumbFonts = J.ensureFonts('GULZA', [...new Set(J.STYLE_ORDER.map(k => J.STYLES[k].fonts.display[0]))]).then(() => drawStyleGrid()).catch(() => {});
 }
 function showMsg(m) { const el = $('viewMsg'); if (!m) { el.hidden = true; return; } el.textContent = m; el.hidden = false; }
 
@@ -936,9 +936,9 @@ function drawStyleGrid() {
     st.schemes.slice(1, 4).forEach((s2, i) => { x.fillStyle = s2.bg; x.fillRect(192 - 14 * (i + 1), 0, 14, 10); });
     const f = st.fonts.display[0];
     x.font = J.fontCSS(f, 46); x.textAlign = 'center'; x.textBaseline = 'middle';
-    x.fillStyle = sc.ghostB; x.fillText('字面', 96 - 3, 54 - 1);
-    x.fillStyle = sc.ghostA; x.fillText('字面', 96 + 3, 54 + 2);
-    x.fillStyle = sc.fg; x.fillText('字面', 96, 54);
+    x.fillStyle = sc.ghostB; x.fillText('GULZA', 96 - 3, 54 - 1);
+    x.fillStyle = sc.ghostA; x.fillText('GULZA', 96 + 3, 54 + 2);
+    x.fillStyle = sc.fg; x.fillText('GULZA', 96, 54);
     x.fillStyle = sc.accent; x.fillRect(12, 90, 30, 4);
     x.font = J.fontCSS('mono', 9); x.textAlign = 'left'; x.fillStyle = sc.sub; x.fillText(k.toUpperCase(), 48, 93);
   });
@@ -1403,7 +1403,7 @@ async function codecNote() {
 const EXP_BTNS = ['btnMP4', 'btnPNG', 'btnPNGA', 'btnPNGL', 'eMP4', 'btnMP4File', 'eMP4File', 'ePNG', 'ePNGA', 'ePNGL'];
 function baseName() {
   const k = J.keyMode(S.project);
-  return ((S.project.title || 'goverse-motion').replace(/[\\/:*?"<>|]+/g, '_').slice(0, 60) || 'goverse-motion') + (k ? (k === 'green' ? '_greenback' : '_blackback') : '');
+  return ((S.project.title || 'gulza').replace(/[\\/:*?"<>|]+/g, '_').slice(0, 60) || 'gulza') + (k ? (k === 'green' ? '_greenback' : '_blackback') : '');
 }
 const canPickFile = () => typeof window.showSaveFilePicker === 'function' && !document.documentElement.classList.contains('cep') && typeof VideoEncoder !== 'undefined';
 async function runExport(kind) {

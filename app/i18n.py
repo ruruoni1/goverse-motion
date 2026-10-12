@@ -17,7 +17,7 @@ MODULES = {
 COMMUNITY = {'zh-Hant': ('app.chinese', 'app/chinese.js'), 'ko': ('app.korean', 'app/korean.js')}
 # part-name scripts for editions without a community glossary (after app/english.js and the edition's own names)
 PART_NAMES = {'zh-Hans': 'app/chinese_hans.js'}
-BASE = 'https://ruruoni1.github.io/goverse-motion/'
+BASE = 'https://ruruoni1.github.io/gulza/'
 
 
 class _Merged:
