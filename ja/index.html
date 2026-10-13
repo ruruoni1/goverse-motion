@@ -496,7 +496,7 @@ button.small.primary { padding: 4px 12px; }
 </div>
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">歌詞モーションスタジオ</span><span class="ver">v0.15.1</span></div>
+    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">歌詞モーションスタジオ</span><span class="ver">v0.15.2</span></div>
     <div class="proj">
       <input id="songTitle" type="text" placeholder="曲名（タイトルカード・HUDに表示）" aria-label="曲名">
       <input id="songArtist" type="text" placeholder="アーティスト" aria-label="アーティスト">
@@ -3790,7 +3790,7 @@ J.plan = (project, audio) => {
   const zoneOf = () => (zones ? Object.assign({}, zones[0]) : null);
   if (zones && en.bg) en.bg.bigChar = false;               // the one background that draws the lyric itself (big, centred)
   const plan = {
-    version: 1, generator: 'JIZURA', appVersion: '0.15.1', title, artist, W, H, fps: project.fps || 24,
+    version: 1, generator: 'JIZURA', appVersion: '0.15.2', title, artist, W, H, fps: project.fps || 24,
     duration: tm.duration, styleKey: project.style, style: st, fx, seed: project.seed,
     lines: [], cuts: [], events: [], beats: audio && audio.beats ? audio.beats.slice() : [],
     hud: fx.hud === 'on' ? true : fx.hud === 'off' ? false : !!st.hud,
@@ -36716,7 +36716,7 @@ function loadSubtitles(text, format = 'lrc') {
 function saveLrc() {
   const R = exportRangeLines(), r = exportRange();
   const txt = J.lrcText(S.project, S.plan.lines, R ? { from: R.from, to: R.to, t0: r.t0 } : null);
-  J.saveFile(baseName() + rangeSuffix() + '.lrc', new Blob([txt], { type: 'text/plain;charset=utf-8' }));
+  saveAs(baseName() + rangeSuffix() + '.lrc', new Blob([txt], { type: 'text/plain;charset=utf-8' }), 'text/plain');
 }
 // 歌詞を消す: lyrics + everything tied to line numbers (times, per-line settings, export range); undoable
 function clearLyrics() {
@@ -37312,9 +37312,34 @@ async function codecNote() {
   if (!vc) $('eMP4').title = 'このブラウザは MP4 書き出しに対応していません（Chrome / Edge 推奨）';
 }
 const EXP_BTNS = ['btnMP4', 'btnPNG', 'btnPNGA', 'btnPNGL', 'eMP4', 'btnMP4File', 'eMP4File', 'ePNG', 'ePNGA', 'ePNGL'];
+const safeName = s => String(s || '').replace(/[\\/:*?"<>|\x00-\x1f]+/g, '_').replace(/^[\s.]+|[\s.]+$/g, '').slice(0, 60);
+// file name: the song title, else the loaded song's file name, else "gulza"
 function baseName() {
   const k = J.keyMode(S.project);
-  return ((S.project.title || 'gulza').replace(/[\\/:*?"<>|]+/g, '_').slice(0, 60) || 'gulza') + (k ? (k === 'green' ? '_greenback' : '_blackback') : '');
+  const song = String(S.project.audioName || '').replace(/\.[^.]+$/, '');
+  return (safeName(S.project.title) || safeName(song) || 'gulza') + (k ? (k === 'green' ? '_greenback' : '_blackback') : '');
+}
+// 名前を付けて保存 (project / AE / LRC): the suggested name can be changed — Chrome / Edge open the save dialog
+// (name and folder), other browsers ask for the name. Call straight from the click: the dialog needs the user gesture.
+async function saveAs(filename, data, mime) {
+  const ext = filename.slice(filename.lastIndexOf('.'));
+  const blob = data instanceof Blob ? data : new Blob([data], { type: mime });
+  if (document.documentElement.classList.contains('cep')) return J.saveFile(filename, blob);   // the panel has its own save dialog
+  if (typeof window.showSaveFilePicker === 'function') {
+    let hnd = null;
+    try { hnd = await window.showSaveFilePicker({ suggestedName: filename, types: [{ description: ext.slice(1).toUpperCase(), accept: { [mime]: [ext] } }] }); }
+    catch (e) { if (e && e.name === 'AbortError') return 'declined'; }
+    if (hnd) {
+      const w = await hnd.createWritable(); await w.write(blob); await w.close();
+      toast('保存しました: ' + hnd.name);
+      return 'saved';
+    }
+  }
+  const typed = window.prompt('ファイル名', filename);
+  if (typed == null) return 'declined';
+  let name = safeName(typed.trim().replace(/\.[^.]+$/, m => (m.toLowerCase() === ext ? '' : m)));
+  if (!name) name = filename.slice(0, -ext.length);
+  return J.saveFile(name + ext, blob);
 }
 const canPickFile = () => typeof window.showSaveFilePicker === 'function' && !document.documentElement.classList.contains('cep') && typeof VideoEncoder !== 'undefined';
 async function runExport(kind) {
@@ -37682,8 +37707,8 @@ function bind() {
   const openTerms = () => { if (dlg.showModal) { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', ''); };
   document.querySelectorAll('.terms-open').forEach(b => b.addEventListener('click', openTerms));
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close ? dlg.close() : dlg.removeAttribute('open'); });   // click on the backdrop
-  $('btnSave').addEventListener('click', () => J.saveFile(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.15.1' }), null, 1)));
-  $('btnAE').addEventListener('click', () => J.saveFile(baseName() + rangeSuffix() + '_ae.json', JSON.stringify(J.planForAE(S.plan, S.project, exportRange()), null, 1)));
+  $('btnSave').addEventListener('click', () => saveAs(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.15.2' }), null, 1), 'application/json'));
+  $('btnAE').addEventListener('click', () => saveAs(baseName() + rangeSuffix() + '_ae.json', JSON.stringify(J.planForAE(S.plan, S.project, exportRange()), null, 1), 'application/json'));
   audioNameDefault = $('audioName').textContent;
   $('btnClearLyrics').addEventListener('click', clearLyrics);
   document.querySelectorAll('.themeSel').forEach(el => el.addEventListener('change', () => {

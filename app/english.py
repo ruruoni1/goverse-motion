@@ -206,6 +206,8 @@ UI = {
     "'（最初の方法では失敗したため、別のエンコーダーで書き出しました）'": "' (the first method failed, so another encoder was used)'",
     "'統一感：オン（パートごとにそろえ、キメ・モーフ・太さも使います）'": "'Unified look: on (parts match; hits, morphs and weight too)'",
     "'保存先を開けませんでした: '": "'Could not open the file: '",
+    "'保存しました: '": "'Saved: '",
+    "'ファイル名'": "'File name'",
     '`・「${fileName}」に保存しました`': '` · saved to “${fileName}”`',
     "'統一感：オフ'": "'Unified look: off'",
     "'文字整列：オン（字間・助詞・英字・0.2秒先・効果控えめ）'": "'Typesetting: on (spacing, particles, Latin, 0.2 s lead, fewer effects)'",

@@ -311,6 +311,8 @@ UI = {
     "'（最初の方法では失敗したため、別のエンコーダーで書き出しました）'": "' (phương pháp đầu tiên không thành công nên một bộ mã hóa khác đã được sử dụng)'",
     "'統一感：オン（パートごとにそろえ、キメ・モーフ・太さも使います）'": "'Sử dụng hiệu ứng đồng nhất: bật (các hiệu ứng đồng nhất; cao trào, hình thái và độ dày cũng áp dụng)'",
     "'保存先を開けませんでした: '": "'Không thể mở tệp:'",
+    "'保存しました: '": "'Đã lưu: '",
+    "'ファイル名'": "'Tên tệp'",
     '`・「${fileName}」に保存しました`': '` · đã lưu vào “${fileName}”`',
     "'統一感：オフ'": "'Sử dụng hiệu ứng đồng nhất: tắt'",
     "'文字整列：オン（字間・助詞・英字・0.2秒先・効果控えめ）'": "'Tạo kiểu cho văn bản: bật (khoảng cách, các phần tử, tiếng Latin, sớm hơn 0,2 giây, hiệu ứng theo sở thích)'",

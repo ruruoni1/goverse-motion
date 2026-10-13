@@ -234,6 +234,8 @@ UI = {
     "'（最初の方法では失敗したため、別のエンコーダーで書き出しました）'": "' (cara pertama gagal, jadi dipakai encoder lain)'",
     "'統一感：オン（パートごとにそろえ、キメ・モーフ・太さも使います）'": "'Tampilan seragam: aktif (bagian seragam; klimaks, morf, dan ketebalan juga dipakai)'",
     "'保存先を開けませんでした: '": "'Tidak bisa membuka file tujuan: '",
+    "'保存しました: '": "'Tersimpan: '",
+    "'ファイル名'": "'Nama file'",
     '`・「${fileName}」に保存しました`': '` · disimpan ke “${fileName}”`',
     "'統一感：オフ'": "'Tampilan seragam: nonaktif'",
     "'文字整列：オン（字間・助詞・英字・0.2秒先・効果控えめ）'": "'Penataan teks: aktif (jarak, partikel, Latin, 0,2 detik lebih awal, efek secukupnya)'",
