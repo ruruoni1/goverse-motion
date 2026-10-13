@@ -33,6 +33,7 @@ def build(lang):
     body = body.replace('모션 자막 스튜디오', tag, 1)
     if english: body = localize_body(body)
     elif local: body = i18n.localize_body(lang, body)
+    body = body.replace('@SITE_LINKS@', i18n.site_links(lang))
     if language_nav:
         body = body.replace('    <div class="acts">', '    ' + language_nav + '\n    <div class="acts">', 1)
     if english: script = '\n'.join(localize_js(read(f), f) for f in sources)

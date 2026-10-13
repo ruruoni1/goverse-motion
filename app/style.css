@@ -38,6 +38,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .proj { display: flex; gap: 8px; flex: 1 1 280px; min-width: 0; }
 .proj input { flex: 1 1 0; min-width: 0; }
 .acts { display: flex; gap: 8px; flex-wrap: wrap; }
+.site-links { display: inline-flex; align-items: center; gap: 6px; padding-left: 12px; margin-left: 4px; border-left: 1px solid var(--line2); }
+.site-links a { display: inline-flex; align-items: center; gap: 3px; padding: 6px 9px; border: 1px solid var(--line2); border-radius: var(--r); color: var(--text); background: var(--raised); text-decoration: none; white-space: nowrap; font: 600 12px var(--ui); }
+.site-links a:hover { border-color: var(--amber); color: var(--amber); background: var(--raised2); }
 .lang-switch { display: inline-flex; align-items: center; gap: 5px; flex: none; font: 600 12px var(--ui); border: 1px solid var(--amber); border-radius: var(--r); padding: 4px 6px; background: var(--raised); color: var(--text); cursor: pointer; }
 .lang-switch .lang-icon { font-size: 15px; line-height: 1; padding: 0 2px; }
 .lang-switch .lang-label { color: var(--text); white-space: nowrap; padding: 0 2px; }
@@ -397,6 +400,8 @@ button.small.primary { padding: 4px 12px; }
 #app.is-mobile .proj, #app.is-mobile .acts { display: none; order: 6; flex: 1 1 100%; }
 #app.is-mobile.menu-open .proj, #app.is-mobile.menu-open .acts { display: flex; }
 #app.is-mobile .acts > * { flex: 1 1 auto; }
+#app.is-mobile .site-links { flex: 1 1 100%; justify-content: center; margin: 0; padding: 8px 0 0; border-left: 0; border-top: 1px solid var(--line2); }
+#app.is-mobile .site-links a { justify-content: center; }
 #app.is-mobile .work { display: flex; flex-direction: column; overflow: visible; }
 #app.is-mobile .col-left, #app.is-mobile .col-right { overflow: visible; border: 0; border-top: 1px solid var(--line); }
 #app.is-mobile .col-stage { order: -1; position: sticky; top: var(--mbar, 96px); z-index: 30; background: var(--ink); padding: 8px 10px; gap: 6px; box-shadow: 0 8px 18px rgba(0,0,0,0.45); }

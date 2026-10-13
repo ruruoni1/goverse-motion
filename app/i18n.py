@@ -25,6 +25,23 @@ COMMUNITY = {'zh-Hant': ('app.chinese', 'app/chinese.js'), 'ko': ('app.korean', 
 PART_NAMES = {'zh-Hans': 'app/chinese_hans.js'}
 BASE = 'https://ruruoni1.github.io/gulza/'
 
+
+def site_links(code):
+    """Project and creator links in the toolbar, translated per edition."""
+    label, channel = {
+        'ko': ('관련 링크', '고버스TV · YouTube'),
+        'ja': ('関連リンク', 'GoverseTV · YouTube'),
+        'en': ('Related links', 'GoverseTV · YouTube'),
+        'zh-Hant': ('相關連結', 'GoverseTV · YouTube'),
+        'zh-Hans': ('相关链接', 'GoverseTV · YouTube'),
+        'id': ('Tautan terkait', 'GoverseTV · YouTube'),
+        'vi': ('Liên kết liên quan', 'GoverseTV · YouTube'),
+    }[code]
+    return (f'<nav class="site-links" aria-label="{label}">'
+            '<a href="https://github.com/ruruoni1/gulza" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>'
+            f'<a href="https://www.youtube.com/@goverse82" target="_blank" rel="noopener noreferrer">{channel} <span aria-hidden="true">↗</span></a>'
+            '</nav>')
+
 # The four lines are the first video a visitor sees in each browser edition.
 # Keep the meaning consistent while making the wording natural in each language.
 DEMO_LYRICS = {

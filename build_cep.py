@@ -39,6 +39,7 @@ def es_escape(src):
 html = open(app_html, encoding='utf-8').read()
 # CEP packages one language at a time; remove links to browser editions absent from this package.
 html = re.sub(r'<label class="lang-switch">.*?</label>', '', html, count=1, flags=re.DOTALL)
+html = re.sub(r'<nav class="site-links".*?</nav>', '', html, count=1, flags=re.DOTALL)
 guard = "<script>if(!window.Mp4Muxer&&typeof module!=='undefined'&&module&&module.exports&&module.exports.Muxer)window.Mp4Muxer=module.exports;</script>\n"
 i = html.index('</script>') + len('</script>\n')          # right after the mp4-muxer script
 html = html[:i] + guard + html[i:]
