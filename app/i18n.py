@@ -100,8 +100,10 @@ def nav(code):
         'zh-Hant': '介面語言', 'zh-Hans': '界面语言',
         'id': 'Bahasa antarmuka', 'vi': 'Ngôn ngữ giao diện',
     }[code]
-    return (f'<label class="lang-switch"><span class="sr-only">{label}</span>'
-            f'<select aria-label="{label}" onchange="if(this.value)location.href=this.value">' + ''.join(opts) + '</select></label>')
+    return (f'<label class="lang-switch"><span class="lang-icon" aria-hidden="true">🌐</span>'
+            f'<span class="lang-label">{label}</span>'
+            f'<select aria-label="{label}" onchange="if(this.value)location.href=this.value">'
+            + ''.join(opts) + '</select></label>')
 
 
 def has_module(code):

@@ -38,10 +38,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .proj { display: flex; gap: 8px; flex: 1 1 280px; min-width: 0; }
 .proj input { flex: 1 1 0; min-width: 0; }
 .acts { display: flex; gap: 8px; flex-wrap: wrap; }
-.lang-switch { display: inline-flex; align-items: center; gap: 3px; flex: none; font: 500 11px var(--mono); border: 1px solid var(--line2); border-radius: var(--r); padding: 3px; }
-.lang-switch a, .lang-switch span { display: inline-block; padding: 3px 7px; color: var(--muted); text-decoration: none; border-radius: 2px; }
-.lang-switch a:hover { color: var(--text); background: var(--raised2); }
-.lang-switch [aria-current=page] { color: var(--ink); background: var(--amber); }
+.lang-switch { display: inline-flex; align-items: center; gap: 5px; flex: none; font: 600 12px var(--ui); border: 1px solid var(--amber); border-radius: var(--r); padding: 4px 6px; background: var(--raised); color: var(--text); cursor: pointer; }
+.lang-switch .lang-icon { font-size: 15px; line-height: 1; padding: 0 2px; }
+.lang-switch .lang-label { color: var(--text); white-space: nowrap; padding: 0 2px; }
 html[lang=en] { --ui: system-ui, -apple-system, "Segoe UI", sans-serif; --brand: Georgia, "Times New Roman", serif; }
 html[lang=zh-Hant] { --ui: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif; }
 html[lang=ko] { --ui: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; --brand: "Noto Serif KR", "AppleMyungjo", "Batang", serif; }
@@ -373,7 +372,7 @@ dialog.terms a { color: var(--cyan); word-break: break-all; }
 .tour-btn { min-width: 30px; font-weight: 700; }
 button.small.primary { padding: 4px 12px; }
 
-.lang-switch select { font: 500 11px var(--mono); padding: 3px 6px; width: auto; background: transparent; color: var(--muted); border: none; }
+.lang-switch select { font: 600 12px var(--ui); padding: 3px 18px 3px 6px; width: auto; background: var(--raised2); color: var(--text); border: 1px solid var(--line2); cursor: pointer; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .unify-box { margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
 .center-dir { gap: 6px; margin: -2px 0 8px 26px; font-size: 12px; }
@@ -391,10 +390,12 @@ button.small.primary { padding: 4px 12px; }
 #app.is-mobile .omk-top, #app.is-mobile .menu-btn { display: inline-block; }
 #app.is-mobile .omk-top { order: 2; margin-left: auto; padding: 9px 16px; font-size: 15px; }
 #app.is-mobile .menu-btn { order: 3; padding: 9px 10px; }
-#app.is-mobile .modes { order: 4; flex: 1 1 100%; }
+#app.is-mobile .lang-switch { display: inline-flex; order: 4; flex: 1 1 100%; justify-content: space-between; }
+#app.is-mobile .lang-switch select { flex: 1 1 auto; max-width: 60%; }
+#app.is-mobile .modes { order: 5; flex: 1 1 100%; }
 #app.is-mobile .modes button { flex: 1 1 0; padding: 7px 4px; }
-#app.is-mobile .proj, #app.is-mobile .acts, #app.is-mobile .lang-switch { display: none; order: 5; flex: 1 1 100%; }
-#app.is-mobile.menu-open .proj, #app.is-mobile.menu-open .acts, #app.is-mobile.menu-open .lang-switch { display: flex; }
+#app.is-mobile .proj, #app.is-mobile .acts { display: none; order: 6; flex: 1 1 100%; }
+#app.is-mobile.menu-open .proj, #app.is-mobile.menu-open .acts { display: flex; }
 #app.is-mobile .acts > * { flex: 1 1 auto; }
 #app.is-mobile .work { display: flex; flex-direction: column; overflow: visible; }
 #app.is-mobile .col-left, #app.is-mobile .col-right { overflow: visible; border: 0; border-top: 1px solid var(--line); }

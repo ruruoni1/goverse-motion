@@ -61,10 +61,9 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .proj { display: flex; gap: 8px; flex: 1 1 280px; min-width: 0; }
 .proj input { flex: 1 1 0; min-width: 0; }
 .acts { display: flex; gap: 8px; flex-wrap: wrap; }
-.lang-switch { display: inline-flex; align-items: center; gap: 3px; flex: none; font: 500 11px var(--mono); border: 1px solid var(--line2); border-radius: var(--r); padding: 3px; }
-.lang-switch a, .lang-switch span { display: inline-block; padding: 3px 7px; color: var(--muted); text-decoration: none; border-radius: 2px; }
-.lang-switch a:hover { color: var(--text); background: var(--raised2); }
-.lang-switch [aria-current=page] { color: var(--ink); background: var(--amber); }
+.lang-switch { display: inline-flex; align-items: center; gap: 5px; flex: none; font: 600 12px var(--ui); border: 1px solid var(--amber); border-radius: var(--r); padding: 4px 6px; background: var(--raised); color: var(--text); cursor: pointer; }
+.lang-switch .lang-icon { font-size: 15px; line-height: 1; padding: 0 2px; }
+.lang-switch .lang-label { color: var(--text); white-space: nowrap; padding: 0 2px; }
 html[lang=en] { --ui: system-ui, -apple-system, "Segoe UI", sans-serif; --brand: Georgia, "Times New Roman", serif; }
 html[lang=zh-Hant] { --ui: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif; }
 html[lang=ko] { --ui: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; --brand: "Noto Serif KR", "AppleMyungjo", "Batang", serif; }
@@ -396,7 +395,7 @@ dialog.terms a { color: var(--cyan); word-break: break-all; }
 .tour-btn { min-width: 30px; font-weight: 700; }
 button.small.primary { padding: 4px 12px; }
 
-.lang-switch select { font: 500 11px var(--mono); padding: 3px 6px; width: auto; background: transparent; color: var(--muted); border: none; }
+.lang-switch select { font: 600 12px var(--ui); padding: 3px 18px 3px 6px; width: auto; background: var(--raised2); color: var(--text); border: 1px solid var(--line2); cursor: pointer; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .unify-box { margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
 .center-dir { gap: 6px; margin: -2px 0 8px 26px; font-size: 12px; }
@@ -414,10 +413,12 @@ button.small.primary { padding: 4px 12px; }
 #app.is-mobile .omk-top, #app.is-mobile .menu-btn { display: inline-block; }
 #app.is-mobile .omk-top { order: 2; margin-left: auto; padding: 9px 16px; font-size: 15px; }
 #app.is-mobile .menu-btn { order: 3; padding: 9px 10px; }
-#app.is-mobile .modes { order: 4; flex: 1 1 100%; }
+#app.is-mobile .lang-switch { display: inline-flex; order: 4; flex: 1 1 100%; justify-content: space-between; }
+#app.is-mobile .lang-switch select { flex: 1 1 auto; max-width: 60%; }
+#app.is-mobile .modes { order: 5; flex: 1 1 100%; }
 #app.is-mobile .modes button { flex: 1 1 0; padding: 7px 4px; }
-#app.is-mobile .proj, #app.is-mobile .acts, #app.is-mobile .lang-switch { display: none; order: 5; flex: 1 1 100%; }
-#app.is-mobile.menu-open .proj, #app.is-mobile.menu-open .acts, #app.is-mobile.menu-open .lang-switch { display: flex; }
+#app.is-mobile .proj, #app.is-mobile .acts { display: none; order: 6; flex: 1 1 100%; }
+#app.is-mobile.menu-open .proj, #app.is-mobile.menu-open .acts { display: flex; }
 #app.is-mobile .acts > * { flex: 1 1 auto; }
 #app.is-mobile .work { display: flex; flex-direction: column; overflow: visible; }
 #app.is-mobile .col-left, #app.is-mobile .col-right { overflow: visible; border: 0; border-top: 1px solid var(--line); }
@@ -478,7 +479,7 @@ button.small.primary { padding: 4px 12px; }
 </div>
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">动态字幕工作室</span><span class="ver">v0.14.0</span></div>
+    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">动态字幕工作室</span><span class="ver">v0.14.1</span></div>
     <div class="proj">
       <input id="songTitle" type="text" placeholder="歌名（显示在标题卡和 HUD 上）" aria-label="歌名">
       <input id="songArtist" type="text" placeholder="艺人" aria-label="艺人">
@@ -491,7 +492,7 @@ button.small.primary { padding: 4px 12px; }
       <button id="modePro" aria-pressed="true" title="显示全部设置">详细</button>
       <button id="btnTour" class="ghost tour-btn" title="简易模式使用导览" aria-label="使用导览">？</button>
     </div>
-    <label class="lang-switch"><span class="sr-only">界面语言</span><select aria-label="界面语言" onchange="if(this.value)location.href=this.value"><option value="../index.html" lang="ko">한국어</option><option value="../ja/index.html" lang="ja">日本語</option><option value="../en/index.html" lang="en">English</option><option value="../zh-hant/index.html" lang="zh-Hant">繁體中文</option><option value="../zh-hans/index.html" lang="zh-Hans" selected>简体中文</option><option value="../id/index.html" lang="id-ID">Bahasa Indonesia</option><option value="../vi/index.html" lang="vi">Tiếng Việt</option></select></label>
+    <label class="lang-switch"><span class="lang-icon" aria-hidden="true">🌐</span><span class="lang-label">界面语言</span><select aria-label="界面语言" onchange="if(this.value)location.href=this.value"><option value="../index.html" lang="ko">한국어</option><option value="../ja/index.html" lang="ja">日本語</option><option value="../en/index.html" lang="en">English</option><option value="../zh-hant/index.html" lang="zh-Hant">繁體中文</option><option value="../zh-hans/index.html" lang="zh-Hans" selected>简体中文</option><option value="../id/index.html" lang="id-ID">Bahasa Indonesia</option><option value="../vi/index.html" lang="vi">Tiếng Việt</option></select></label>
     <div class="acts">
       <label class="file" title="打开已保存的项目（.json）">打开<input id="fileProject" type="file" accept=".json,application/json"></label>
       <button id="btnSave" title="将项目保存为 .json">保存</button>
@@ -3767,7 +3768,7 @@ J.plan = (project, audio) => {
   const zoneOf = () => (zones ? Object.assign({}, zones[0]) : null);
   if (zones && en.bg) en.bg.bigChar = false;               // the one background that draws the lyric itself (big, centred)
   const plan = {
-    version: 1, generator: 'JIZURA', appVersion: '0.14.0', title, artist, W, H, fps: project.fps || 24,
+    version: 1, generator: 'JIZURA', appVersion: '0.14.1', title, artist, W, H, fps: project.fps || 24,
     duration: tm.duration, styleKey: project.style, style: st, fx, seed: project.seed,
     lines: [], cuts: [], events: [], beats: audio && audio.beats ? audio.beats.slice() : [],
     hud: fx.hud === 'on' ? true : fx.hud === 'off' ? false : !!st.hud,
@@ -38064,7 +38065,7 @@ function bind() {
   const openTerms = () => { if (dlg.showModal) { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', ''); };
   document.querySelectorAll('.terms-open').forEach(b => b.addEventListener('click', openTerms));
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close ? dlg.close() : dlg.removeAttribute('open'); });   // click on the backdrop
-  $('btnSave').addEventListener('click', () => J.saveFile(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.14.0' }), null, 1)));
+  $('btnSave').addEventListener('click', () => J.saveFile(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.14.1' }), null, 1)));
   $('btnAE').addEventListener('click', () => J.saveFile(baseName() + rangeSuffix() + '_ae.json', JSON.stringify(J.planForAE(S.plan, S.project, exportRange()), null, 1)));
   audioNameDefault = $('audioName').textContent;
   $('btnClearLyrics').addEventListener('click', clearLyrics);
