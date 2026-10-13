@@ -241,6 +241,8 @@ J.phraseChunks = (words) => {
 J.computeTiming = (project, parsed, audio) => {
   const T = project.timing || {};
   const lines = parsed.lines;
+  const demoPacing = !audio && project.lyrics === J.SAMPLE_LYRICS && !Object.keys(T.lineTimes || {}).length;
+  const lineScale = demoPacing ? Math.max(T.lineScale || 1, 1.4) : (T.lineScale || 1);
   const beat = T.bpm > 0 ? 60 / T.bpm : 0;
   // fixed times: a hand-set time (typed, tapped, dragged) wins over the LRC tag; the rest is estimated
   const fixed = lines.map((l, i) => {
@@ -254,7 +256,7 @@ J.computeTiming = (project, parsed, audio) => {
   if (!hasSrt) for (let i = 0; i < fixed.length; i++) if (fixed[i] != null) { if (fixed[i] < lastFix + 0.05) fixed[i] = lastFix + 0.05; lastFix = fixed[i]; }
   const natural = i => {         // estimated length of line i
     const n = [...lines[i].text].length, L = lines[i];
-    let d = L.interlude ? (L.secs > 0 ? L.secs : 4) : J.clamp(0.8 + n * 0.17, 1.3, 5.2) * (T.lineScale || 1);
+    let d = L.interlude ? (L.secs > 0 ? L.secs : 4) : J.clamp(0.8 + n * 0.17, 1.3, 5.2) * lineScale;
     if (beat && !(L.interlude && L.secs > 0)) d = Math.max(2, Math.round(d / beat)) * beat;
     return d;
   };
@@ -288,7 +290,7 @@ J.computeTiming = (project, parsed, audio) => {
     }
     if (i < starts.length - 1) return Math.max(s + 0.35, starts[i + 1]);
     const n = [...lines[i].text].length, L = lines[i];
-    let d = L.interlude ? (L.secs > 0 ? L.secs : 4) : J.clamp(0.8 + n * 0.17, 1.5, 5.2) * (T.lineScale || 1);
+    let d = L.interlude ? (L.secs > 0 ? L.secs : 4) : J.clamp(0.8 + n * 0.17, 1.5, 5.2) * lineScale;
     if (beat && !(L.interlude && L.secs > 0)) d = Math.max(2, Math.round(d / beat)) * beat;
     return s + d;
   });
@@ -314,6 +316,7 @@ J.plan = (project, audio) => {
   const title = project.title || parsed.meta.ti || '';
   const artist = project.artist || parsed.meta.ar || '';
   const tm = J.computeTiming(project, parsed, audio);
+  const demoPacing = !audio && project.lyrics === J.SAMPLE_LYRICS && !Object.keys((project.timing || {}).lineTimes || {}).length;
   // 文字整列: the lyrics appear 0.2 s before the voice (reading ahead feels in time)
   if (project.typeset && !parsed.lines.some(l => l.srtEnd != null)) {
     const LEAD = 0.2;
@@ -402,6 +405,7 @@ J.plan = (project, audio) => {
     if (zones) nC = Math.max(1, Math.min(nC, Math.floor(chunks.length / 2)));   // 中央を空ける: each cut is split in two, so keep ≥ 2 words per cut
     // カット数の指定 (per line): exactly that many cuts — chunks are split further when the line has fewer
     const fixedN = ov.cuts > 0 ? Math.min(12, ov.cuts | 0) : 0;
+    if (demoPacing && !fixedN) nC = 1;
     let chunks2 = chunks;
     if (fixedN) { nC = fixedN; chunks2 = splitToCount(chunks, fixedN); }
     // groups of chunks
