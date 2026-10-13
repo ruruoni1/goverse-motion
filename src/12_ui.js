@@ -148,7 +148,22 @@ function setBadges(d) {
   return (d && d.extra ? '<span class="set-badge ex" title="最初の公開版のあとに追加">追加</span>' : '') + (d && d.wa ? '<span class="set-badge" title="和風の演出">和</span>' : '')
     + (d && d.set && SET_UI[d.set] ? `<span class="set-badge set-${d.set}" title="${SET_UI[d.set].name}">${SET_UI[d.set].badge}</span>` : '');
 }
-function loadLocal() { try { const s = localStorage.getItem(LS_KEY); if (s) return mergeProject(JSON.parse(s)); } catch (e) {} return mergeProject(null); }
+function loadLocal() {
+  try {
+    const s = localStorage.getItem(LS_KEY);
+    if (s) {
+      const saved = JSON.parse(s);
+      const noCustomTiming = !Object.keys((saved.timing && saved.timing.lineTimes) || {}).length;
+      const noLineEdits = !Object.keys(saved.overrides || {}).length;
+      if (J.DEMO_LYRICS && J.DEMO_LYRICS.includes(saved.lyrics) &&
+          !saved.title && !saved.artist && noCustomTiming && noLineEdits) {
+        saved.lyrics = J.SAMPLE_LYRICS;
+      }
+      return mergeProject(saved);
+    }
+  } catch (e) {}
+  return mergeProject(null);
+}
 let saveTimer = 0;
 function autosave() { clearTimeout(saveTimer); saveTimer = setTimeout(flushSave, 700); }
 function flushSave() { clearTimeout(saveTimer); try { localStorage.setItem(LS_KEY, JSON.stringify(S.project)); } catch (e) {} }

@@ -12,7 +12,7 @@ Dự án dựa trên 860 thành phần hiệu ứng và 27 phong cách của [JI
 
 Bản fork này nhập trực tiếp tệp phụ đề SRT mà không cần chuyển sang LRC trước.
 
-**Phiên bản hiện tại: v0.14.1** · Dùng [trang web](https://ruruoni1.github.io/gulza/vi/) mà không cần cài đặt hay tạo tài khoản. Địa chỉ chính mở bằng tiếng Hàn; bạn có thể đổi ngôn ngữ giao diện ở đầu trang.
+**Phiên bản hiện tại: v0.14.2** · Dùng [trang web](https://ruruoni1.github.io/gulza/vi/) mà không cần cài đặt hay tạo tài khoản. Địa chỉ chính mở bằng tiếng Hàn; bạn có thể đổi ngôn ngữ giao diện ở đầu trang.
 
 ## Các tính năng được bổ sung trong bản fork
 

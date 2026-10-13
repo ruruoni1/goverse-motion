@@ -25,6 +25,33 @@ COMMUNITY = {'zh-Hant': ('app.chinese', 'app/chinese.js'), 'ko': ('app.korean', 
 PART_NAMES = {'zh-Hans': 'app/chinese_hans.js'}
 BASE = 'https://ruruoni1.github.io/gulza/'
 
+# The four lines are the first video a visitor sees in each browser edition.
+# Keep the meaning consistent while making the wording natural in each language.
+DEMO_LYRICS = {
+    'ko': 'GULZA는 한국어 *글자*에서 왔어요\n글자 하나가/움직이기 시작하면\n자막이 장면이 되고\n당신의 말이 영상이 됩니다!',
+    'ja': 'GULZAは韓国語の*글자*から\n意味は「文字」\nひと文字が/動き出すと\n言葉が映像になる!',
+    'en': 'GULZA comes from the Korean word *글자*\nIt means “letters”\nWhen a letter/starts to move\nYour words become a video!',
+    'zh-Hant': 'GULZA 來自韓語 *글자*\n意思是「文字」\n一個字/開始動起來\n你的話語就成了影片！',
+    'zh-Hans': 'GULZA 来自韩语 *글자*\n意思是“文字”\n一个字/开始动起来\n你的话语就成了视频！',
+    'id': 'GULZA berasal dari kata Korea *글자*\nArtinya “huruf”\nSaat satu huruf/mulai bergerak\nKata-katamu menjadi video!',
+    'vi': 'GULZA bắt nguồn từ tiếng Hàn *글자*\nNghĩa là “chữ viết”\nKhi một con chữ/bắt đầu chuyển động\nLời bạn hóa thành video!',
+}
+
+# Recognize only untouched lyric examples saved by earlier releases. Edited
+# projects remain in the user's chosen language when they switch the UI.
+OLD_DEMO_LYRICS = [
+    '夜明けの色を/覚えてる\nほどけた声が遠くで鳴った\nねえ、まだ間に合うかな\n*透明*なままじゃ終われない!',
+    '새벽의 색을/기억하고 있어\n멀리서 풀려 버린 목소리\n있잖아, 아직 늦지 않았을까\n*투명*한 채로 끝낼 수는 없어!',
+    'I remember/the color of dawn\nA voice faded into the distance\nCan we still make it in time?\n*Transparent* is not how this ends!',
+    '晚風把影子/拉成一條線\n口袋裡還藏著沒寄出的信\n喂，現在追上去還來得及嗎\n*微光*也要燒到最後!',
+] + [importlib.import_module(name).SAMPLE for name in MODULES.values()]
+
+
+def demo_js(code):
+    """Install the locale's demo last, after community translation scripts."""
+    return ('J.SAMPLE_LYRICS = ' + json.dumps(DEMO_LYRICS[code], ensure_ascii=False) + ';\n'
+            'J.DEMO_LYRICS = ' + json.dumps(list(dict.fromkeys(OLD_DEMO_LYRICS + list(DEMO_LYRICS.values()))), ensure_ascii=False) + ';\n')
+
 
 class _Merged:
     def __init__(self, base, over):

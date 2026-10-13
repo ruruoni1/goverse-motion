@@ -39,11 +39,10 @@ def build(lang):
     elif local: script = '\n'.join(i18n.localize_js(lang, read(f), f) for f in sources)
     else: script = js
     script = script.replace('@VERSION@', VERSION)
-    if english or local:
-        marker = '/* ============================================================\n   JIZURA — editor UI'
-        if marker not in script: raise ValueError('Could not find browser UI entry point')
-        inject = read('app/english.js') + ('\n' + i18n.labels_js(lang) if local else '')
-        script = script.replace(marker, inject + '\n' + marker, 1)
+    marker = '/* ============================================================\n   JIZURA — editor UI'
+    if marker not in script: raise ValueError('Could not find browser UI entry point')
+    inject = (read('app/english.js') + ('\n' + i18n.labels_js(lang) if local else '') + '\n') if english or local else ''
+    script = script.replace(marker, inject + i18n.demo_js(lang) + '\n' + marker, 1)
     alternates = '\n'.join(f'<link rel="alternate" hreflang="{hl}" href="{i18n.BASE}{f + "/" if f else ""}">' for c, f, hl, _ in i18n.EDITIONS)
     html_lang = dict((c, hl) for c, _, hl, _ in i18n.EDITIONS)[lang]
     html = f'''<!doctype html>

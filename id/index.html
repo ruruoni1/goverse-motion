@@ -479,7 +479,7 @@ button.small.primary { padding: 4px 12px; }
 </div>
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">Studio lirik bergerak</span><span class="ver">v0.14.1</span></div>
+    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">Studio lirik bergerak</span><span class="ver">v0.14.2</span></div>
     <div class="proj">
       <input id="songTitle" type="text" placeholder="Judul lagu (ditampilkan di kartu judul dan HUD)" aria-label="Judul lagu">
       <input id="songArtist" type="text" placeholder="Artis" aria-label="Artis">
@@ -3768,7 +3768,7 @@ J.plan = (project, audio) => {
   const zoneOf = () => (zones ? Object.assign({}, zones[0]) : null);
   if (zones && en.bg) en.bg.bigChar = false;               // the one background that draws the lyric itself (big, centred)
   const plan = {
-    version: 1, generator: 'JIZURA', appVersion: '0.14.1', title, artist, W, H, fps: project.fps || 24,
+    version: 1, generator: 'JIZURA', appVersion: '0.14.2', title, artist, W, H, fps: project.fps || 24,
     duration: tm.duration, styleKey: project.style, style: st, fx, seed: project.seed,
     lines: [], cuts: [], events: [], beats: audio && audio.beats ? audio.beats.slice() : [],
     hud: fx.hud === 'on' ? true : fx.hud === 'off' ? false : !!st.hud,
@@ -36104,6 +36104,9 @@ J.randomOk = (project, g, k) => {
   J.SAMPLE_LYRICS = "Aku masih ingat/warna fajar\nSuara yang terurai terdengar jauh\nHei, masih sempatkah?\nTak bisa berakhir dalam keadaan *transparan*!";
 })();
 
+J.SAMPLE_LYRICS = "GULZA berasal dari kata Korea *글자*\nArtinya “huruf”\nSaat satu huruf/mulai bergerak\nKata-katamu menjadi video!";
+J.DEMO_LYRICS = ["夜明けの色を/覚えてる\nほどけた声が遠くで鳴った\nねえ、まだ間に合うかな\n*透明*なままじゃ終われない!", "새벽의 색을/기억하고 있어\n멀리서 풀려 버린 목소리\n있잖아, 아직 늦지 않았을까\n*투명*한 채로 끝낼 수는 없어!", "I remember/the color of dawn\nA voice faded into the distance\nCan we still make it in time?\n*Transparent* is not how this ends!", "晚風把影子/拉成一條線\n口袋裡還藏著沒寄出的信\n喂，現在追上去還來得及嗎\n*微光*也要燒到最後!", "我還記得/黎明的顏色\n散開的聲音在遠方響起\n欸，現在還來得及嗎\n不能就這樣*透明*地結束!", "我还记得/黎明的颜色\n远处响起渐渐散去的声音\n现在还来得及吗？\n不想就这样*透明*地结束!", "새벽의 색을/기억해\n멀어진 목소리가 아득히 울렸어\n아직 늦지 않았을까\n*투명*한 채로는 끝낼 수 없어!", "Aku masih ingat/warna fajar\nSuara yang terurai terdengar jauh\nHei, masih sempatkah?\nTak bisa berakhir dalam keadaan *transparan*!", "Tôi vẫn nhớ/màu bình minh\nTiếng nói tan dần vang xa\nNày, còn kịp không?\nKhông thể kết thúc trong trạng thái *trong suốt*!", "GULZA는 한국어 *글자*에서 왔어요\n글자 하나가/움직이기 시작하면\n자막이 장면이 되고\n당신의 말이 영상이 됩니다!", "GULZAは韓国語の*글자*から\n意味は「文字」\nひと文字が/動き出すと\n言葉が映像になる!", "GULZA comes from the Korean word *글자*\nIt means “letters”\nWhen a letter/starts to move\nYour words become a video!", "GULZA 來自韓語 *글자*\n意思是「文字」\n一個字/開始動起來\n你的話語就成了影片！", "GULZA 来自韩语 *글자*\n意思是“文字”\n一个字/开始动起来\n你的话语就成了视频！", "GULZA berasal dari kata Korea *글자*\nArtinya “huruf”\nSaat satu huruf/mulai bergerak\nKata-katamu menjadi video!", "GULZA bắt nguồn từ tiếng Hàn *글자*\nNghĩa là “chữ viết”\nKhi một con chữ/bắt đầu chuyển động\nLời bạn hóa thành video!"];
+
 /* ============================================================
    JIZURA — editor UI
    ============================================================ */
@@ -36254,7 +36257,22 @@ function setBadges(d) {
   return (d && d.extra ? '<span class="set-badge ex" title="Ditambahkan setelah rilis awal">Baru</span>' : '') + (d && d.wa ? '<span class="set-badge" title="Motif Jepang">JP</span>' : '')
     + (d && d.set && SET_UI[d.set] ? `<span class="set-badge set-${d.set}" title="${SET_UI[d.set].name}">${SET_UI[d.set].badge}</span>` : '');
 }
-function loadLocal() { try { const s = localStorage.getItem(LS_KEY); if (s) return mergeProject(JSON.parse(s)); } catch (e) {} return mergeProject(null); }
+function loadLocal() {
+  try {
+    const s = localStorage.getItem(LS_KEY);
+    if (s) {
+      const saved = JSON.parse(s);
+      const noCustomTiming = !Object.keys((saved.timing && saved.timing.lineTimes) || {}).length;
+      const noLineEdits = !Object.keys(saved.overrides || {}).length;
+      if (J.DEMO_LYRICS && J.DEMO_LYRICS.includes(saved.lyrics) &&
+          !saved.title && !saved.artist && noCustomTiming && noLineEdits) {
+        saved.lyrics = J.SAMPLE_LYRICS;
+      }
+      return mergeProject(saved);
+    }
+  } catch (e) {}
+  return mergeProject(null);
+}
 let saveTimer = 0;
 function autosave() { clearTimeout(saveTimer); saveTimer = setTimeout(flushSave, 700); }
 function flushSave() { clearTimeout(saveTimer); try { localStorage.setItem(LS_KEY, JSON.stringify(S.project)); } catch (e) {} }
@@ -37877,7 +37895,7 @@ function bind() {
   const openTerms = () => { if (dlg.showModal) { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', ''); };
   document.querySelectorAll('.terms-open').forEach(b => b.addEventListener('click', openTerms));
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close ? dlg.close() : dlg.removeAttribute('open'); });   // click on the backdrop
-  $('btnSave').addEventListener('click', () => J.saveFile(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.14.1' }), null, 1)));
+  $('btnSave').addEventListener('click', () => J.saveFile(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.14.2' }), null, 1)));
   $('btnAE').addEventListener('click', () => J.saveFile(baseName() + rangeSuffix() + '_ae.json', JSON.stringify(J.planForAE(S.plan, S.project, exportRange()), null, 1)));
   audioNameDefault = $('audioName').textContent;
   $('btnClearLyrics').addEventListener('click', clearLyrics);
