@@ -12,7 +12,16 @@ Proyek ini menggunakan 860 komponen animasi dan 27 gaya dari [JIZURA](https://gi
 
 Fork ini dapat mengimpor file subtitle SRT secara langsung tanpa mengubahnya menjadi LRC.
 
-**Versi saat ini: v0.14.2** · Gunakan [situs web](https://ruruoni1.github.io/gulza/id/) tanpa instalasi atau akun. Alamat utama dibuka dalam bahasa Korea; bahasa antarmuka dapat diganti di bagian atas halaman.
+**Versi saat ini: v0.14.3** · Gunakan [situs web](https://ruruoni1.github.io/gulza/id/) tanpa instalasi atau akun. Alamat utama dibuka dalam bahasa Korea; bahasa antarmuka dapat diganti di bagian atas halaman.
+
+## Pembaruan terbaru
+
+- **v0.14.3:** Video contoh dalam tujuh bahasa mengikuti kisah yang sama: asal nama GULZA, huruf yang mulai bergerak, takarir yang menjadi adegan, dan kata-kata yang menjadi video.
+- **v0.14.2:** Menambahkan video contoh GULZA untuk setiap bahasa. Contoh yang belum diedit ikut berubah saat bahasa antarmuka diganti.
+- **v0.14.1:** Melengkapi panduan dalam enam bahasa dan membuat pemilih bahasa lebih mudah ditemukan.
+- **v0.14.0:** Menerbitkan kembali situs dalam tujuh bahasa, dengan bahasa Korea sebagai pilihan awal.
+
+[Riwayat lengkap (bahasa Korea)](CHANGELOG.md) · [Rilis GitHub v0.14.3](https://github.com/ruruoni1/gulza/releases/tag/v0.14.3)
 
 ## Fitur yang ditambahkan di fork ini
 

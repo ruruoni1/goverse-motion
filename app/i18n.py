@@ -29,17 +29,23 @@ BASE = 'https://ruruoni1.github.io/gulza/'
 # Keep the meaning consistent while making the wording natural in each language.
 DEMO_LYRICS = {
     'ko': 'GULZA는 한국어 *글자*에서 왔어요\n글자 하나가/움직이기 시작하면\n자막이 장면이 되고\n당신의 말이 영상이 됩니다!',
-    'ja': 'GULZAは韓国語の*글자*から\n意味は「文字」\nひと文字が/動き出すと\n言葉が映像になる!',
-    'en': 'GULZA comes from the Korean word *글자*\nIt means “letters”\nWhen a letter/starts to move\nYour words become a video!',
-    'zh-Hant': 'GULZA 來自韓語 *글자*\n意思是「文字」\n一個字/開始動起來\n你的話語就成了影片！',
-    'zh-Hans': 'GULZA 来自韩语 *글자*\n意思是“文字”\n一个字/开始动起来\n你的话语就成了视频！',
-    'id': 'GULZA berasal dari kata Korea *글자*\nArtinya “huruf”\nSaat satu huruf/mulai bergerak\nKata-katamu menjadi video!',
-    'vi': 'GULZA bắt nguồn từ tiếng Hàn *글자*\nNghĩa là “chữ viết”\nKhi một con chữ/bắt đầu chuyển động\nLời bạn hóa thành video!',
+    'ja': 'GULZAは韓国語の*글자*（文字）から\nひと文字が/動き出すと\n字幕がひとつのシーンになり\nあなたの言葉が映像になる!',
+    'en': 'GULZA comes from Korean *글자* (“letters”)\nWhen one letter/starts to move\nSubtitles become a scene\nYour words become a video!',
+    'zh-Hant': 'GULZA 源自韓語 *글자*（文字）\n當一個字/開始動起來\n字幕就成了畫面\n你的話語成為影片！',
+    'zh-Hans': 'GULZA 源自韩语 *글자*（文字）\n当一个字/开始动起来\n字幕就成了画面\n你的话语成为视频！',
+    'id': 'GULZA berasal dari bahasa Korea *글자* (“huruf”)\nSaat satu huruf/mulai bergerak\nTakarir menjadi sebuah adegan\nKata-katamu menjadi video!',
+    'vi': 'GULZA bắt nguồn từ tiếng Hàn *글자* (“chữ viết”)\nKhi một con chữ/bắt đầu chuyển động\nPhụ đề trở thành một cảnh phim\nLời bạn hóa thành video!',
 }
 
 # Recognize only untouched lyric examples saved by earlier releases. Edited
 # projects remain in the user's chosen language when they switch the UI.
 OLD_DEMO_LYRICS = [
+    'GULZAは韓国語の*글자*から\n意味は「文字」\nひと文字が/動き出すと\n言葉が映像になる!',
+    'GULZA comes from the Korean word *글자*\nIt means “letters”\nWhen a letter/starts to move\nYour words become a video!',
+    'GULZA 來自韓語 *글자*\n意思是「文字」\n一個字/開始動起來\n你的話語就成了影片！',
+    'GULZA 来自韩语 *글자*\n意思是“文字”\n一个字/开始动起来\n你的话语就成了视频！',
+    'GULZA berasal dari kata Korea *글자*\nArtinya “huruf”\nSaat satu huruf/mulai bergerak\nKata-katamu menjadi video!',
+    'GULZA bắt nguồn từ tiếng Hàn *글자*\nNghĩa là “chữ viết”\nKhi một con chữ/bắt đầu chuyển động\nLời bạn hóa thành video!',
     '夜明けの色を/覚えてる\nほどけた声が遠くで鳴った\nねえ、まだ間に合うかな\n*透明*なままじゃ終われない!',
     '새벽의 색을/기억하고 있어\n멀리서 풀려 버린 목소리\n있잖아, 아직 늦지 않았을까\n*투명*한 채로 끝낼 수는 없어!',
     'I remember/the color of dawn\nA voice faded into the distance\nCan we still make it in time?\n*Transparent* is not how this ends!',

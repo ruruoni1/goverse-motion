@@ -12,7 +12,16 @@ It builds on [JIZURA](https://github.com/852wa/JIZURA)'s 860 expression parts an
 
 This fork imports SRT subtitle files directly, without converting them to LRC.
 
-**Current version: v0.14.2** · Use the [website](https://ruruoni1.github.io/gulza/en/) without installing anything or creating an account. The root URL opens in Korean; switch the interface language at the top.
+**Current version: v0.14.3** · Use the [website](https://ruruoni1.github.io/gulza/en/) without installing anything or creating an account. The root URL opens in Korean; switch the interface language at the top.
+
+## Recent updates
+
+- **v0.14.3:** The sample video in all seven languages follows the same story: where GULZA's name comes from, a letter starting to move, subtitles becoming a scene, and words becoming a video.
+- **v0.14.2:** Added a GULZA sample video for each language. Changing the interface language also changes the untouched sample.
+- **v0.14.1:** Expanded all six translated guides and made the language selector easier to find.
+- **v0.14.0:** Restored seven web editions, with Korean as the default.
+
+[Full changelog (Korean)](CHANGELOG.md) · [v0.14.3 GitHub release](https://github.com/ruruoni1/gulza/releases/tag/v0.14.3)
 
 ## Features added in this fork
 
