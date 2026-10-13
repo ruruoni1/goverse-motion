@@ -242,7 +242,7 @@ J.computeTiming = (project, parsed, audio) => {
   const T = project.timing || {};
   const lines = parsed.lines;
   const demoPacing = !audio && project.lyrics === J.SAMPLE_LYRICS && !Object.keys(T.lineTimes || {}).length;
-  const lineScale = demoPacing ? Math.max(T.lineScale || 1, 1.4) : (T.lineScale || 1);
+  const lineScale = demoPacing ? Math.max(T.lineScale || 1, 1.18) : (T.lineScale || 1);
   const beat = T.bpm > 0 ? 60 / T.bpm : 0;
   // fixed times: a hand-set time (typed, tapped, dragged) wins over the LRC tag; the rest is estimated
   const fixed = lines.map((l, i) => {
@@ -316,7 +316,6 @@ J.plan = (project, audio) => {
   const title = project.title || parsed.meta.ti || '';
   const artist = project.artist || parsed.meta.ar || '';
   const tm = J.computeTiming(project, parsed, audio);
-  const demoPacing = !audio && project.lyrics === J.SAMPLE_LYRICS && !Object.keys((project.timing || {}).lineTimes || {}).length;
   // 文字整列: the lyrics appear 0.2 s before the voice (reading ahead feels in time)
   if (project.typeset && !parsed.lines.some(l => l.srtEnd != null)) {
     const LEAD = 0.2;
@@ -405,7 +404,6 @@ J.plan = (project, audio) => {
     if (zones) nC = Math.max(1, Math.min(nC, Math.floor(chunks.length / 2)));   // 中央を空ける: each cut is split in two, so keep ≥ 2 words per cut
     // カット数の指定 (per line): exactly that many cuts — chunks are split further when the line has fewer
     const fixedN = ov.cuts > 0 ? Math.min(12, ov.cuts | 0) : 0;
-    if (demoPacing && !fixedN) nC = 1;
     let chunks2 = chunks;
     if (fixedN) { nC = fixedN; chunks2 = splitToCount(chunks, fixedN); }
     // groups of chunks
