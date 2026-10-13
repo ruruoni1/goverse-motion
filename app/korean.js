@@ -188,6 +188,97 @@
     }
   };
 
+  // Korean titles for pack entries that used to fall back to their camelCase key (from the Japanese names)
+  const moreTitles = {
+    layout: {
+      center: '중앙', mixed: '크고 작게 섞기', scatter: '흩뿌리기', labels: '라벨 붙이기', condensed: '세로 압축', pill: '캡슐',
+      staircase: '계단', zigzag: '지그재그', spiral: '나선', justified: '판면 정렬', bubble: '말풍선', ticker: '뉴스 티커',
+      mirror: '거울상', perspective: '원근', filmstrip: '필름', quote: '인용', searchBar: '검색창', chat: '채팅',
+      notification: '알림', ticket: '티켓', hanging: '매달기', orbit: '궤도 회전', tunnel: '터널', elastic: '고무줄',
+      keycaps: '키캡', bubbles: '거품', slotMachine: '슬롯머신', flipBoard: '플립 보드', zoomRepeat: '연속 확대',
+      splitHalves: '위아래 분할', dotMatrix: '도트 전광판', depthStack: '깊이 겹치기', curtain: '막', equalizer: '이퀄라이저',
+      tape: '테이프', contents: '목차', footnote: '각주', numbered: '번호 매기기', poster: '포스터', swissGrid: '스위스 그리드',
+      dictionary: '사전', newspaper: '신문', cassette: '카세트', polaroid: '폴라로이드', postcard: '엽서',
+      calendar: '달력', routeMap: '노선도', stationSign: '역 이름판', warningLabel: '경고 라벨', priceTag: '가격표',
+      nameTag: '이름표', stickyNotes: '포스트잇', cube: '정육면체', cylinder: '원통', accordion: '아코디언',
+      flag: '펄럭이는 깃발', ribbon: '리본', pendulum: '진자', magnets: '자석', billboard: '간판', crossword: '십자말풀이',
+      puzzle: '퍼즐', dominoes: '도미노', burst: '쾅', origami: '종이접기', zipper: '지퍼', glitchGrid: '글리치 격자',
+      mosaicTiles: '타일 모자이크', contour: '등고선', stencil: '스텐실'
+    },
+    enter: {
+      slice: '슬라이스', flicker: '깜빡임', scramble: '스크램블', domino: '도미노', unroll: '말린 것 펼치기', shutter: '셔터',
+      iris: '아이리스', blinds: '블라인드', checker: '체크무늬', rubber: '고무 늘이기', glitchIn: '글리치 등장', whip: '휙 등장',
+      skewIn: '기울여 등장', resolve: '해독', magnet: '자석', inkBleed: '번짐', springIn: '용수철', pendulum: '진자',
+      rollIn: '굴러오기', slingshot: '새총', bounceBall: '튀는 공', cylinder: '원통 회전', shuffle: '셔플',
+      stopMotion: '스톱모션', ripple: '물결', zipper: '지퍼', zoomAlt: '번갈아 줌', tiltUp: '일어서기',
+      overexpose: '노출 과다', glint: '반짝 빛', loupe: '돋보기', filmFeed: '필름 감기', backlight: '역광',
+      lightLeak: '빛 번짐', heatHaze: '아지랑이', interlace: '인터레이스', loadingBar: '로딩', dither: '디더',
+      hatchFill: '빗금에서 채우기', invertBox: '반전 상자', windBlown: '바람 타고', clockWipe: '시계 방향', bubbles: '거품'
+    },
+    hold: {
+      jitter: '떨림', sway: '흔들림', shimmer: '반짝임', skewWobble: '비스듬히 흔들림', heartbeat: '심장 박동', jelly: '젤리',
+      tilt: '시소', dangle: '대롱대롱', magnetJiggle: '자력'
+    },
+    exit: {
+      explode: '폭발', slice: '슬라이스 퇴장', shrink: '수축', scatter: '흩날리기', glitch: '글리치 퇴장', twist: '비틀기',
+      diagWipeOut: '대각선 와이프', blindsClose: '블라인드', checkerOut: '체크무늬', melt: '녹아내림', backspace: '백스페이스',
+      echoOut: '잔향', whipOut: '휙 퇴장', stripesOut: '줄무늬 지우기', shredOut: '파쇄', dominoOut: '도미노 쓰러짐',
+      bounceOff: '튀어 나가기', hazeOut: '아지랑이 속으로', zipOut: '지퍼', slotOut: '슬롯 회전', clockOut: '시계 와이프',
+      rollUpOut: '말아 감기', rollOff: '굴러 나가기', mosaicOut: '모자이크'
+    },
+    decor: {
+      arrows: '화살표', slash: '슬래시', sparks: '스파크', waveform: '파형', barcode: '바코드', stripes: '줄무늬',
+      shapes: '도형', crosshair: '조준선', reticle: '록온', radar: '레이더', progressRing: '진행 링',
+      timecodeBar: '타임코드', rulerEdge: '가장자리 자', dimension: '치수선', glitchRects: '글리치 조각',
+      concentricSquares: '동심 사각형', triangleSpin: '회전 삼각형', lineBurst: '방사선', plusGrid: '플러스 격자',
+      spiralLine: '소용돌이', halftonePatch: '망점', orbitDots: '도는 점', constellation: '별자리', confetti: '색종이',
+      petals: '꽃잎', rainStreaks: '빗줄기', snow: '눈', lightLeak: '빛 번짐', bokeh: '보케', twinkle: '반짝임',
+      scribbleCircle: '손그림 동그라미', highlightMark: '형광펜', heartsStars: '하트와 별', hexGrid: '육각 격자',
+      spectrumRing: '원형 스펙트럼', dataColumns: '데이터 열', spinner: '로딩 스피너', headingTape: '방위 테이프',
+      glyphLock: '글자 잠금', atomOrbit: '원자 궤도', sonarArcs: '음파', circuit: '회로', swatches: '색 견본',
+      punchHoles: '펀치 구멍', staple: '스테이플러', paperClip: '클립', vines: '덩굴', cloudPuffs: '구름',
+      starField: '별하늘', sunRays: '햇살', rainRipples: '빗방울 물결', bubbles: '비눗방울', fireflies: '반딧불',
+      memphis: '멤피스', zigzagRibbon: '지그재그 리본', polkaPatch: '물방울무늬', stripeCircle: '줄무늬 원',
+      decoCorners: '장식 모서리', halfCircles: '반원 쌓기', loopArrows: '순환 화살표', starburst: '스타버스트',
+      cursorClick: '커서', progressBar: '로딩 바', toggleSwitch: '토글', volumeBars: '음량', musicNotes: '음표'
+    },
+    treat: {
+      longShadow: '긴 그림자', underline: '밑줄', stripes: '줄무늬', hatch: '빗금', italic: '기울임', chrome: '크롬',
+      rainbow: '무지개색', shadowStack: '겹그림자', waterline: '수위', karaoke: '노래방', inline: '인라인',
+      gradientSweep: '광택 스윕'
+    },
+    bg: {
+      auroraRibbons: '오로라', meshBlobs: '메시 그라디언트', duotoneSweep: '두 색 스윕', horizonGlow: '행성의 가장자리',
+      houndstooth: '하운즈투스', herringbone: '헤링본', argyle: '아가일', tartan: '타탄', chevron: '갈매기무늬',
+      isoCubes: '정육면체', hexGrid: '육각 격자', triTess: '삼각 모자이크', moire: '모아레', squareTunnel: '사각 터널',
+      spiralArms: '소용돌이', starfield: '별하늘', skyline: '도시 풍경', sunsetSun: '석양', oceanWaves: '바다 물결',
+      rainWindow: '비 오는 창', snowLayers: '눈', fireworks: '불꽃놀이', cloudLayers: '구름', mountains: '산맥',
+      tornPaper: '찢어진 종이', kaleidoscope: '만화경', marble: '대리석', sunburst: '방사', concentric: '동심원',
+      halftoneFade: '망점 그라디언트', bigStripes: '큰 사선', gradientSweep: '그라디언트', spotlight: '스포트라이트',
+      checker: '체크무늬', scanBars: '주사선 띠', ripples: '물결', polka: '물방울무늬', borderFrame: '굵은 테두리'
+    },
+    cam: {
+      orbitDrift: '궤도 회전', barrelRoll: '배럴 롤', pendulumSway: '진자', earthquake: '지진', tiltDown: '틸트 다운',
+      snapPan: '스냅 팬', tiltUp: '틸트 업', handheld: '핸드헬드', whipIn: '휙 줌인', crashZoom: '크래시 줌', roll: '롤',
+      dollyIn: '돌리 인'
+    },
+    fx: {
+      shake: '흔들림', invert: '반전', mosaic: '모자이크', bloomFlash: '블룸', pixelSort: '픽셀 정렬', interlace: '인터레이스',
+      halftone: '망점', duotone: '듀오톤', lightRays: '빛줄기', heartbeat: '심장 박동', ripple: '물결',
+      speedLines: '속도선', colorBars: '컬러 바', zoomStutter: '연속 줌', edgeDetect: '윤곽 추출', snapshot: '셔터',
+      scanBar: '스캔', loopScroll: '가로 루프', panelWipe: '패널 와이프', irisTrans: '아이리스', doors: '문',
+      blindsTrans: '블라인드', smear: '가로 번짐', mirrorFlash: '거울', strobe: '스트로브', hueShift: '색상 이동',
+      tileShift: '타일 어긋남', whipBlur: '휙 블러', blackFrame: '검은 프레임', whiteFrame: '흰 프레임',
+      gridRepeat: '화면 분할', waveWarp: '물결 왜곡', pixelDrift: '픽셀 어긋남', zoomPunch: '줌 펀치',
+      lightSweep: '빛줄기 스윕'
+    },
+    trans: {
+      clockWipe: '시계 와이프', cover: '덮기', uncover: '걷어내기', zoomThrough: '줌 통과', blinds: '블라인드 전환',
+      whipPan: '휙 팬'
+    }
+  };
+  for (const [group, names] of Object.entries(moreTitles)) titles[group] = Object.assign({}, names, titles[group]);
+
   // For newer pack entries that do not have an explicit Korean title yet,
   // build a readable label from the language-independent camelCase key.
   const words = {

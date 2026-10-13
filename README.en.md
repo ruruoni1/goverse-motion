@@ -12,10 +12,11 @@ It builds on [JIZURA](https://github.com/852wa/JIZURA)'s 860 expression parts an
 
 This fork imports SRT subtitle files directly, without converting them to LRC.
 
-**Current version: v0.15.4** · Use the [website](https://ruruoni1.github.io/gulza/en/) without installing anything or creating an account. The root URL opens in Korean; switch the interface language at the top.
+**Current version: v0.15.5** · Use the [website](https://ruruoni1.github.io/gulza/en/) without installing anything or creating an account. The root URL opens in Korean; switch the interface language at the top.
 
 ## Recent updates
 
+- **v0.15.5:** The Korean interface now shows Korean names for 315 techniques that were displayed as English keys.
 - **v0.15.4:** Preview looping is now off by default; the Loop button cycles whole → line → cut → off.
 - **v0.15.3:** Translated the SRT import button and messages that were still in Japanese on the Chinese, Indonesian and Vietnamese pages.
 - **v0.15.2:** Project, AE JSON and LRC saves now let you rename the file; without a song title, the loaded audio file name is suggested.
@@ -32,7 +33,7 @@ This fork imports SRT subtitle files directly, without converting them to LRC.
 - **v0.14.1:** Expanded all six translated guides and made the language selector easier to find.
 - **v0.14.0:** Restored seven web editions, with Korean as the default.
 
-[Full changelog (Korean)](CHANGELOG.md) · [v0.15.4 GitHub release](https://github.com/ruruoni1/gulza/releases/tag/v0.15.4)
+[Full changelog (Korean)](CHANGELOG.md) · [v0.15.5 GitHub release](https://github.com/ruruoni1/gulza/releases/tag/v0.15.5)
 
 ## Features added in this fork
 
