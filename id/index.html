@@ -496,7 +496,7 @@ button.small.primary { padding: 4px 12px; }
 </div>
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">Studio lirik bergerak</span><span class="ver">v0.15.3</span></div>
+    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">Studio lirik bergerak</span><span class="ver">v0.15.4</span></div>
     <div class="proj">
       <input id="songTitle" type="text" placeholder="Judul lagu (ditampilkan di kartu judul dan HUD)" aria-label="Judul lagu">
       <input id="songArtist" type="text" placeholder="Artis" aria-label="Artis">
@@ -3790,7 +3790,7 @@ J.plan = (project, audio) => {
   const zoneOf = () => (zones ? Object.assign({}, zones[0]) : null);
   if (zones && en.bg) en.bg.bigChar = false;               // the one background that draws the lyric itself (big, centred)
   const plan = {
-    version: 1, generator: 'JIZURA', appVersion: '0.15.3', title, artist, W, H, fps: project.fps || 24,
+    version: 1, generator: 'JIZURA', appVersion: '0.15.4', title, artist, W, H, fps: project.fps || 24,
     duration: tm.duration, styleKey: project.style, style: st, fx, seed: project.seed,
     lines: [], cuts: [], events: [], beats: audio && audio.beats ? audio.beats.slice() : [],
     hud: fx.hud === 'on' ? true : fx.hud === 'off' ? false : !!st.hud,
@@ -36161,7 +36161,7 @@ const ICON = {
   range: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 3v10M13 3v10"/><path d="M5.5 8h5M8.5 5.5L11 8l-2.5 2.5"/></svg>',
 };
 
-const S = { project: null, plan: null, audio: null, renderer: new J.Renderer(), playing: false, t: 0, t0: 0, loop: 'all', loopHold: null, need: true, exporting: null, tap: null, slow: false, lineEls: [], curLine: -2 };
+const S = { project: null, plan: null, audio: null, renderer: new J.Renderer(), playing: false, t: 0, t0: 0, loop: false, loopHold: null, need: true, exporting: null, tap: null, slow: false, lineEls: [], curLine: -2 };
 const LOOP_CYCLE = ['all', 'line', 'cut', false];
 const LOOP_COPY = {
   all:  { ja: 'Loop', en: 'Loop', titleJa: 'Ulangi seluruh lagu', titleEn: 'Loop the whole piece' },
@@ -37958,7 +37958,7 @@ function bind() {
   const openTerms = () => { if (dlg.showModal) { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', ''); };
   document.querySelectorAll('.terms-open').forEach(b => b.addEventListener('click', openTerms));
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close ? dlg.close() : dlg.removeAttribute('open'); });   // click on the backdrop
-  $('btnSave').addEventListener('click', () => saveAs(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.15.3' }), null, 1), 'application/json'));
+  $('btnSave').addEventListener('click', () => saveAs(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.15.4' }), null, 1), 'application/json'));
   $('btnAE').addEventListener('click', () => saveAs(baseName() + rangeSuffix() + '_ae.json', JSON.stringify(J.planForAE(S.plan, S.project, exportRange()), null, 1), 'application/json'));
   audioNameDefault = $('audioName').textContent;
   $('btnClearLyrics').addEventListener('click', clearLyrics);

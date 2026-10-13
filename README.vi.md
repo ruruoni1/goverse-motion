@@ -12,10 +12,11 @@ Dự án dựa trên 860 thành phần hiệu ứng và 27 phong cách của [JI
 
 Bản fork này nhập trực tiếp tệp phụ đề SRT mà không cần chuyển sang LRC trước.
 
-**Phiên bản hiện tại: v0.15.3** · Dùng [trang web](https://ruruoni1.github.io/gulza/vi/) mà không cần cài đặt hay tạo tài khoản. Địa chỉ chính mở bằng tiếng Hàn; bạn có thể đổi ngôn ngữ giao diện ở đầu trang.
+**Phiên bản hiện tại: v0.15.4** · Dùng [trang web](https://ruruoni1.github.io/gulza/vi/) mà không cần cài đặt hay tạo tài khoản. Địa chỉ chính mở bằng tiếng Hàn; bạn có thể đổi ngôn ngữ giao diện ở đầu trang.
 
 ## Cập nhật gần đây
 
+- **v0.15.4:** Lặp lại khi xem trước giờ tắt theo mặc định; nút Lặp chuyển lần lượt: toàn bộ → dòng → cảnh → tắt.
 - **v0.15.3:** Đã dịch nút nhập SRT và các thông báo còn để tiếng Nhật trên giao diện tiếng Trung, tiếng Indonesia và tiếng Việt.
 - **v0.15.2:** Khi lưu dự án, JSON cho AE và LRC, giờ có thể đổi tên tệp; nếu chưa có tên bài, tên tệp âm thanh đã tải sẽ được dùng.
 - **v0.15.1:** Khoảng trống giữa các phụ đề SRT giờ chỉ hiện nền và họa tiết, không còn số đếm ngược.
@@ -31,7 +32,7 @@ Bản fork này nhập trực tiếp tệp phụ đề SRT mà không cần chuy
 - **v0.14.1:** Hoàn thiện hướng dẫn bằng sáu ngôn ngữ và giúp người dùng dễ tìm bộ chọn ngôn ngữ hơn.
 - **v0.14.0:** Phát hành lại trang web bằng bảy ngôn ngữ, mặc định là tiếng Hàn.
 
-[Toàn bộ lịch sử thay đổi (tiếng Hàn)](CHANGELOG.md) · [Bản phát hành GitHub v0.15.3](https://github.com/ruruoni1/gulza/releases/tag/v0.15.3)
+[Toàn bộ lịch sử thay đổi (tiếng Hàn)](CHANGELOG.md) · [Bản phát hành GitHub v0.15.4](https://github.com/ruruoni1/gulza/releases/tag/v0.15.4)
 
 ## Các tính năng được bổ sung trong bản fork
 
