@@ -37,8 +37,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .brand .ver { font: 400 10px/1 var(--mono); color: var(--muted); opacity: 0.8; margin-left: 6px; letter-spacing: 0.04em; }
 .proj { display: flex; gap: 8px; flex: 1 1 280px; min-width: 0; }
 .proj input { flex: 1 1 0; min-width: 0; }
-.acts { display: flex; gap: 8px; flex-wrap: wrap; }
-.site-links { display: inline-flex; align-items: center; gap: 6px; padding-left: 12px; margin-left: 4px; border-left: 1px solid var(--line2); }
+.acts { display: flex; flex: 1 1 100%; gap: 8px; flex-wrap: wrap; }
+.site-links { display: inline-flex; align-items: center; gap: 6px; padding-left: 12px; margin-left: auto; border-left: 1px solid var(--line2); }
 .site-links a { display: inline-flex; align-items: center; gap: 3px; padding: 6px 9px; border: 1px solid var(--line2); border-radius: var(--r); color: var(--text); background: var(--raised); text-decoration: none; white-space: nowrap; font: 600 12px var(--ui); }
 .site-links a:hover { border-color: var(--amber); color: var(--amber); background: var(--raised2); }
 .lang-switch { display: inline-flex; align-items: center; gap: 5px; flex: none; font: 600 12px var(--ui); border: 1px solid var(--amber); border-radius: var(--r); padding: 4px 6px; background: var(--raised); color: var(--text); cursor: pointer; }

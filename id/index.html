@@ -60,8 +60,8 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .brand .ver { font: 400 10px/1 var(--mono); color: var(--muted); opacity: 0.8; margin-left: 6px; letter-spacing: 0.04em; }
 .proj { display: flex; gap: 8px; flex: 1 1 280px; min-width: 0; }
 .proj input { flex: 1 1 0; min-width: 0; }
-.acts { display: flex; gap: 8px; flex-wrap: wrap; }
-.site-links { display: inline-flex; align-items: center; gap: 6px; padding-left: 12px; margin-left: 4px; border-left: 1px solid var(--line2); }
+.acts { display: flex; flex: 1 1 100%; gap: 8px; flex-wrap: wrap; }
+.site-links { display: inline-flex; align-items: center; gap: 6px; padding-left: 12px; margin-left: auto; border-left: 1px solid var(--line2); }
 .site-links a { display: inline-flex; align-items: center; gap: 3px; padding: 6px 9px; border: 1px solid var(--line2); border-radius: var(--r); color: var(--text); background: var(--raised); text-decoration: none; white-space: nowrap; font: 600 12px var(--ui); }
 .site-links a:hover { border-color: var(--amber); color: var(--amber); background: var(--raised2); }
 .lang-switch { display: inline-flex; align-items: center; gap: 5px; flex: none; font: 600 12px var(--ui); border: 1px solid var(--amber); border-radius: var(--r); padding: 4px 6px; background: var(--raised); color: var(--text); cursor: pointer; }
@@ -484,7 +484,7 @@ button.small.primary { padding: 4px 12px; }
 </div>
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">Studio lirik bergerak</span><span class="ver">v0.14.4</span></div>
+    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">Studio lirik bergerak</span><span class="ver">v0.14.5</span></div>
     <div class="proj">
       <input id="songTitle" type="text" placeholder="Judul lagu (ditampilkan di kartu judul dan HUD)" aria-label="Judul lagu">
       <input id="songArtist" type="text" placeholder="Artis" aria-label="Artis">
@@ -497,7 +497,7 @@ button.small.primary { padding: 4px 12px; }
       <button id="modePro" aria-pressed="true" title="Tampilkan semua pengaturan">Lanjutan</button>
       <button id="btnTour" class="ghost tour-btn" title="Panduan singkat mode Sederhana" aria-label="Panduan penggunaan">？</button>
     </div>
-    <label class="lang-switch"><span class="lang-icon" aria-hidden="true">🌐</span><span class="lang-label">Bahasa antarmuka</span><select aria-label="Bahasa antarmuka" onchange="if(this.value)location.href=this.value"><option value="../index.html" lang="ko">한국어</option><option value="../ja/index.html" lang="ja">日本語</option><option value="../en/index.html" lang="en">English</option><option value="../zh-hant/index.html" lang="zh-Hant">繁體中文</option><option value="../zh-hans/index.html" lang="zh-Hans">简体中文</option><option value="../id/index.html" lang="id-ID" selected>Bahasa Indonesia</option><option value="../vi/index.html" lang="vi">Tiếng Việt</option></select></label>
+    <label class="lang-switch" title="Bahasa antarmuka"><span class="lang-icon" aria-hidden="true">🌐</span><span class="lang-label" aria-hidden="true">LN</span><select aria-label="Bahasa antarmuka" onchange="if(this.value)location.href=this.value"><option value="../index.html" lang="ko">한국어</option><option value="../ja/index.html" lang="ja">日本語</option><option value="../en/index.html" lang="en">English</option><option value="../zh-hant/index.html" lang="zh-Hant">繁體中文</option><option value="../zh-hans/index.html" lang="zh-Hans">简体中文</option><option value="../id/index.html" lang="id-ID" selected>Bahasa Indonesia</option><option value="../vi/index.html" lang="vi">Tiếng Việt</option></select></label>
     <div class="acts">
       <label class="file" title="Buka proyek tersimpan (.json)">Buka<input id="fileProject" type="file" accept=".json,application/json"></label>
       <button id="btnSave" title="Simpan proyek sebagai .json">Simpan</button>
@@ -3774,7 +3774,7 @@ J.plan = (project, audio) => {
   const zoneOf = () => (zones ? Object.assign({}, zones[0]) : null);
   if (zones && en.bg) en.bg.bigChar = false;               // the one background that draws the lyric itself (big, centred)
   const plan = {
-    version: 1, generator: 'JIZURA', appVersion: '0.14.4', title, artist, W, H, fps: project.fps || 24,
+    version: 1, generator: 'JIZURA', appVersion: '0.14.5', title, artist, W, H, fps: project.fps || 24,
     duration: tm.duration, styleKey: project.style, style: st, fx, seed: project.seed,
     lines: [], cuts: [], events: [], beats: audio && audio.beats ? audio.beats.slice() : [],
     hud: fx.hud === 'on' ? true : fx.hud === 'off' ? false : !!st.hud,
@@ -37901,7 +37901,7 @@ function bind() {
   const openTerms = () => { if (dlg.showModal) { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', ''); };
   document.querySelectorAll('.terms-open').forEach(b => b.addEventListener('click', openTerms));
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close ? dlg.close() : dlg.removeAttribute('open'); });   // click on the backdrop
-  $('btnSave').addEventListener('click', () => J.saveFile(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.14.4' }), null, 1)));
+  $('btnSave').addEventListener('click', () => J.saveFile(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.14.5' }), null, 1)));
   $('btnAE').addEventListener('click', () => J.saveFile(baseName() + rangeSuffix() + '_ae.json', JSON.stringify(J.planForAE(S.plan, S.project, exportRange()), null, 1)));
   audioNameDefault = $('audioName').textContent;
   $('btnClearLyrics').addEventListener('click', clearLyrics);

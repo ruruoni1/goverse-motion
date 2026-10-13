@@ -12,17 +12,18 @@ Dự án dựa trên 860 thành phần hiệu ứng và 27 phong cách của [JI
 
 Bản fork này nhập trực tiếp tệp phụ đề SRT mà không cần chuyển sang LRC trước.
 
-**Phiên bản hiện tại: v0.14.4** · Dùng [trang web](https://ruruoni1.github.io/gulza/vi/) mà không cần cài đặt hay tạo tài khoản. Địa chỉ chính mở bằng tiếng Hàn; bạn có thể đổi ngôn ngữ giao diện ở đầu trang.
+**Phiên bản hiện tại: v0.14.5** · Dùng [trang web](https://ruruoni1.github.io/gulza/vi/) mà không cần cài đặt hay tạo tài khoản. Địa chỉ chính mở bằng tiếng Hàn; bạn có thể đổi ngôn ngữ giao diện ở đầu trang.
 
 ## Cập nhật gần đây
 
+- **v0.14.5:** Thu gọn bộ chọn ngôn ngữ thành `🌐 LN` và tên ngôn ngữ đang chọn. Liên kết GitHub và GoverseTV được căn về bên phải các nút trên thanh công cụ.
 - **v0.14.4:** Thêm liên kết đến kho GitHub GULZA và kênh YouTube GoverseTV ở thanh trên cùng của trang. Trên điện thoại, mở menu để tìm các liên kết này.
 - **v0.14.3:** Video mẫu ở cả bảy ngôn ngữ kể cùng một câu chuyện: nguồn gốc tên GULZA, con chữ bắt đầu chuyển động, phụ đề trở thành cảnh phim và lời nói trở thành video.
 - **v0.14.2:** Thêm video mẫu GULZA cho từng ngôn ngữ. Mẫu chưa chỉnh sửa sẽ đổi theo ngôn ngữ giao diện.
 - **v0.14.1:** Hoàn thiện hướng dẫn bằng sáu ngôn ngữ và giúp người dùng dễ tìm bộ chọn ngôn ngữ hơn.
 - **v0.14.0:** Phát hành lại trang web bằng bảy ngôn ngữ, mặc định là tiếng Hàn.
 
-[Toàn bộ lịch sử thay đổi (tiếng Hàn)](CHANGELOG.md) · [Bản phát hành GitHub v0.14.4](https://github.com/ruruoni1/gulza/releases/tag/v0.14.4)
+[Toàn bộ lịch sử thay đổi (tiếng Hàn)](CHANGELOG.md) · [Bản phát hành GitHub v0.14.5](https://github.com/ruruoni1/gulza/releases/tag/v0.14.5)
 
 ## Các tính năng được bổ sung trong bản fork
 

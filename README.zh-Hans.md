@@ -12,17 +12,18 @@ GULZA 是免费的浏览器工具，可用歌词和字幕制作动态视频并�
 
 这个分支可以直接导入 SRT 字幕文件，无需先转换为 LRC。
 
-**当前版本：v0.14.4** · 无需安装或注册，即可使用[网站](https://ruruoni1.github.io/gulza/zh-hans/)。主网址默认显示韩语界面，可在页面顶部切换语言。
+**当前版本：v0.14.5** · 无需安装或注册，即可使用[网站](https://ruruoni1.github.io/gulza/zh-hans/)。主网址默认显示韩语界面，可在页面顶部切换语言。
 
 ## 最近更新
 
+- **v0.14.5：**语言菜单缩短为 `🌐 LN` 和当前语言名称。GitHub 与 GoverseTV 链接靠右排列在上方操作按钮旁。
 - **v0.14.4：**在网站上方加入 GULZA GitHub 仓库和 GoverseTV YouTube 频道链接。手机版可从菜单打开。
 - **v0.14.3：**七种语言的示例视频按相同顺序介绍 GULZA 名称的由来、开始移动的文字、成为画面的字幕，以及成为视频的话语。
 - **v0.14.2：**新增各语言的 GULZA 示例视频；切换界面语言时，未修改的示例也会随之切换。
 - **v0.14.1：**补充六种语言的完整使用说明，并让语言菜单更容易找到。
 - **v0.14.0：**重新发布七种语言的网页版本，默认使用韩语。
 
-[完整更新记录（韩语）](CHANGELOG.md) · [v0.14.4 GitHub 发布说明](https://github.com/ruruoni1/gulza/releases/tag/v0.14.4)
+[完整更新记录（韩语）](CHANGELOG.md) · [v0.14.5 GitHub 发布说明](https://github.com/ruruoni1/gulza/releases/tag/v0.14.5)
 
 ## 这个分支新增的功能
 
