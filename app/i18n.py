@@ -1,7 +1,8 @@
 """Localized browser editions. Japanese (the source) and English (app/english.py) are the originals; the Chinese,
 Indonesian, Korean, and Vietnamese editions use the same glossary keys as English, with values in their own module (app/i18n_<code>.py):
 BODY / UI / EXPORT (Japanese phrase -> translation), STYLES {key: (name, description)}, MOODS {key: name},
-SAMPLE (sample lyrics), TITLE, DESCRIPTION. Effect part names use the English labels (app/english.js)."""
+SAMPLE (sample lyrics), TITLE, DESCRIPTION. Effect part names start from the English labels (app/english.js) and are
+replaced by each edition's part-name script (COMMUNITY / PART_NAMES below)."""
 import importlib, json
 
 # code, output folder, html lang, native name
@@ -22,7 +23,7 @@ MODULES = {
 # only fills strings added later; their label scripts name every part, style and mood (after app/english.js)
 COMMUNITY = {'zh-Hant': ('app.chinese', 'app/chinese.js'), 'ko': ('app.korean', 'app/korean.js')}
 # part-name scripts for editions without a community glossary (after app/english.js and the edition's own names)
-PART_NAMES = {'zh-Hans': 'app/chinese_hans.js'}
+PART_NAMES = {'zh-Hans': 'app/chinese_hans.js', 'id': 'app/indonesian.js', 'vi': 'app/vietnamese.js'}
 BASE = 'https://ruruoni1.github.io/gulza/'
 
 

@@ -187,6 +187,20 @@
       cubeTurn: 'Cube turn', flashCross: 'Flash cut', pixelate: 'Pixel transition'
     }
   };
+  // better English names for pack entries whose label used to be built from the camelCase key
+  const moreTitles = {
+    layout: { type: 'Typewriter', mixed: 'Mixed sizes', contents: 'Table of contents', pill: 'Capsule', hanging: 'Hanging letters', curtain: 'Curtain', flipBoard: 'Split-flap board', burst: 'Burst plate', splitHalves: 'Top and bottom halves', zoomRepeat: 'Repeating zoom', depthStack: 'Depth layers', mosaicTiles: 'Tile mosaic', stencil: 'Stencil', elastic: 'Rubber band' },
+    enter: { type: 'Typewriter', zoomAlt: 'Alternating zoom', glitchIn: 'Glitch', skewIn: 'Skew', waveIn: 'Wave', springIn: 'Spring', rollIn: 'Roll in', hatchFill: 'Hatch to solid', invertBox: 'Inverted box', clockWipe: 'Clockwise wipe', shadowFirst: 'Shadow first', windBlown: 'On the wind', tiltUp: 'Stand up', resolve: 'Decode', inkBleed: 'Ink bleed' },
+    hold: { magnetJiggle: 'Magnetic jiggle', tilt: 'Seesaw', rotateSlow: 'Slow rotation', echoTrail: 'Echo trail' },
+    exit: { riseOut: 'Rise away', zoomThrough: 'Through the camera', diagWipeOut: 'Diagonal wipe', blindsClose: 'Blinds', checkerOut: 'Checkerboard', echoOut: 'Echo', whipOut: 'Whip', popOut: 'Pop', stripesOut: 'Stripe erase', shredOut: 'Shredder', dominoOut: 'Domino fall', bounceOff: 'Bounce away', hazeOut: 'Heat haze', zipOut: 'Unzip', slotOut: 'Slot spin', clockOut: 'Clock wipe', rollUpOut: 'Roll up', rollOff: 'Roll away', mosaicOut: 'Mosaic', waveOut: 'Wave collapse', foldOut: 'Fold away' },
+    decor: { glitchRects: 'Glitch shards', heartsStars: 'Hearts and stars', spinner: 'Loading spinner', cloudPuffs: 'Clouds', polkaPatch: 'Polka dots', halfCircles: 'Stacked half circles', decoCorners: 'Ornate corners', reticle: 'Lock-on', rulerEdge: 'Edge ruler', orbitDots: 'Orbiting dots', glyphLock: 'Glyph lock-on', beatRing: 'Beat ring', checkerStrip: 'Checker strip' },
+    treat: { waterline: 'Rising water', karaoke: 'Karaoke wipe', inline: 'Inline stroke', gradientSweep: 'Gloss sweep', hardShadow: 'Offset shadow', emphasisDots: 'Emphasis dots' },
+    bg: { triTess: 'Triangle mosaic', isoCubes: 'Isometric cubes', moire: 'Moiré', polka: 'Polka dots', sunsetSun: 'Setting sun', snowLayers: 'Snow', cloudLayers: 'Clouds', concentric: 'Concentric circles', horizonGlow: 'Planet rim', gradientSweep: 'Gradient', meshBlobs: 'Mesh gradient', duotoneSweep: 'Two-tone sweep', auroraRibbons: 'Aurora', bigStripes: 'Big diagonal stripes', borderFrame: 'Thick border' },
+    cam: { orbitDrift: 'Orbit', pendulumSway: 'Pendulum', roll: 'Camera roll', dollyIn: 'Dolly in', rackFocus: 'Defocus' },
+    fx: { irisTrans: 'Iris', blindsTrans: 'Blinds', bloomFlash: 'Bloom', mirrorFlash: 'Mirror flip', snapshot: 'Camera shutter', doors: 'Doors', smear: 'Horizontal smear', loopScroll: 'Horizontal loop', gridRepeat: 'Split screen', starGlint: 'Star glint', squash: 'Squash and stretch' },
+    trans: { blinds: 'Blinds', spinOut: 'Spin out', cubeTurn: 'Cube turn' }
+  };
+  for (const [group, names] of Object.entries(moreTitles)) titles[group] = Object.assign({}, names, titles[group]);
   const acronym = { rgb: 'RGB', crt: 'CRT', vhs: 'VHS', qr: 'QR', tv: 'TV', led: 'LED', hud: 'HUD', jp: 'JP' };
   const label = key => key.replace(/([a-z])([A-Z])/g, '$1 $2')
     .replace(/([A-Za-z])([0-9])/g, '$1 $2')
