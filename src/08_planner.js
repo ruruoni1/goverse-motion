@@ -316,6 +316,8 @@ J.plan = (project, audio) => {
   const title = project.title || parsed.meta.ti || '';
   const artist = project.artist || parsed.meta.ar || '';
   const tm = J.computeTiming(project, parsed, audio);
+  const slowKoreanIntro = !audio && project.lyrics === J.SAMPLE_LYRICS && !Object.keys((project.timing || {}).lineTimes || {}).length
+    && J.resolveLang(project) === 'ko' && !Object.keys(project.overrides || {}).length;
   // 文字整列: the lyrics appear 0.2 s before the voice (reading ahead feels in time)
   if (project.typeset && !parsed.lines.some(l => l.srtEnd != null)) {
     const LEAD = 0.2;
@@ -646,6 +648,18 @@ J.plan = (project, audio) => {
     c.zone = zoneOf(c.line);
   });
   plan.events.sort((a, b) => a.t - b.t);
+  // Extend the untouched Korean demo after all visual choices are made, so only timing changes.
+  if (slowKoreanIntro) {
+    const introCuts = plan.cuts.filter(c => c.line === 0 && c.layout !== 'interlude');
+    if (introCuts.length >= 4) {
+      const secondEnd = introCuts[1].end, fourthEnd = introCuts[3].end;
+      const shift = t => t + (t >= secondEnd - 1e-6 ? 0.5 : 0) + (t >= fourthEnd - 1e-6 ? 0.5 : 0);
+      for (const line of plan.lines) { line.start = shift(line.start); line.end = shift(line.end); line.visEnd = shift(line.visEnd); }
+      for (const cut of plan.cuts) { cut.start = shift(cut.start); cut.end = shift(cut.end); }
+      for (const event of plan.events) event.t = shift(event.t);
+      plan.duration += 1.0;
+    }
+  }
   plan.energy = audio && audio.energy ? audio.energy : null;
   plan.energyRate = audio && audio.energyRate ? audio.energyRate : 0;
   return plan;

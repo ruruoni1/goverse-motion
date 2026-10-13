@@ -1,5 +1,5 @@
 #target aftereffects
-/*  GULZA \u2014 lyric motion panel for Adobe After Effects  (v0.14.9)
+/*  GULZA \u2014 lyric motion panel for Adobe After Effects  (v0.15.0)
     Put this file in:  After Effects <version>/Support Files/Scripts/ScriptUI Panels/
     Restart AE, then open  Window > GULZA_AE.jsx
     (Or run it once via File > Scripts > Run Script File... as a floating window.)
@@ -35601,7 +35601,7 @@ function jzTidyTree(comp) {
 // Walks a built comp tree, evaluates every expression at a few times and collects AE's own error messages
 // (Property.expressionError), plus the substitutions and warnings of the build. Used by the panels'
 // "\u8A3A\u65AD\u30EC\u30DD\u30FC\u30C8" button; the report is plain text so it can be sent as-is.
-var JZ_PANEL_VERSION = '0.14.9';
+var JZ_PANEL_VERSION = '0.15.0';
 // parts this panel can build, counted like the browser (its expression groups' orders)
 function jzPartsCount() {
     var n = 0, g, i, o = JZ_DATA.orders || {};
