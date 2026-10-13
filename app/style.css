@@ -44,6 +44,15 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .lang-switch { display: inline-flex; align-items: center; gap: 5px; flex: none; font: 600 12px var(--ui); border: 1px solid var(--amber); border-radius: var(--r); padding: 4px 6px; background: var(--raised); color: var(--text); cursor: pointer; }
 .lang-switch .lang-icon { font-size: 15px; line-height: 1; padding: 0 2px; }
 .lang-switch .lang-label { color: var(--text); white-space: nowrap; padding: 0 2px; }
+@media (min-width: 1500px) and (max-width: 1900px) {
+  html[lang=id-ID] .bar, html[lang=vi] .bar { gap: 6px; }
+  html[lang=id-ID] .brand .tag, html[lang=vi] .brand .tag { display: none; }
+  html[lang=id-ID] .proj, html[lang=vi] .proj { flex-basis: 170px; }
+  html[lang=id-ID] .modes button, html[lang=vi] .modes button { padding-inline: 8px; }
+  html[lang=id-ID] .acts, html[lang=vi] .acts { gap: 6px; }
+  html[lang=id-ID] .acts > button, html[lang=vi] .acts > button,
+  html[lang=id-ID] .acts > label.file, html[lang=vi] .acts > label.file { padding-inline: 8px; }
+}
 html[lang=en] { --ui: system-ui, -apple-system, "Segoe UI", sans-serif; --brand: Georgia, "Times New Roman", serif; }
 html[lang=zh-Hant] { --ui: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif; }
 html[lang=ko] { --ui: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif; --brand: "Noto Serif KR", "AppleMyungjo", "Batang", serif; }
