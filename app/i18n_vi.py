@@ -42,6 +42,7 @@ STYLES = {
 }
 
 BODY = {
+    'SRT 字幕または LRC 歌詞を読み込みます。SRT は開始・終了時刻を保持します。">字幕ファイルを読み込む': 'Mở phụ đề SRT hoặc lời LRC. SRT giữ nguyên thời điểm bắt đầu và kết thúc.">Nhập SRT/LRC',
     '1行に複数のカットがあるときは、カットが切り替わる瞬間に <span class="kbd">Tab</span> を押すと、その行のカットの開始時刻も合わせられます。': 'Nếu một dòng có nhiều cảnh, nhấn <span class="kbd">Tab</span> đúng lúc cảnh cần chuyển để canh cả thời điểm bắt đầu các cảnh của dòng đó.',
     '<label>速さ <select id="tapRate" aria-label="タップ中の再生速度">': '<label>Tốc độ <select id="tapRate" aria-label="Tốc độ phát khi nhấn">',
     '<input type="checkbox" id="tapCount"> カウントダウン</label>': '<input type="checkbox" id="tapCount"> Đếm ngược</label>',
@@ -263,6 +264,11 @@ BODY = {
 }
 
 UI = {
+    '`SRT を読み込みました（${n} 件・開始/終了時刻を保持。「LRC を書き出す」で変換できます）`': '`Đã mở SRT (${n} phụ đề · giữ thời điểm bắt đầu/kết thúc. Dùng “Lưu LRC” để chuyển đổi)`',
+    "'今の歌詞を SRT 字幕に置き換えます（行ごとの指定・書き出す範囲も消えます。「元に戻す」で戻せます）。よろしいですか？'": "'Thay lời hiện tại bằng phụ đề SRT? (Thiết lập từng dòng và phạm vi xuất cũng bị xóa. Hoàn tác để lấy lại.)'",
+    "'字幕ファイルが大きすぎます'": "'Tệp phụ đề quá lớn'",
+    "'字幕ファイルを読み込めませんでした'": "'Không đọc được tệp phụ đề'",
+    "'有効な字幕行が見つかりませんでした'": "'Không tìm thấy phụ đề hợp lệ'",
     '`前後の行と順番が入れ替わらないよう ${w.toFixed(2)} 秒にしました`': '`Đã đặt ${w.toFixed(2)} giây để giữ thứ tự các dòng`',
     "'このカットの開始時刻（手動）。空にすると自動に戻ります'": "'Thời điểm bắt đầu cảnh này (thủ công). Xóa trống để về tự động'",
     "'このカットの開始時刻（自動）。数値を入れると固定します'": "'Thời điểm bắt đầu cảnh này (tự động). Nhập số để cố định'",

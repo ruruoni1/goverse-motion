@@ -12,10 +12,11 @@ Proyek ini menggunakan 860 komponen animasi dan 27 gaya dari [JIZURA](https://gi
 
 Fork ini dapat mengimpor file subtitle SRT secara langsung tanpa mengubahnya menjadi LRC.
 
-**Versi saat ini: v0.15.2** · Gunakan [situs web](https://ruruoni1.github.io/gulza/id/) tanpa instalasi atau akun. Alamat utama dibuka dalam bahasa Korea; bahasa antarmuka dapat diganti di bagian atas halaman.
+**Versi saat ini: v0.15.3** · Gunakan [situs web](https://ruruoni1.github.io/gulza/id/) tanpa instalasi atau akun. Alamat utama dibuka dalam bahasa Korea; bahasa antarmuka dapat diganti di bagian atas halaman.
 
 ## Pembaruan terbaru
 
+- **v0.15.3:** Tombol impor SRT dan pesannya, yang masih berbahasa Jepang di halaman Tionghoa, Indonesia, dan Vietnam, kini diterjemahkan.
 - **v0.15.2:** Saat menyimpan proyek, JSON AE, dan LRC, nama file kini bisa diubah; tanpa judul lagu, nama file audio yang dimuat dipakai.
 - **v0.15.1:** Jeda di antara subtitle SRT kini hanya menampilkan latar dan dekorasi, tanpa angka hitung mundur.
 - **v0.15.0:** Cut ke-2 dan ke-4 pada contoh bawaan bahasa Korea kini lebih lama; urutan dan jumlah cut tetap sama.
@@ -30,7 +31,7 @@ Fork ini dapat mengimpor file subtitle SRT secara langsung tanpa mengubahnya men
 - **v0.14.1:** Melengkapi panduan dalam enam bahasa dan membuat pemilih bahasa lebih mudah ditemukan.
 - **v0.14.0:** Menerbitkan kembali situs dalam tujuh bahasa, dengan bahasa Korea sebagai pilihan awal.
 
-[Riwayat lengkap (bahasa Korea)](CHANGELOG.md) · [Rilis GitHub v0.15.2](https://github.com/ruruoni1/gulza/releases/tag/v0.15.2)
+[Riwayat lengkap (bahasa Korea)](CHANGELOG.md) · [Rilis GitHub v0.15.3](https://github.com/ruruoni1/gulza/releases/tag/v0.15.3)
 
 ## Fitur yang ditambahkan di fork ini
 

@@ -41,6 +41,7 @@ STYLES = {
 }
 
 BODY = {
+    'SRT 字幕または LRC 歌詞を読み込みます。SRT は開始・終了時刻を保持します。">字幕ファイルを読み込む': 'Muat subtitle SRT atau lirik LRC. SRT mempertahankan waktu mulai dan selesai.">Impor SRT/LRC',
     '1行に複数のカットがあるときは、カットが切り替わる瞬間に <span class="kbd">Tab</span> を押すと、その行のカットの開始時刻も合わせられます。': 'Jika satu baris punya beberapa cut, tekan <span class="kbd">Tab</span> saat cut harus berganti untuk menyesuaikan waktu cut di baris itu juga.',
     '<label>速さ <select id="tapRate" aria-label="タップ中の再生速度">': '<label>Kecepatan <select id="tapRate" aria-label="Kecepatan putar saat mengetuk">',
     '<input type="checkbox" id="tapCount"> カウントダウン</label>': '<input type="checkbox" id="tapCount"> Hitung mundur</label>',
@@ -205,6 +206,11 @@ BODY = {
 }
 
 UI = {
+    '`SRT を読み込みました（${n} 件・開始/終了時刻を保持。「LRC を書き出す」で変換できます）`': '`SRT dimuat (${n} subtitle · waktu mulai/selesai dipertahankan. Gunakan “Simpan LRC” untuk mengonversi)`',
+    "'今の歌詞を SRT 字幕に置き換えます（行ごとの指定・書き出す範囲も消えます。「元に戻す」で戻せます）。よろしいですか？'": "'Ganti lirik sekarang dengan subtitle SRT? (Pengaturan per baris dan rentang ekspor juga dihapus. Urungkan mengembalikannya.)'",
+    "'字幕ファイルが大きすぎます'": "'File subtitle terlalu besar'",
+    "'字幕ファイルを読み込めませんでした'": "'File subtitle tidak bisa dibaca'",
+    "'有効な字幕行が見つかりませんでした'": "'Tidak ditemukan subtitle yang valid'",
     '`前後の行と順番が入れ替わらないよう ${w.toFixed(2)} 秒にしました`': '`Diatur ke ${w.toFixed(2)} dtk agar urutan baris tetap`',
     "'このカットの開始時刻（手動）。空にすると自動に戻ります'": "'Awal cut ini (manual). Kosongkan untuk kembali otomatis'",
     "'このカットの開始時刻（自動）。数値を入れると固定します'": "'Awal cut ini (otomatis). Ketik waktu untuk menguncinya'",

@@ -496,7 +496,7 @@ button.small.primary { padding: 4px 12px; }
 </div>
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">动态字幕工作室</span><span class="ver">v0.15.2</span></div>
+    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">动态字幕工作室</span><span class="ver">v0.15.3</span></div>
     <div class="proj">
       <input id="songTitle" type="text" placeholder="歌名（显示在标题卡和 HUD 上）" aria-label="歌名">
       <input id="songArtist" type="text" placeholder="艺人" aria-label="艺人">
@@ -532,7 +532,7 @@ button.small.primary { padding: 4px 12px; }
           <button id="tapStop" class="ghost">结束</button>
       </div>
       <div class="sec">
-        <div class="sec-h"><h2>歌词</h2><span class="sec-btns"><label class="file ghost small" title="SRT 字幕または LRC 歌词を読み込みます。SRT は開始・終了時刻を保持します。">字幕ファイルを読み込む<input id="fileLrc" type="file" accept=".srt,.lrc,.txt,application/x-subrip,text/plain"></label><button id="btnClearLyrics" class="ghost small" title="清除歌词，以及各行的时间点、逐行设置与导出范围（可用“撤销”或 Ctrl+Z 找回）">清除歌词</button><button id="btnSyntax" class="ghost small" aria-expanded="false">语法</button></span></div>
+        <div class="sec-h"><h2>歌词</h2><span class="sec-btns"><label class="file ghost small" title="读取 SRT 字幕或 LRC 歌词。SRT 会保留开始和结束时间。">导入 SRT/LRC<input id="fileLrc" type="file" accept=".srt,.lrc,.txt,application/x-subrip,text/plain"></label><button id="btnClearLyrics" class="ghost small" title="清除歌词，以及各行的时间点、逐行设置与导出范围（可用“撤销”或 Ctrl+Z 找回）">清除歌词</button><button id="btnSyntax" class="ghost small" aria-expanded="false">语法</button></span></div>
         <textarea id="lyrics" rows="9" spellcheck="false" aria-label="歌词（1 行 = 1 句）"></textarea>
         <label class="lang-row">歌词语言<select id="lyricLang"><option value="auto">自动识别</option><option value="ja">日本語</option><option value="zh-Hant">繁體中文</option><option value="zh-Hans">简体中文</option><option value="ko">한국어</option><option value="en">English</option></select><span id="langNote" class="muted"></span></label>
         <div id="syntax" class="syntax" hidden>
@@ -3790,7 +3790,7 @@ J.plan = (project, audio) => {
   const zoneOf = () => (zones ? Object.assign({}, zones[0]) : null);
   if (zones && en.bg) en.bg.bigChar = false;               // the one background that draws the lyric itself (big, centred)
   const plan = {
-    version: 1, generator: 'JIZURA', appVersion: '0.15.2', title, artist, W, H, fps: project.fps || 24,
+    version: 1, generator: 'JIZURA', appVersion: '0.15.3', title, artist, W, H, fps: project.fps || 24,
     duration: tm.duration, styleKey: project.style, style: st, fx, seed: project.seed,
     lines: [], cuts: [], events: [], beats: audio && audio.beats ? audio.beats.slice() : [],
     hud: fx.hud === 'on' ? true : fx.hud === 'off' ? false : !!st.hud,
@@ -37150,7 +37150,7 @@ function loadSubtitles(text, format = 'lrc') {
   $('lyrics').value = P.lyrics;
   replan(); flushSave(); updateEditBtns(); seek(0);
   const n = J.parseLyrics(P.lyrics).lines.filter(l => l.lrc != null).length;
-  toast(format === 'srt' ? `SRT を読み込みました（${n} 件 · 開始/終了時刻を保持。「LRC を書き出す」で変換できます）` : `已读取 LRC（带时间 ${n} 行 · 可用“撤销”恢复）`);
+  toast(format === 'srt' ? `已读取 SRT（${n} 段 · 保留开始/结束时间。可用“导出 LRC”转换）` : `已读取 LRC（带时间 ${n} 行 · 可用“撤销”恢复）`);
 }
 function saveLrc() {
   const R = exportRangeLines(), r = exportRange();
@@ -38146,7 +38146,7 @@ function bind() {
   const openTerms = () => { if (dlg.showModal) { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', ''); };
   document.querySelectorAll('.terms-open').forEach(b => b.addEventListener('click', openTerms));
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close ? dlg.close() : dlg.removeAttribute('open'); });   // click on the backdrop
-  $('btnSave').addEventListener('click', () => saveAs(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.15.2' }), null, 1), 'application/json'));
+  $('btnSave').addEventListener('click', () => saveAs(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.15.3' }), null, 1), 'application/json'));
   $('btnAE').addEventListener('click', () => saveAs(baseName() + rangeSuffix() + '_ae.json', JSON.stringify(J.planForAE(S.plan, S.project, exportRange()), null, 1), 'application/json'));
   audioNameDefault = $('audioName').textContent;
   $('btnClearLyrics').addEventListener('click', clearLyrics);
@@ -38157,7 +38157,7 @@ function bind() {
   }));
   $('fileLrc').addEventListener('change', async e => {
     const f = e.target.files && e.target.files[0]; e.target.value = ''; if (!f) return;
-    if (f.size > 2e6) { toast('字幕ファイルが大きすぎます'); return; }
+    if (f.size > 2e6) { toast('字幕文件过大'); return; }
     let text = '';
     try {
       const buf = await f.arrayBuffer(), bytes = new Uint8Array(buf);
@@ -38167,10 +38167,10 @@ function bind() {
         try { text = new TextDecoder('utf-8', { fatal: true }).decode(buf); }
         catch (e2) { text = new TextDecoder('euc-kr').decode(buf); }
       }
-    } catch (err) { toast('字幕ファイルを読み込めませんでした'); return; }
+    } catch (err) { toast('无法读取字幕文件'); return; }
     const format = /\.srt$/i.test(f.name) || /^\s*(?:\d+\s*\r?\n)?\d{2}:\d{2}:\d{2}[,.]\d{3}\s*-->\s*\d{2}:\d{2}:\d{2}[,.]\d{3}/m.test(text) ? 'srt' : 'lrc';
-    if (format === 'srt' && !J.srtToLyrics(text).trim()) { toast('有効な字幕行が見つかりませんでした'); return; }
-    if (S.project.lyrics.trim() && !window.confirm(format === 'srt' ? '今の歌詞を SRT 字幕に置き換えます（行ごとの指定 · 書き出す範囲も消えます。「元に戻す」で戻せます）。よろしいですか？' : '要用 LRC 的内容替换当前歌词吗？（各行时间、指定和导出范围也会清除。可用“撤销”恢复）')) return;
+    if (format === 'srt' && !J.srtToLyrics(text).trim()) { toast('未找到有效的字幕段落'); return; }
+    if (S.project.lyrics.trim() && !window.confirm(format === 'srt' ? '要用 SRT 字幕替换当前歌词吗？（各行指定和导出范围也会清除。可用“撤销”恢复）' : '要用 LRC 的内容替换当前歌词吗？（各行时间、指定和导出范围也会清除。可用“撤销”恢复）')) return;
     loadSubtitles(text, format);
   });
   ['btnLRC', 'eLRC'].forEach(id => $(id).addEventListener('click', saveLrc));
