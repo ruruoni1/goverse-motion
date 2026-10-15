@@ -12,7 +12,8 @@ J.SAMPLE_LYRICS = `夜明けの色を/覚えてる
 J.defaultProject = () => ({
   version: 1,
   timingOrder: 2,                 // lyric lines keep their written order around LRC-tagged lines (v0.10)
-  themeId: null,                  // おまかせのテーマ (J.THEMES key) — only おまかせ reads it
+  themeId: null,                  // おまかせのテーマ (J.THEME_TREE main key; older J.THEMES keys are mapped) — only おまかせ reads it
+  subThemeId: null,               // its sub theme (null = おまかせ picks one of the main theme's subs)
   title: '', artist: '',
   lyrics: J.SAMPLE_LYRICS,
   style: 'noir', mood: null,

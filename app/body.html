@@ -99,7 +99,6 @@
           <button id="btnNext" class="ghost small icon-txt" title="次の案へ進む" aria-label="次の案">▶</button>
         </span>
         <button id="btnShuffle" class="accent" title="設定はそのままで構成だけ再抽選（ロックした行は維持）">シャッフル</button>
-        <select class="themeSel" aria-label="おまかせのテーマ" title="おまかせのテーマ（選ぶと、その方向の中でおまかせします。必要な部品のスイッチもオンになります）"><option value="">テーマなし</option><option value="lyricpv">文字PV</option><option value="kinetic">キネティック</option><option value="wa">和風</option><option value="horror">ホラー</option><option value="pop">ポップ</option><option value="ballad">バラード</option></select>
         <button id="btnOmakase" class="primary" title="スタイル・雰囲気・演出・配色をまるごとランダムに（キー R）">おまかせ</button>
       </div>
       <div class="tl-bar">
@@ -129,7 +128,8 @@
       <div id="easyPanel" class="easy" hidden>
         <div class="easy-hero">
           <button id="btnOmakaseBig" class="omakase">おまかせで作る</button>
-          <label class="theme-row">テーマ<select class="themeSel" aria-label="おまかせのテーマ"><option value="">テーマなし</option><option value="lyricpv">文字PV</option><option value="kinetic">キネティック</option><option value="wa">和風</option><option value="horror">ホラー</option><option value="pop">ポップ</option><option value="ballad">バラード</option></select><small class="muted">選ぶと、その方向の中でおまかせします</small></label>
+          <label class="theme-row">テーマ<select class="themeSel" aria-label="おまかせのテーマ"><option value="">テーマなし</option></select><small class="muted">選ぶと、その方向の中でおまかせします</small></label>
+          <label class="theme-row" id="themeSubRow" hidden>サブテーマ<select id="themeSub" aria-label="サブテーマ"><option value="">サブテーマも自動で選ぶ</option></select></label>
           <p class="hint">押すたびに、スタイル・雰囲気・動き・配色・構成がまるごと変わります。キーボードの <span class="kbd">R</span> でも実行できます。</p>
           <div class="hist-row">
             <button id="btnPrev2" class="ghost">◀ 前の案</button>

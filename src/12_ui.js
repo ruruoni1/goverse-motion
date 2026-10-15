@@ -1176,18 +1176,45 @@ function lockBtn(k, anchor) {                     // lock button for effects tha
 
 /* ---------------- おまかせ ---------------- */
 function restartPreview() { seek(0); if (!S.playing && S.mode !== 'pro') play(); }
-const themeName = th => { const o = document.querySelector(`.themeSel option[value="${th}"]`); return o ? o.textContent : th; };
+// おまかせ with the project's theme: main → sub (J.THEME_TREE); the result names the sub it used
+function rollTheme(P) {
+  const th = J.themeMainId(P.themeId);
+  return th ? J.omakaseTheme(P, Math.random, th, P.subThemeId) : J.omakase(P);
+}
+const themeName = r => {
+  const M = J.THEME_TREE[J.themeMainId(S.project.themeId)];
+  if (!M) return '';
+  const sub = r && M.subs[r.subId];
+  return J.themeLabel(M) + (sub ? ' › ' + J.themeLabel(sub) : '');
+};
+// styles a style reroll may use: the chosen sub's, or every sub's of the main theme (empty = no theme)
+function themeStyles(P) {
+  const M = J.THEME_TREE[J.themeMainId(P.themeId)]; if (!M) return [];
+  const subs = M.subs[P.subThemeId] ? [M.subs[P.subThemeId]] : Object.values(M.subs);
+  return [...new Set(subs.flatMap(s => s.styles))].filter(k => J.STYLES[k]);
+}
 function omakase() {
   if (S.exporting || S.tap) return;
   remember();
   const keepE = lockedEnabled(), keepP = lockedParams();
-  const th = J.THEMES[S.project.themeId] ? S.project.themeId : null;
-  const r = th ? J.omakase(S.project, Math.random, th) : J.omakase(S.project);
+  const r = rollTheme(S.project), th = themeName(r);
+  delete r.subId;
   Object.assign(S.project, r);
   restoreEnabled(keepE); restoreParams(keepP);
   fontKey = ''; syncUI(); replan(); commit();
-  toast((th ? `おまかせ（${themeName(th)}）：` : 'おまかせ：') + `${J.STYLES[r.style].name} × ${J.MOODS[r.mood].name}`, r.colors.accentOn ? [r.colors.accent, r.colors.ghostA, r.colors.ghostB] : null);
+  toast((th ? `おまかせ（${th}）：` : 'おまかせ：') + `${J.STYLES[r.style].name} × ${J.MOODS[r.mood].name}`, r.colors.accentOn ? [r.colors.accent, r.colors.ghostA, r.colors.ghostB] : null);
   restartPreview();
+}
+// theme menus (easy panel): the main themes, then the subs of the chosen one
+function fillThemeMenus() {
+  const main = document.querySelector('#easyPanel .themeSel'), sub = $('themeSub'); if (!main || !sub) return;
+  if (main.options.length <= 1) for (const k of J.THEME_ORDER2) main.add(new Option(J.themeLabel(J.THEME_TREE[k]), k));
+  const th = J.themeMainId(S.project.themeId);
+  main.value = th || '';
+  while (sub.options.length > 1) sub.remove(1);
+  if (th) for (const [k, node] of Object.entries(J.THEME_TREE[th].subs)) sub.add(new Option(J.themeLabel(node), k));
+  sub.value = th && J.THEME_TREE[th].subs[S.project.subThemeId] ? S.project.subThemeId : '';
+  $('themeSubRow').hidden = !th;
 }
 // change just one aspect of the current look
 function rerollPart(part) {
@@ -1196,15 +1223,15 @@ function rerollPart(part) {
   const P = S.project;
   let msg = '';
   if (part === 'style') {
-    let pool = J.STYLE_ORDER.filter(k => k !== P.style && J.randomOk(P, 'style', k));
+    const ts = themeStyles(P);
+    let pool = ts.length ? ts.filter(k => k !== P.style) : J.STYLE_ORDER.filter(k => k !== P.style && J.randomOk(P, 'style', k));
     if (!pool.length) pool = J.STYLE_ORDER.filter(k => k !== P.style);
     P.style = pool[Math.floor(Math.random() * pool.length)];
     P.colors.enabled = false;
     msg = `スタイル：${J.STYLES[P.style].name}`;
   } else if (part === 'mood') {
     const keepE = lockedEnabled(), keepP = lockedParams();
-    const th = J.THEMES[P.themeId] ? P.themeId : null;
-    const r = th ? J.omakase(P, Math.random, th) : J.omakase(P);
+    const r = rollTheme(P);
     Object.assign(P, { mood: r.mood, fx: r.fx, enabled: r.enabled });
     for (const k of ['wa', 'extra', ...J.SET_ORDER]) if (r[k] === true) P[k] = true;     // switches the theme needs
     restoreEnabled(keepE); restoreParams(keepP);
@@ -1676,7 +1703,7 @@ function syncUI() {
   document.querySelectorAll('.unify-toggle').forEach(el => { el.checked = S.project.unify === true; });
   document.querySelectorAll('.typeset-toggle').forEach(el => { el.checked = S.project.typeset === true; });
   $('lyricLang').value = J.LANG_LABEL[S.project.lang] ? S.project.lang : 'auto'; langNote();
-  document.querySelectorAll('.themeSel').forEach(el => { el.value = J.THEMES[S.project.themeId] ? S.project.themeId : ''; });
+  fillThemeMenus();
   renderFontRoles(); renderColors(); renderFx(); renderTech(); syncOut(); drawStyleGrid();
 }
 
@@ -1864,11 +1891,16 @@ function bind() {
   $('btnAE').addEventListener('click', () => saveAs(baseName() + rangeSuffix() + '_ae.json', JSON.stringify(J.planForAE(S.plan, S.project, exportRange()), null, 1), 'application/json'));
   audioNameDefault = $('audioName').textContent;
   $('btnClearLyrics').addEventListener('click', clearLyrics);
-  document.querySelectorAll('.themeSel').forEach(el => el.addEventListener('change', () => {
-    S.project.themeId = J.THEMES[el.value] ? el.value : null;
-    document.querySelectorAll('.themeSel').forEach(x => { x.value = el.value; });
+  document.querySelector('#easyPanel .themeSel').addEventListener('change', e => {
+    S.project.themeId = J.THEME_TREE[e.target.value] ? e.target.value : null;
+    S.project.subThemeId = null;
+    fillThemeMenus(); flushSave();
+  });
+  $('themeSub').addEventListener('change', e => {
+    const M = J.THEME_TREE[J.themeMainId(S.project.themeId)];
+    S.project.subThemeId = M && M.subs[e.target.value] ? e.target.value : null;
     flushSave();
-  }));
+  });
   $('fileLrc').addEventListener('change', async e => {
     const f = e.target.files && e.target.files[0]; e.target.value = ''; if (!f) return;
     if (f.size > 2e6) { toast('字幕ファイルが大きすぎます'); return; }

@@ -41,6 +41,9 @@ STYLES = {
 }
 
 BODY = {
+    '<option value="">テーマなし</option>': '<option value="">Tanpa tema</option>',
+    '<option value="">サブテーマも自動で選ぶ</option>': '<option value="">Pilih subtema otomatis</option>',
+    'サブテーマ': 'Subtema',
     '20文字を超える行があります': 'Ada baris lebih dari 20 karakter',
     '長い行に合うレイアウトは少ないため、同じ構図が続きやすくなります。20文字以内に分けると、変化のある画面になります（空白は数えません）。': 'Hanya sedikit tata letak yang cocok untuk baris panjang, sehingga komposisi yang sama mudah berulang. Membagi baris menjadi maksimal 20 karakter membuat adegan lebih bervariasi (spasi tidak dihitung).',
     '<button value="keep" class="ghost">このまま進める</button>': '<button value="keep" class="ghost">Lanjutkan apa adanya</button>',
@@ -228,7 +231,7 @@ UI = {
     "'LRC ファイルが大きすぎます'": "'File LRC terlalu besar'",
     "'LRC を読み込めませんでした'": "'File LRC tidak bisa dibaca'",
     "'今の歌詞を LRC の内容に置き換えます（行ごとの時刻・指定・書き出す範囲も消えます。「元に戻す」で戻せます）。よろしいですか？'": "'Ganti lirik sekarang dengan isi LRC? (Waktu per baris, pengaturan per baris, dan rentang ekspor juga dihapus. Urungkan mengembalikannya.)'",
-    '`おまかせ（${themeName(th)}）：`': '`Variasi (${themeName(th)}): `',
+    '`おまかせ（${th}）：`': '`Variasi (${th}): `',
     "'文字PV系の部品：使う'": "'Bagian tipografi: aktif'",
     "'文字PV系の部品：使わない（おまかせ・シャッフルで選ばれません）'": "'Bagian tipografi: nonaktif (tidak dipilih oleh Acak atau Kocok)'",
     "'キネティックの部品：使う'": "'Bagian kinetik: aktif'",

@@ -12,10 +12,11 @@ It builds on [JIZURA](https://github.com/852wa/JIZURA)'s 860 expression parts an
 
 This fork imports SRT subtitle files directly, without converting them to LRC.
 
-**Current version: v0.15.7** · Use the [website](https://ruruoni1.github.io/gulza/en/) without installing anything or creating an account. The root URL opens in Korean; switch the interface language at the top.
+**Current version: v0.16.0** · Use the [website](https://ruruoni1.github.io/gulza/en/) without installing anything or creating an account. The root URL opens in Korean; switch the interface language at the top.
 
 ## Recent updates
 
+- **v0.16.0:** Themes in the simple mode now have two levels: 9 main themes and 35 sub themes. A sub theme drives the moods, styles and techniques of the randomizer and turns on the switches it needs.
 - **v0.15.7:** Lines longer than 20 characters (spaces excluded) now show a warning; jump to the line to edit it, or keep it and continue.
 - **v0.15.6:** Translated all 860 technique names on the Indonesian and Vietnamese pages, and polished awkward or duplicate names in Korean, English and Chinese.
 - **v0.15.5:** The Korean interface now shows Korean names for 315 techniques that were displayed as English keys.
@@ -35,7 +36,7 @@ This fork imports SRT subtitle files directly, without converting them to LRC.
 - **v0.14.1:** Expanded all six translated guides and made the language selector easier to find.
 - **v0.14.0:** Restored seven web editions, with Korean as the default.
 
-[Full changelog (Korean)](CHANGELOG.md) · [v0.15.7 GitHub release](https://github.com/ruruoni1/gulza/releases/tag/v0.15.7)
+[Full changelog (Korean)](CHANGELOG.md) · [v0.16.0 GitHub release](https://github.com/ruruoni1/gulza/releases/tag/v0.16.0)
 
 ## Features added in this fork
 

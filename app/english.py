@@ -1,6 +1,9 @@
 """English copy for the browser edition. The Japanese source stays authoritative."""
 
 BODY = {
+    '<option value="">テーマなし</option>': '<option value="">No theme</option>',
+    '<option value="">サブテーマも自動で選ぶ</option>': '<option value="">Pick a sub theme too</option>',
+    'サブテーマ': 'Sub theme',
     '20文字を超える行があります': 'Some lines are longer than 20 characters',
     '長い行に合うレイアウトは少ないため、同じ構図が続きやすくなります。20文字以内に分けると、変化のある画面になります（空白は数えません）。': 'Few layouts fit long lines, so the same compositions tend to repeat. Splitting lines to 20 characters or fewer gives more varied scenes (spaces are not counted).',
     '<button value="keep" class="ghost">このまま進める</button>': '<button value="keep" class="ghost">Keep as is</button>',
@@ -194,7 +197,7 @@ UI = {
     "'字幕ファイルが大きすぎます'": "'The subtitle file is too large'",
     "'字幕ファイルを読み込めませんでした'": "'Could not read the subtitle file'",
     "'有効な字幕行が見つかりませんでした'": "'No valid subtitle cues were found'",
-    '`おまかせ（${themeName(th)}）：`': '`Randomized (${themeName(th)}): `',
+    '`おまかせ（${th}）：`': '`Randomized (${th}): `',
     "'文字PV系の部品：使う'": "'Typographic parts: on'",
     "'文字PV系の部品：使わない（おまかせ・シャッフルで選ばれません）'": "'Typographic parts: off (not picked by Randomize or Shuffle)'",
     "'キネティックの部品：使う'": "'Kinetic parts: on'",

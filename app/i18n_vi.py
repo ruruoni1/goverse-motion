@@ -42,6 +42,9 @@ STYLES = {
 }
 
 BODY = {
+    '<option value="">テーマなし</option>': '<option value="">Không chủ đề</option>',
+    '<option value="">サブテーマも自動で選ぶ</option>': '<option value="">Tự chọn cả chủ đề phụ</option>',
+    'サブテーマ': 'Chủ đề phụ',
     '20文字を超える行があります': 'Có dòng dài hơn 20 ký tự',
     '長い行に合うレイアウトは少ないため、同じ構図が続きやすくなります。20文字以内に分けると、変化のある画面になります（空白は数えません）。': 'Có ít bố cục phù hợp với dòng dài nên cùng một bố cục dễ lặp lại. Chia dòng thành tối đa 20 ký tự sẽ cho hình ảnh đa dạng hơn (không tính khoảng trắng).',
     '<button value="keep" class="ghost">このまま進める</button>': '<button value="keep" class="ghost">Giữ nguyên và tiếp tục</button>',
@@ -286,7 +289,7 @@ UI = {
     "'LRC ファイルが大きすぎます'": "'Tệp LRC quá lớn'",
     "'LRC を読み込めませんでした'": "'Không đọc được tệp LRC'",
     "'今の歌詞を LRC の内容に置き換えます（行ごとの時刻・指定・書き出す範囲も消えます。「元に戻す」で戻せます）。よろしいですか？'": "'Thay lời hiện tại bằng nội dung LRC? (Thời gian từng dòng, thiết lập từng dòng và phạm vi xuất cũng bị xóa. Hoàn tác để lấy lại.)'",
-    '`おまかせ（${themeName(th)}）：`': '`Ngẫu nhiên (${themeName(th)}): `',
+    '`おまかせ（${th}）：`': '`Ngẫu nhiên (${th}): `',
     'おまかせ': 'Ngẫu nhiên', 'シャッフル': 'Sắp xếp ngẫu nhiên',
     "'文字PV系の部品：使う'": "'Thành phần kiểu chữ: bật'",
     "'文字PV系の部品：使わない（おまかせ・シャッフルで選ばれません）'": "'Thành phần kiểu chữ: tắt (Ngẫu nhiên và Sắp xếp ngẫu nhiên sẽ không chọn)'",
