@@ -198,7 +198,7 @@ function replan() {
   renderLines(); sizeViewport(); drawTimeline(); updateTimeUI();
   lastCutIdx = -2;
   if (typeof cutPick !== 'undefined' && cutPick.g) fillCutPick();
-  S.need = true; autosave(); ensureFonts(); drawSwatch(); showNow();
+  S.need = true; autosave(); ensureFonts(); drawSwatch(); showNow(); updateLongWarn();
   clearTimeout(warmTimer); warmTimer = setTimeout(warm, 450);
 }
 /* pre-decompose glyphs used by piece animations while the editor is idle, so playback does not hitch */
@@ -817,6 +817,54 @@ function loadSubtitles(text, format = 'lrc') {
   replan(); flushSave(); updateEditBtns(); seek(0);
   const n = J.parseLyrics(P.lyrics).lines.filter(l => l.lrc != null).length;
   toast(format === 'srt' ? `SRT を読み込みました（${n} 件・開始/終了時刻を保持。「LRC を書き出す」で変換できます）` : `LRC を読み込みました（時刻付き ${n} 行・「元に戻す」で戻せます）`);
+  checkLong(null);
+}
+/* long lines (over 20 glyphs): few layouts take more than 20 glyphs (16 → 106 layouts, 20 → 20, 30 → 1), so long lines repeat the
+   same compositions. Count like the planner (spaces excluded; a line split with / counts per piece). The user fixes
+   the line or keeps it; a kept set is not asked about again until another long line appears. */
+const LONG_MAX = 20;
+let longAck = '', longThen = null;
+function longLines() {
+  const seen = new Set(), out = [];
+  for (const ln of J.parseLyrics(S.project.lyrics).lines) {
+    if (ln.interlude || seen.has(ln.src)) continue;
+    seen.add(ln.src);
+    const parts = ln.manual && ln.manual.length ? ln.manual : [ln.text];
+    const n = Math.max(...parts.map(p => [...p.replace(/\s+/g, '')].length));
+    if (n > LONG_MAX) out.push({ src: ln.src, n, text: ln.text });
+  }
+  return out;
+}
+const longKey = L => L.map(x => x.src + ':' + x.text).join('\n');
+function updateLongWarn() {
+  const b = $('btnLongWarn'); if (!b) return;
+  const n = longLines().length;
+  b.hidden = !n;
+  if (n) b.textContent = `⚠ ${n}行が20文字超え`;
+}
+// then: the action waiting for the answer (an export); null = only show the list
+function checkLong(then) {
+  const L = longLines();
+  if (!L.length || (then && longKey(L) === longAck) || typeof $('longDlg').showModal !== 'function') { if (then) then(); return; }
+  const list = $('longDlg').querySelector('.long-list');
+  list.innerHTML = '';
+  L.slice(0, 12).forEach(x => { const li = document.createElement('li'); li.textContent = `${x.src + 1}行目（${x.n}文字）— ${x.text}`; list.appendChild(li); });
+  if (L.length > 12) { const li = document.createElement('li'); li.textContent = `ほか ${L.length - 12} 行`; list.appendChild(li); }
+  longThen = then;
+  $('longDlg').returnValue = ''; $('longDlg').showModal();
+}
+function onLongClose() {
+  const v = $('longDlg').returnValue, then = longThen; longThen = null;
+  const L = longLines();
+  if (v === 'keep') { longAck = longKey(L); if (then) then(); return; }
+  if (v !== 'edit' || !L.length) return;
+  // select the first long line's text (after its time tags) in the lyric field
+  const ta = $('lyrics'), rows = ta.value.split('\n'), r = L[0].src;
+  let start = 0; for (let i = 0; i < r; i++) start += rows[i].length + 1;
+  const row = rows[r] || '', tag = (row.match(/^\s*(?:\[SRT:[^\]]*\]|\[\d+:\d+(?:[.:]\d+)?\])+/) || [''])[0];
+  ta.focus(); ta.setSelectionRange(start + tag.length, start + row.length);
+  const lh = parseFloat(getComputedStyle(ta).lineHeight) || 18;
+  ta.scrollTop = Math.max(0, r * lh - ta.clientHeight / 2);
 }
 function saveLrc() {
   const R = exportRangeLines(), r = exportRange();
@@ -1781,16 +1829,16 @@ function bind() {
     const tall = S.plan.H > S.plan.W * 1.1 && S.project.centerDir !== 'lr';
     toast(e.target.checked ? `中央を空けました：文字と演出を${tall ? '上下' : '左右'}に置きます` : '中央を空けるのをやめました');
   }));
-  $('btnMP4').addEventListener('click', () => runExport('mp4'));
-  ['btnMP4File', 'eMP4File'].forEach(id => $(id).addEventListener('click', () => runExport('mp4file')));
-  $('btnPNG').addEventListener('click', () => runExport('png'));
-  $('btnPNGA').addEventListener('click', () => runExport('pnga'));
-  $('btnPNGL').addEventListener('click', () => runExport('pngl'));
-  $('ePNG').addEventListener('click', () => runExport('png'));
-  $('ePNGA').addEventListener('click', () => runExport('pnga'));
-  $('ePNGL').addEventListener('click', () => runExport('pngl'));
+  $('btnMP4').addEventListener('click', () => checkLong(() => runExport('mp4')));
+  ['btnMP4File', 'eMP4File'].forEach(id => $(id).addEventListener('click', () => checkLong(() => runExport('mp4file'))));
+  $('btnPNG').addEventListener('click', () => checkLong(() => runExport('png')));
+  $('btnPNGA').addEventListener('click', () => checkLong(() => runExport('pnga')));
+  $('btnPNGL').addEventListener('click', () => checkLong(() => runExport('pngl')));
+  $('ePNG').addEventListener('click', () => checkLong(() => runExport('png')));
+  $('ePNGA').addEventListener('click', () => checkLong(() => runExport('pnga')));
+  $('ePNGL').addEventListener('click', () => checkLong(() => runExport('pngl')));
   document.querySelectorAll('.exp-cancel').forEach(b => b.addEventListener('click', () => { if (S.exporting) S.exporting.abort(); }));
-  $('eMP4').addEventListener('click', () => runExport('mp4'));
+  $('eMP4').addEventListener('click', () => checkLong(() => runExport('mp4')));
   // かんたんモード
   $('modeEasy').addEventListener('click', () => setMode('easy'));
   $('modeMobile').addEventListener('click', () => setMode('mobile'));
@@ -1846,6 +1894,8 @@ function bind() {
     dlg.returnValue = ''; dlg.showModal();
   });
   $('resetDlg').addEventListener('close', () => { if ($('resetDlg').returnValue === 'reset') resetAll(); });
+  $('longDlg').addEventListener('close', onLongClose);
+  $('btnLongWarn').addEventListener('click', () => checkLong(null));
   $('fileProject').addEventListener('change', async e => {
     const f = e.target.files && e.target.files[0]; if (!f) return;
     try {

@@ -1,6 +1,11 @@
 """Traditional Chinese (Taiwan) copy for the browser edition. Same glossary keys as app/english.py."""
 
 BODY = {
+    '20文字を超える行があります': '有超過 20 個字的行',
+    '長い行に合うレイアウトは少ないため、同じ構図が続きやすくなります。20文字以内に分けると、変化のある画面になります（空白は数えません）。': '適合長行的版面很少，容易重複相同構圖。分成 20 字以內，畫面會更有變化（不計空格）。',
+    '<button value="keep" class="ghost">このまま進める</button>': '<button value="keep" class="ghost">維持原樣繼續</button>',
+    '<button value="edit" class="primary">修正する</button>': '<button value="edit" class="primary">修改</button>',
+    'title="20文字を超える行の一覧を開きます"': 'title="開啟超過 20 字的行列表"',
     'SRT 字幕または LRC 歌詞を読み込みます。SRT は開始・終了時刻を保持します。">字幕ファイルを読み込む': '讀取 SRT 字幕或 LRC 歌詞。SRT 會保留開始與結束時間。">匯入 SRT/LRC',
     '1行に複数のカットがあるときは、カットが切り替わる瞬間に <span class="kbd">Tab</span> を押すと、その行のカットの開始時刻も合わせられます。': '一行有多個片段時，在片段切換的瞬間按 <span class="kbd">Tab</span>，也能對齊該行各片段的開始時間。',
     '<label>速さ <select id="tapRate" aria-label="タップ中の再生速度">': '<label>速度 <select id="tapRate" aria-label="點按時的播放速度">',
@@ -172,6 +177,9 @@ BODY = {
 }
 
 UI = {
+    '`⚠ ${n}行が20文字超え`': '`⚠ ${n} 行超過 20 字`',
+    '`${x.src + 1}行目（${x.n}文字）— ${x.text}`': '`第 ${x.src + 1} 行（${x.n} 字）— ${x.text}`',
+    '`ほか ${L.length - 12} 行`': '`另有 ${L.length - 12} 行`',
     '`SRT を読み込みました（${n} 件・開始/終了時刻を保持。「LRC を書き出す」で変換できます）`': '`已讀取 SRT（${n} 段・保留開始/結束時間。可用「匯出 LRC」轉換）`',
     "'今の歌詞を SRT 字幕に置き換えます（行ごとの指定・書き出す範囲も消えます。「元に戻す」で戻せます）。よろしいですか？'": "'要用 SRT 字幕取代目前的歌詞嗎？（各行指定與匯出範圍也會清除。可用「復原」還原）'",
     "'字幕ファイルが大きすぎます'": "'字幕檔太大'",

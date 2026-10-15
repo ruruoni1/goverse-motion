@@ -326,6 +326,8 @@ button.linkish { background: none; border: 0; padding: 4px 0; color: var(--muted
 button.linkish:hover { color: var(--text); background: none; }
 dialog.terms { width: min(520px, calc(100vw - 32px)); max-height: calc(100vh - 48px); overflow: auto; padding: 22px 24px 18px; background: var(--panel); color: var(--text); border: 1px solid var(--line2); border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.55); }
 dialog.terms .reset-list { margin: 0 0 12px; padding-left: 18px; display: grid; gap: 3px; font-size: 13px; }
+dialog.terms .long-list { max-height: 220px; overflow: auto; }
+.sec-btns button.long-warn { color: var(--amber); border-color: var(--amber); }
 button.danger { background: #c9433a; border-color: #c9433a; color: #fff; font-weight: 700; }
 button.danger:hover { background: #dd5146; }
 .sec-h:has(.sec-btns) { flex-wrap: wrap; }
@@ -496,7 +498,7 @@ button.small.primary { padding: 4px 12px; }
 </div>
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">动态字幕工作室</span><span class="ver">v0.15.6</span></div>
+    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">动态字幕工作室</span><span class="ver">v0.15.7</span></div>
     <div class="proj">
       <input id="songTitle" type="text" placeholder="歌名（显示在标题卡和 HUD 上）" aria-label="歌名">
       <input id="songArtist" type="text" placeholder="艺人" aria-label="艺人">
@@ -532,7 +534,7 @@ button.small.primary { padding: 4px 12px; }
           <button id="tapStop" class="ghost">结束</button>
       </div>
       <div class="sec">
-        <div class="sec-h"><h2>歌词</h2><span class="sec-btns"><label class="file ghost small" title="读取 SRT 字幕或 LRC 歌词。SRT 会保留开始和结束时间。">导入 SRT/LRC<input id="fileLrc" type="file" accept=".srt,.lrc,.txt,application/x-subrip,text/plain"></label><button id="btnClearLyrics" class="ghost small" title="清除歌词，以及各行的时间点、逐行设置与导出范围（可用“撤销”或 Ctrl+Z 找回）">清除歌词</button><button id="btnSyntax" class="ghost small" aria-expanded="false">语法</button></span></div>
+        <div class="sec-h"><h2>歌词</h2><span class="sec-btns"><label class="file ghost small" title="读取 SRT 字幕或 LRC 歌词。SRT 会保留开始和结束时间。">导入 SRT/LRC<input id="fileLrc" type="file" accept=".srt,.lrc,.txt,application/x-subrip,text/plain"></label><button id="btnClearLyrics" class="ghost small" title="清除歌词，以及各行的时间点、逐行设置与导出范围（可用“撤销”或 Ctrl+Z 找回）">清除歌词</button><button id="btnSyntax" class="ghost small" aria-expanded="false">语法</button><button id="btnLongWarn" class="ghost small long-warn" hidden title="打开超过 20 字的行列表"></button></span></div>
         <textarea id="lyrics" rows="9" spellcheck="false" aria-label="歌词（1 行 = 1 句）"></textarea>
         <label class="lang-row">歌词语言<select id="lyricLang"><option value="auto">自动识别</option><option value="ja">日本語</option><option value="zh-Hant">繁體中文</option><option value="zh-Hans">简体中文</option><option value="ko">한국어</option><option value="en">English</option></select><span id="langNote" class="muted"></span></label>
         <div id="syntax" class="syntax" hidden>
@@ -777,6 +779,14 @@ button.small.primary { padding: 4px 12px; }
     </ul>
     <p class="terms-sub">显示模式（简易／详细）、预览音量与界面语言保持不变。已保存的项目文件（.json）也不会被删除。</p>
     <div class="terms-foot"><span></span><span class="row"><button value="cancel" class="ghost">取消</button><button value="reset" class="danger">初始化</button></span></div>
+  </form>
+</dialog>
+<dialog id="longDlg" class="terms" aria-labelledby="longTitle">
+  <form method="dialog">
+    <h2 id="longTitle">有超过 20 个字的行</h2>
+    <p>适合长行的版式很少，容易重复相同构图。分成 20 字以内，画面会更有变化（不计空格）。</p>
+    <ul class="reset-list long-list"></ul>
+    <div class="terms-foot"><span></span><span class="row"><button value="keep" class="ghost">保持原样继续</button><button value="edit" class="primary">修改</button></span></div>
   </form>
 </dialog>
 <dialog id="termsDlg" class="terms" aria-labelledby="termsTitle">
@@ -3790,7 +3800,7 @@ J.plan = (project, audio) => {
   const zoneOf = () => (zones ? Object.assign({}, zones[0]) : null);
   if (zones && en.bg) en.bg.bigChar = false;               // the one background that draws the lyric itself (big, centred)
   const plan = {
-    version: 1, generator: 'JIZURA', appVersion: '0.15.6', title, artist, W, H, fps: project.fps || 24,
+    version: 1, generator: 'JIZURA', appVersion: '0.15.7', title, artist, W, H, fps: project.fps || 24,
     duration: tm.duration, styleKey: project.style, style: st, fx, seed: project.seed,
     lines: [], cuts: [], events: [], beats: audio && audio.beats ? audio.beats.slice() : [],
     hud: fx.hud === 'on' ? true : fx.hud === 'off' ? false : !!st.hud,
@@ -36546,7 +36556,7 @@ function replan() {
   renderLines(); sizeViewport(); drawTimeline(); updateTimeUI();
   lastCutIdx = -2;
   if (typeof cutPick !== 'undefined' && cutPick.g) fillCutPick();
-  S.need = true; autosave(); ensureFonts(); drawSwatch(); showNow();
+  S.need = true; autosave(); ensureFonts(); drawSwatch(); showNow(); updateLongWarn();
   clearTimeout(warmTimer); warmTimer = setTimeout(warm, 450);
 }
 /* pre-decompose glyphs used by piece animations while the editor is idle, so playback does not hitch */
@@ -37165,6 +37175,54 @@ function loadSubtitles(text, format = 'lrc') {
   replan(); flushSave(); updateEditBtns(); seek(0);
   const n = J.parseLyrics(P.lyrics).lines.filter(l => l.lrc != null).length;
   toast(format === 'srt' ? `已读取 SRT（${n} 段 · 保留开始/结束时间。可用“导出 LRC”转换）` : `已读取 LRC（带时间 ${n} 行 · 可用“撤销”恢复）`);
+  checkLong(null);
+}
+/* long lines (over 20 glyphs): few layouts take more than 20 glyphs (16 → 106 layouts, 20 → 20, 30 → 1), so long lines repeat the
+   same compositions. Count like the planner (spaces excluded; a line split with / counts per piece). The user fixes
+   the line or keeps it; a kept set is not asked about again until another long line appears. */
+const LONG_MAX = 20;
+let longAck = '', longThen = null;
+function longLines() {
+  const seen = new Set(), out = [];
+  for (const ln of J.parseLyrics(S.project.lyrics).lines) {
+    if (ln.interlude || seen.has(ln.src)) continue;
+    seen.add(ln.src);
+    const parts = ln.manual && ln.manual.length ? ln.manual : [ln.text];
+    const n = Math.max(...parts.map(p => [...p.replace(/\s+/g, '')].length));
+    if (n > LONG_MAX) out.push({ src: ln.src, n, text: ln.text });
+  }
+  return out;
+}
+const longKey = L => L.map(x => x.src + ':' + x.text).join('\n');
+function updateLongWarn() {
+  const b = $('btnLongWarn'); if (!b) return;
+  const n = longLines().length;
+  b.hidden = !n;
+  if (n) b.textContent = `⚠ ${n} 行超过 20 字`;
+}
+// then: the action waiting for the answer (an export); null = only show the list
+function checkLong(then) {
+  const L = longLines();
+  if (!L.length || (then && longKey(L) === longAck) || typeof $('longDlg').showModal !== 'function') { if (then) then(); return; }
+  const list = $('longDlg').querySelector('.long-list');
+  list.innerHTML = '';
+  L.slice(0, 12).forEach(x => { const li = document.createElement('li'); li.textContent = `第 ${x.src + 1} 行（${x.n} 字）— ${x.text}`; list.appendChild(li); });
+  if (L.length > 12) { const li = document.createElement('li'); li.textContent = `另有 ${L.length - 12} 行`; list.appendChild(li); }
+  longThen = then;
+  $('longDlg').returnValue = ''; $('longDlg').showModal();
+}
+function onLongClose() {
+  const v = $('longDlg').returnValue, then = longThen; longThen = null;
+  const L = longLines();
+  if (v === 'keep') { longAck = longKey(L); if (then) then(); return; }
+  if (v !== 'edit' || !L.length) return;
+  // select the first long line's text (after its time tags) in the lyric field
+  const ta = $('lyrics'), rows = ta.value.split('\n'), r = L[0].src;
+  let start = 0; for (let i = 0; i < r; i++) start += rows[i].length + 1;
+  const row = rows[r] || '', tag = (row.match(/^\s*(?:\[SRT:[^\]]*\]|\[\d+:\d+(?:[.:]\d+)?\])+/) || [''])[0];
+  ta.focus(); ta.setSelectionRange(start + tag.length, start + row.length);
+  const lh = parseFloat(getComputedStyle(ta).lineHeight) || 18;
+  ta.scrollTop = Math.max(0, r * lh - ta.clientHeight / 2);
 }
 function saveLrc() {
   const R = exportRangeLines(), r = exportRange();
@@ -38129,16 +38187,16 @@ function bind() {
     const tall = S.plan.H > S.plan.W * 1.1 && S.project.centerDir !== 'lr';
     toast(e.target.checked ? `已留出中央：文字与特效放在${tall ? '上下' : '左右'}` : '已取消留出中央');
   }));
-  $('btnMP4').addEventListener('click', () => runExport('mp4'));
-  ['btnMP4File', 'eMP4File'].forEach(id => $(id).addEventListener('click', () => runExport('mp4file')));
-  $('btnPNG').addEventListener('click', () => runExport('png'));
-  $('btnPNGA').addEventListener('click', () => runExport('pnga'));
-  $('btnPNGL').addEventListener('click', () => runExport('pngl'));
-  $('ePNG').addEventListener('click', () => runExport('png'));
-  $('ePNGA').addEventListener('click', () => runExport('pnga'));
-  $('ePNGL').addEventListener('click', () => runExport('pngl'));
+  $('btnMP4').addEventListener('click', () => checkLong(() => runExport('mp4')));
+  ['btnMP4File', 'eMP4File'].forEach(id => $(id).addEventListener('click', () => checkLong(() => runExport('mp4file'))));
+  $('btnPNG').addEventListener('click', () => checkLong(() => runExport('png')));
+  $('btnPNGA').addEventListener('click', () => checkLong(() => runExport('pnga')));
+  $('btnPNGL').addEventListener('click', () => checkLong(() => runExport('pngl')));
+  $('ePNG').addEventListener('click', () => checkLong(() => runExport('png')));
+  $('ePNGA').addEventListener('click', () => checkLong(() => runExport('pnga')));
+  $('ePNGL').addEventListener('click', () => checkLong(() => runExport('pngl')));
   document.querySelectorAll('.exp-cancel').forEach(b => b.addEventListener('click', () => { if (S.exporting) S.exporting.abort(); }));
-  $('eMP4').addEventListener('click', () => runExport('mp4'));
+  $('eMP4').addEventListener('click', () => checkLong(() => runExport('mp4')));
   // かんたんモード
   $('modeEasy').addEventListener('click', () => setMode('easy'));
   $('modeMobile').addEventListener('click', () => setMode('mobile'));
@@ -38160,7 +38218,7 @@ function bind() {
   const openTerms = () => { if (dlg.showModal) { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', ''); };
   document.querySelectorAll('.terms-open').forEach(b => b.addEventListener('click', openTerms));
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close ? dlg.close() : dlg.removeAttribute('open'); });   // click on the backdrop
-  $('btnSave').addEventListener('click', () => saveAs(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.15.6' }), null, 1), 'application/json'));
+  $('btnSave').addEventListener('click', () => saveAs(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.15.7' }), null, 1), 'application/json'));
   $('btnAE').addEventListener('click', () => saveAs(baseName() + rangeSuffix() + '_ae.json', JSON.stringify(J.planForAE(S.plan, S.project, exportRange()), null, 1), 'application/json'));
   audioNameDefault = $('audioName').textContent;
   $('btnClearLyrics').addEventListener('click', clearLyrics);
@@ -38194,6 +38252,8 @@ function bind() {
     dlg.returnValue = ''; dlg.showModal();
   });
   $('resetDlg').addEventListener('close', () => { if ($('resetDlg').returnValue === 'reset') resetAll(); });
+  $('longDlg').addEventListener('close', onLongClose);
+  $('btnLongWarn').addEventListener('click', () => checkLong(null));
   $('fileProject').addEventListener('change', async e => {
     const f = e.target.files && e.target.files[0]; if (!f) return;
     try {

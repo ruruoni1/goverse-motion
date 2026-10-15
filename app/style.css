@@ -303,6 +303,8 @@ button.linkish { background: none; border: 0; padding: 4px 0; color: var(--muted
 button.linkish:hover { color: var(--text); background: none; }
 dialog.terms { width: min(520px, calc(100vw - 32px)); max-height: calc(100vh - 48px); overflow: auto; padding: 22px 24px 18px; background: var(--panel); color: var(--text); border: 1px solid var(--line2); border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.55); }
 dialog.terms .reset-list { margin: 0 0 12px; padding-left: 18px; display: grid; gap: 3px; font-size: 13px; }
+dialog.terms .long-list { max-height: 220px; overflow: auto; }
+.sec-btns button.long-warn { color: var(--amber); border-color: var(--amber); }
 button.danger { background: #c9433a; border-color: #c9433a; color: #fff; font-weight: 700; }
 button.danger:hover { background: #dd5146; }
 .sec-h:has(.sec-btns) { flex-wrap: wrap; }

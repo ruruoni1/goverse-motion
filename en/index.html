@@ -326,6 +326,8 @@ button.linkish { background: none; border: 0; padding: 4px 0; color: var(--muted
 button.linkish:hover { color: var(--text); background: none; }
 dialog.terms { width: min(520px, calc(100vw - 32px)); max-height: calc(100vh - 48px); overflow: auto; padding: 22px 24px 18px; background: var(--panel); color: var(--text); border: 1px solid var(--line2); border-radius: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.55); }
 dialog.terms .reset-list { margin: 0 0 12px; padding-left: 18px; display: grid; gap: 3px; font-size: 13px; }
+dialog.terms .long-list { max-height: 220px; overflow: auto; }
+.sec-btns button.long-warn { color: var(--amber); border-color: var(--amber); }
 button.danger { background: #c9433a; border-color: #c9433a; color: #fff; font-weight: 700; }
 button.danger:hover { background: #dd5146; }
 .sec-h:has(.sec-btns) { flex-wrap: wrap; }
@@ -496,7 +498,7 @@ button.small.primary { padding: 4px 12px; }
 </div>
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">Lyric motion studio</span><span class="ver">v0.15.6</span></div>
+    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">Lyric motion studio</span><span class="ver">v0.15.7</span></div>
     <div class="proj">
       <input id="songTitle" type="text" placeholder="Song title (shown on title cards and HUD)" aria-label="Song title">
       <input id="songArtist" type="text" placeholder="Artist" aria-label="Artist">
@@ -532,7 +534,7 @@ button.small.primary { padding: 4px 12px; }
           <button id="tapStop" class="ghost">Finish</button>
       </div>
       <div class="sec">
-        <div class="sec-h"><h2>Lyrics</h2><span class="sec-btns"><label class="file ghost small" title="Load SRT subtitles or LRC lyrics. SRT keeps both start and end times.">Import SRT / LRC<input id="fileLrc" type="file" accept=".srt,.lrc,.txt,application/x-subrip,text/plain"></label><button id="btnClearLyrics" class="ghost small" title="Clear the lyrics with their line timings, per-line settings and export range (Undo or Ctrl+Z brings them back)">Clear lyrics</button><button id="btnSyntax" class="ghost small" aria-expanded="false">Syntax</button></span></div>
+        <div class="sec-h"><h2>Lyrics</h2><span class="sec-btns"><label class="file ghost small" title="Load SRT subtitles or LRC lyrics. SRT keeps both start and end times.">Import SRT / LRC<input id="fileLrc" type="file" accept=".srt,.lrc,.txt,application/x-subrip,text/plain"></label><button id="btnClearLyrics" class="ghost small" title="Clear the lyrics with their line timings, per-line settings and export range (Undo or Ctrl+Z brings them back)">Clear lyrics</button><button id="btnSyntax" class="ghost small" aria-expanded="false">Syntax</button><button id="btnLongWarn" class="ghost small long-warn" hidden title="Show the lines longer than 20 characters"></button></span></div>
         <textarea id="lyrics" rows="9" spellcheck="false" aria-label="Lyrics (one phrase per line)"></textarea>
         <label class="lang-row">Lyrics language<select id="lyricLang"><option value="auto">Auto-detect</option><option value="ja">日本語</option><option value="zh-Hant">繁體中文</option><option value="zh-Hans">简体中文</option><option value="ko">한국어</option><option value="en">English</option></select><span id="langNote" class="muted"></span></label>
         <div id="syntax" class="syntax" hidden>
@@ -777,6 +779,14 @@ button.small.primary { padding: 4px 12px; }
     </ul>
     <p class="terms-sub">Simple / Advanced mode, preview volume and the interface language stay as they are. Saved project files (.json) are not affected.</p>
     <div class="terms-foot"><span></span><span class="row"><button value="cancel" class="ghost">Cancel</button><button value="reset" class="danger">Reset</button></span></div>
+  </form>
+</dialog>
+<dialog id="longDlg" class="terms" aria-labelledby="longTitle">
+  <form method="dialog">
+    <h2 id="longTitle">Some lines are longer than 20 characters</h2>
+    <p>Few layouts fit long lines, so the same compositions tend to repeat. Splitting lines to 20 characters or fewer gives more varied scenes (spaces are not counted).</p>
+    <ul class="reset-list long-list"></ul>
+    <div class="terms-foot"><span></span><span class="row"><button value="keep" class="ghost">Keep as is</button><button value="edit" class="primary">Edit</button></span></div>
   </form>
 </dialog>
 <dialog id="termsDlg" class="terms" aria-labelledby="termsTitle">
@@ -3790,7 +3800,7 @@ J.plan = (project, audio) => {
   const zoneOf = () => (zones ? Object.assign({}, zones[0]) : null);
   if (zones && en.bg) en.bg.bigChar = false;               // the one background that draws the lyric itself (big, centred)
   const plan = {
-    version: 1, generator: 'JIZURA', appVersion: '0.15.6', title, artist, W, H, fps: project.fps || 24,
+    version: 1, generator: 'JIZURA', appVersion: '0.15.7', title, artist, W, H, fps: project.fps || 24,
     duration: tm.duration, styleKey: project.style, style: st, fx, seed: project.seed,
     lines: [], cuts: [], events: [], beats: audio && audio.beats ? audio.beats.slice() : [],
     hud: fx.hud === 'on' ? true : fx.hud === 'off' ? false : !!st.hud,
@@ -36350,7 +36360,7 @@ function replan() {
   renderLines(); sizeViewport(); drawTimeline(); updateTimeUI();
   lastCutIdx = -2;
   if (typeof cutPick !== 'undefined' && cutPick.g) fillCutPick();
-  S.need = true; autosave(); ensureFonts(); drawSwatch(); showNow();
+  S.need = true; autosave(); ensureFonts(); drawSwatch(); showNow(); updateLongWarn();
   clearTimeout(warmTimer); warmTimer = setTimeout(warm, 450);
 }
 /* pre-decompose glyphs used by piece animations while the editor is idle, so playback does not hitch */
@@ -36969,6 +36979,54 @@ function loadSubtitles(text, format = 'lrc') {
   replan(); flushSave(); updateEditBtns(); seek(0);
   const n = J.parseLyrics(P.lyrics).lines.filter(l => l.lrc != null).length;
   toast(format === 'srt' ? `SRT loaded (${n} cues · start/end times preserved. Use “Save LRC” to convert.)` : `LRC loaded (${n} timed lines · Undo brings the old lyrics back)`);
+  checkLong(null);
+}
+/* long lines (over 20 glyphs): few layouts take more than 20 glyphs (16 → 106 layouts, 20 → 20, 30 → 1), so long lines repeat the
+   same compositions. Count like the planner (spaces excluded; a line split with / counts per piece). The user fixes
+   the line or keeps it; a kept set is not asked about again until another long line appears. */
+const LONG_MAX = 20;
+let longAck = '', longThen = null;
+function longLines() {
+  const seen = new Set(), out = [];
+  for (const ln of J.parseLyrics(S.project.lyrics).lines) {
+    if (ln.interlude || seen.has(ln.src)) continue;
+    seen.add(ln.src);
+    const parts = ln.manual && ln.manual.length ? ln.manual : [ln.text];
+    const n = Math.max(...parts.map(p => [...p.replace(/\s+/g, '')].length));
+    if (n > LONG_MAX) out.push({ src: ln.src, n, text: ln.text });
+  }
+  return out;
+}
+const longKey = L => L.map(x => x.src + ':' + x.text).join('\n');
+function updateLongWarn() {
+  const b = $('btnLongWarn'); if (!b) return;
+  const n = longLines().length;
+  b.hidden = !n;
+  if (n) b.textContent = `⚠ Lines over 20 chars: ${n}`;
+}
+// then: the action waiting for the answer (an export); null = only show the list
+function checkLong(then) {
+  const L = longLines();
+  if (!L.length || (then && longKey(L) === longAck) || typeof $('longDlg').showModal !== 'function') { if (then) then(); return; }
+  const list = $('longDlg').querySelector('.long-list');
+  list.innerHTML = '';
+  L.slice(0, 12).forEach(x => { const li = document.createElement('li'); li.textContent = `Line ${x.src + 1} (${x.n} chars) — ${x.text}`; list.appendChild(li); });
+  if (L.length > 12) { const li = document.createElement('li'); li.textContent = `and ${L.length - 12} more`; list.appendChild(li); }
+  longThen = then;
+  $('longDlg').returnValue = ''; $('longDlg').showModal();
+}
+function onLongClose() {
+  const v = $('longDlg').returnValue, then = longThen; longThen = null;
+  const L = longLines();
+  if (v === 'keep') { longAck = longKey(L); if (then) then(); return; }
+  if (v !== 'edit' || !L.length) return;
+  // select the first long line's text (after its time tags) in the lyric field
+  const ta = $('lyrics'), rows = ta.value.split('\n'), r = L[0].src;
+  let start = 0; for (let i = 0; i < r; i++) start += rows[i].length + 1;
+  const row = rows[r] || '', tag = (row.match(/^\s*(?:\[SRT:[^\]]*\]|\[\d+:\d+(?:[.:]\d+)?\])+/) || [''])[0];
+  ta.focus(); ta.setSelectionRange(start + tag.length, start + row.length);
+  const lh = parseFloat(getComputedStyle(ta).lineHeight) || 18;
+  ta.scrollTop = Math.max(0, r * lh - ta.clientHeight / 2);
 }
 function saveLrc() {
   const R = exportRangeLines(), r = exportRange();
@@ -37933,16 +37991,16 @@ function bind() {
     const tall = S.plan.H > S.plan.W * 1.1 && S.project.centerDir !== 'lr';
     toast(e.target.checked ? `Centre kept free: lyrics and effects go ${tall ? 'top / bottom' : 'left / right'}` : 'Centre no longer kept free');
   }));
-  $('btnMP4').addEventListener('click', () => runExport('mp4'));
-  ['btnMP4File', 'eMP4File'].forEach(id => $(id).addEventListener('click', () => runExport('mp4file')));
-  $('btnPNG').addEventListener('click', () => runExport('png'));
-  $('btnPNGA').addEventListener('click', () => runExport('pnga'));
-  $('btnPNGL').addEventListener('click', () => runExport('pngl'));
-  $('ePNG').addEventListener('click', () => runExport('png'));
-  $('ePNGA').addEventListener('click', () => runExport('pnga'));
-  $('ePNGL').addEventListener('click', () => runExport('pngl'));
+  $('btnMP4').addEventListener('click', () => checkLong(() => runExport('mp4')));
+  ['btnMP4File', 'eMP4File'].forEach(id => $(id).addEventListener('click', () => checkLong(() => runExport('mp4file'))));
+  $('btnPNG').addEventListener('click', () => checkLong(() => runExport('png')));
+  $('btnPNGA').addEventListener('click', () => checkLong(() => runExport('pnga')));
+  $('btnPNGL').addEventListener('click', () => checkLong(() => runExport('pngl')));
+  $('ePNG').addEventListener('click', () => checkLong(() => runExport('png')));
+  $('ePNGA').addEventListener('click', () => checkLong(() => runExport('pnga')));
+  $('ePNGL').addEventListener('click', () => checkLong(() => runExport('pngl')));
   document.querySelectorAll('.exp-cancel').forEach(b => b.addEventListener('click', () => { if (S.exporting) S.exporting.abort(); }));
-  $('eMP4').addEventListener('click', () => runExport('mp4'));
+  $('eMP4').addEventListener('click', () => checkLong(() => runExport('mp4')));
   // かんたんモード
   $('modeEasy').addEventListener('click', () => setMode('easy'));
   $('modeMobile').addEventListener('click', () => setMode('mobile'));
@@ -37964,7 +38022,7 @@ function bind() {
   const openTerms = () => { if (dlg.showModal) { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', ''); };
   document.querySelectorAll('.terms-open').forEach(b => b.addEventListener('click', openTerms));
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close ? dlg.close() : dlg.removeAttribute('open'); });   // click on the backdrop
-  $('btnSave').addEventListener('click', () => saveAs(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.15.6' }), null, 1), 'application/json'));
+  $('btnSave').addEventListener('click', () => saveAs(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.15.7' }), null, 1), 'application/json'));
   $('btnAE').addEventListener('click', () => saveAs(baseName() + rangeSuffix() + '_ae.json', JSON.stringify(J.planForAE(S.plan, S.project, exportRange()), null, 1), 'application/json'));
   audioNameDefault = $('audioName').textContent;
   $('btnClearLyrics').addEventListener('click', clearLyrics);
@@ -37998,6 +38056,8 @@ function bind() {
     dlg.returnValue = ''; dlg.showModal();
   });
   $('resetDlg').addEventListener('close', () => { if ($('resetDlg').returnValue === 'reset') resetAll(); });
+  $('longDlg').addEventListener('close', onLongClose);
+  $('btnLongWarn').addEventListener('click', () => checkLong(null));
   $('fileProject').addEventListener('change', async e => {
     const f = e.target.files && e.target.files[0]; if (!f) return;
     try {

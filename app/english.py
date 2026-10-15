@@ -1,6 +1,11 @@
 """English copy for the browser edition. The Japanese source stays authoritative."""
 
 BODY = {
+    '20文字を超える行があります': 'Some lines are longer than 20 characters',
+    '長い行に合うレイアウトは少ないため、同じ構図が続きやすくなります。20文字以内に分けると、変化のある画面になります（空白は数えません）。': 'Few layouts fit long lines, so the same compositions tend to repeat. Splitting lines to 20 characters or fewer gives more varied scenes (spaces are not counted).',
+    '<button value="keep" class="ghost">このまま進める</button>': '<button value="keep" class="ghost">Keep as is</button>',
+    '<button value="edit" class="primary">修正する</button>': '<button value="edit" class="primary">Edit</button>',
+    'title="20文字を超える行の一覧を開きます"': 'title="Show the lines longer than 20 characters"',
     'SRT 字幕または LRC 歌詞を読み込みます。SRT は開始・終了時刻を保持します。">字幕ファイルを読み込む': 'Load SRT subtitles or LRC lyrics. SRT keeps both start and end times.">Import SRT / LRC',
     '1行に複数のカットがあるときは、カットが切り替わる瞬間に <span class="kbd">Tab</span> を押すと、その行のカットの開始時刻も合わせられます。': 'If a line has several cuts, press <span class="kbd">Tab</span> the moment the cut should change to time the cuts of that line too.',
     '<label>速さ <select id="tapRate" aria-label="タップ中の再生速度">': '<label>Speed <select id="tapRate" aria-label="Playback speed while tapping">',
@@ -174,6 +179,9 @@ BODY = {
 }
 
 UI = {
+    '`⚠ ${n}行が20文字超え`': '`⚠ Lines over 20 chars: ${n}`',
+    '`${x.src + 1}行目（${x.n}文字）— ${x.text}`': '`Line ${x.src + 1} (${x.n} chars) — ${x.text}`',
+    '`ほか ${L.length - 12} 行`': '`and ${L.length - 12} more`',
     '`前後の行と順番が入れ替わらないよう ${w.toFixed(2)} 秒にしました`': '`Set to ${w.toFixed(2)} s so the lines stay in order`',
     "'このカットの開始時刻（手動）。空にすると自動に戻ります'": "'Start of this cut (set by hand). Clear it to go back to automatic'",
     "'このカットの開始時刻（自動）。数値を入れると固定します'": "'Start of this cut (automatic). Type a time to fix it'",

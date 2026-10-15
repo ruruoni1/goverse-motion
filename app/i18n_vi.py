@@ -42,6 +42,11 @@ STYLES = {
 }
 
 BODY = {
+    '20文字を超える行があります': 'Có dòng dài hơn 20 ký tự',
+    '長い行に合うレイアウトは少ないため、同じ構図が続きやすくなります。20文字以内に分けると、変化のある画面になります（空白は数えません）。': 'Có ít bố cục phù hợp với dòng dài nên cùng một bố cục dễ lặp lại. Chia dòng thành tối đa 20 ký tự sẽ cho hình ảnh đa dạng hơn (không tính khoảng trắng).',
+    '<button value="keep" class="ghost">このまま進める</button>': '<button value="keep" class="ghost">Giữ nguyên và tiếp tục</button>',
+    '<button value="edit" class="primary">修正する</button>': '<button value="edit" class="primary">Sửa</button>',
+    'title="20文字を超える行の一覧を開きます"': 'title="Mở danh sách dòng dài hơn 20 ký tự"',
     'SRT 字幕または LRC 歌詞を読み込みます。SRT は開始・終了時刻を保持します。">字幕ファイルを読み込む': 'Mở phụ đề SRT hoặc lời LRC. SRT giữ nguyên thời điểm bắt đầu và kết thúc.">Nhập SRT/LRC',
     '1行に複数のカットがあるときは、カットが切り替わる瞬間に <span class="kbd">Tab</span> を押すと、その行のカットの開始時刻も合わせられます。': 'Nếu một dòng có nhiều cảnh, nhấn <span class="kbd">Tab</span> đúng lúc cảnh cần chuyển để canh cả thời điểm bắt đầu các cảnh của dòng đó.',
     '<label>速さ <select id="tapRate" aria-label="タップ中の再生速度">': '<label>Tốc độ <select id="tapRate" aria-label="Tốc độ phát khi nhấn">',
@@ -264,6 +269,9 @@ BODY = {
 }
 
 UI = {
+    '`⚠ ${n}行が20文字超え`': '`⚠ ${n} dòng quá 20 ký tự`',
+    '`${x.src + 1}行目（${x.n}文字）— ${x.text}`': '`Dòng ${x.src + 1} (${x.n} ký tự) — ${x.text}`',
+    '`ほか ${L.length - 12} 行`': '`và ${L.length - 12} dòng khác`',
     '`SRT を読み込みました（${n} 件・開始/終了時刻を保持。「LRC を書き出す」で変換できます）`': '`Đã mở SRT (${n} phụ đề · giữ thời điểm bắt đầu/kết thúc. Dùng “Lưu LRC” để chuyển đổi)`',
     "'今の歌詞を SRT 字幕に置き換えます（行ごとの指定・書き出す範囲も消えます。「元に戻す」で戻せます）。よろしいですか？'": "'Thay lời hiện tại bằng phụ đề SRT? (Thiết lập từng dòng và phạm vi xuất cũng bị xóa. Hoàn tác để lấy lại.)'",
     "'字幕ファイルが大きすぎます'": "'Tệp phụ đề quá lớn'",

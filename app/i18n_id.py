@@ -41,6 +41,11 @@ STYLES = {
 }
 
 BODY = {
+    '20文字を超える行があります': 'Ada baris lebih dari 20 karakter',
+    '長い行に合うレイアウトは少ないため、同じ構図が続きやすくなります。20文字以内に分けると、変化のある画面になります（空白は数えません）。': 'Hanya sedikit tata letak yang cocok untuk baris panjang, sehingga komposisi yang sama mudah berulang. Membagi baris menjadi maksimal 20 karakter membuat adegan lebih bervariasi (spasi tidak dihitung).',
+    '<button value="keep" class="ghost">このまま進める</button>': '<button value="keep" class="ghost">Lanjutkan apa adanya</button>',
+    '<button value="edit" class="primary">修正する</button>': '<button value="edit" class="primary">Perbaiki</button>',
+    'title="20文字を超える行の一覧を開きます"': 'title="Buka daftar baris yang lebih dari 20 karakter"',
     'SRT 字幕または LRC 歌詞を読み込みます。SRT は開始・終了時刻を保持します。">字幕ファイルを読み込む': 'Muat subtitle SRT atau lirik LRC. SRT mempertahankan waktu mulai dan selesai.">Impor SRT/LRC',
     '1行に複数のカットがあるときは、カットが切り替わる瞬間に <span class="kbd">Tab</span> を押すと、その行のカットの開始時刻も合わせられます。': 'Jika satu baris punya beberapa cut, tekan <span class="kbd">Tab</span> saat cut harus berganti untuk menyesuaikan waktu cut di baris itu juga.',
     '<label>速さ <select id="tapRate" aria-label="タップ中の再生速度">': '<label>Kecepatan <select id="tapRate" aria-label="Kecepatan putar saat mengetuk">',
@@ -206,6 +211,9 @@ BODY = {
 }
 
 UI = {
+    '`⚠ ${n}行が20文字超え`': '`⚠ ${n} baris lebih dari 20 karakter`',
+    '`${x.src + 1}行目（${x.n}文字）— ${x.text}`': '`Baris ${x.src + 1} (${x.n} karakter) — ${x.text}`',
+    '`ほか ${L.length - 12} 行`': '`dan ${L.length - 12} baris lagi`',
     '`SRT を読み込みました（${n} 件・開始/終了時刻を保持。「LRC を書き出す」で変換できます）`': '`SRT dimuat (${n} subtitle · waktu mulai/selesai dipertahankan. Gunakan “Simpan LRC” untuk mengonversi)`',
     "'今の歌詞を SRT 字幕に置き換えます（行ごとの指定・書き出す範囲も消えます。「元に戻す」で戻せます）。よろしいですか？'": "'Ganti lirik sekarang dengan subtitle SRT? (Pengaturan per baris dan rentang ekspor juga dihapus. Urungkan mengembalikannya.)'",
     "'字幕ファイルが大きすぎます'": "'File subtitle terlalu besar'",
