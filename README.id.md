@@ -12,31 +12,7 @@ Proyek ini menggunakan 860 komponen animasi dan 27 gaya dari [JIZURA](https://gi
 
 Fork ini dapat mengimpor file subtitle SRT secara langsung tanpa mengubahnya menjadi LRC.
 
-**Versi saat ini: v0.16.0** · Gunakan [situs web](https://ruruoni1.github.io/gulza/id/) tanpa instalasi atau akun. Alamat utama dibuka dalam bahasa Korea; bahasa antarmuka dapat diganti di bagian atas halaman.
-
-## Pembaruan terbaru
-
-- **v0.16.0:** Tema di mode sederhana kini dua tingkat: 9 tema utama dan 35 subtema. Subtema menentukan suasana, gaya, dan teknik variasi otomatis serta menyalakan sakelar yang dibutuhkan.
-- **v0.15.7:** Baris yang lebih dari 20 karakter (tanpa spasi) kini memunculkan peringatan; lompat ke baris itu untuk memperbaikinya, atau lanjutkan apa adanya.
-- **v0.15.6:** Ke-860 nama teknik di halaman Indonesia dan Vietnam kini diterjemahkan, dan nama yang janggal atau ganda dalam bahasa Korea, Inggris, dan Tionghoa diperbaiki.
-- **v0.15.5:** Antarmuka Korea kini menampilkan nama Korea untuk 315 teknik yang sebelumnya tampil sebagai kunci bahasa Inggris.
-- **v0.15.4:** Pengulangan pratinjau kini mati secara bawaan; tombol Ulang berganti: semua → baris → cut → mati.
-- **v0.15.3:** Tombol impor SRT dan pesannya, yang masih berbahasa Jepang di halaman Tionghoa, Indonesia, dan Vietnam, kini diterjemahkan.
-- **v0.15.2:** Saat menyimpan proyek, JSON AE, dan LRC, nama file kini bisa diubah; tanpa judul lagu, nama file audio yang dimuat dipakai.
-- **v0.15.1:** Jeda di antara subtitle SRT kini hanya menampilkan latar dan dekorasi, tanpa angka hitung mundur.
-- **v0.15.0:** Cut ke-2 dan ke-4 pada contoh bawaan bahasa Korea kini lebih lama; urutan dan jumlah cut tetap sama.
-- **v0.14.9:** Susunan cut otomatis pada contoh dikembalikan; hanya durasi kalimat yang diatur di antara versi awal dan versi yang lebih lambat.
-- **v0.14.8:** Contoh bawaan kini menampilkan setiap kalimat lebih lama dan mengurangi pergantian cut yang terlalu cepat.
-- **v0.14.7:** Bilah atas bahasa Indonesia dan Vietnam kini tetap satu baris pada layar desktop meskipun labelnya lebih panjang.
-- **v0.14.6:** Kontrol dan tautan di bagian atas kini berada dalam satu baris pada layar lebar. Judul dan tombol panel lirik membungkus dengan rapi pada kolom sempit.
-- **v0.14.5:** Pemilih bahasa dipersingkat menjadi `🌐 LN` dan nama bahasa yang dipilih. Tautan GitHub dan GoverseTV kini berada di sisi kanan tombol bilah atas.
-- **v0.14.4:** Menambahkan tautan ke repositori GitHub GULZA dan kanal YouTube GoverseTV di bilah atas situs. Di ponsel, buka menu untuk menemukannya.
-- **v0.14.3:** Video contoh dalam tujuh bahasa mengikuti kisah yang sama: asal nama GULZA, huruf yang mulai bergerak, takarir yang menjadi adegan, dan kata-kata yang menjadi video.
-- **v0.14.2:** Menambahkan video contoh GULZA untuk setiap bahasa. Contoh yang belum diedit ikut berubah saat bahasa antarmuka diganti.
-- **v0.14.1:** Melengkapi panduan dalam enam bahasa dan membuat pemilih bahasa lebih mudah ditemukan.
-- **v0.14.0:** Menerbitkan kembali situs dalam tujuh bahasa, dengan bahasa Korea sebagai pilihan awal.
-
-[Riwayat lengkap (bahasa Korea)](CHANGELOG.md) · [Rilis GitHub v0.16.0](https://github.com/ruruoni1/gulza/releases/tag/v0.16.0)
+**Versi saat ini: v0.16.0** · Gunakan [situs web](https://ruruoni1.github.io/gulza/id/) tanpa instalasi atau akun. Alamat utama dibuka dalam bahasa Korea; bahasa antarmuka dapat diganti di bagian atas halaman. · [Riwayat perubahan](CHANGELOG.md)
 
 ## Fitur yang ditambahkan di fork ini
 
@@ -381,6 +357,30 @@ Versi browsernya adalah [`VERSION`](VERSION), riwayat perubahannya adalah [`CHAN
 Untuk menambahkan bagian ekspresi [`docs/EXPRESSION_PACKS.md`](docs/EXPRESSION_PACKS.md)Silakan merujuk ke.
 
 Jika Anda membuat ulang keluaran AE·CEP, Anda harus memeriksanya secara terpisah di After Effects.
+
+## Pembaruan terbaru
+
+- **v0.16.0:** Tema di mode sederhana kini dua tingkat: 9 tema utama dan 35 subtema. Subtema menentukan suasana, gaya, dan teknik variasi otomatis serta menyalakan sakelar yang dibutuhkan.
+- **v0.15.7:** Baris yang lebih dari 20 karakter (tanpa spasi) kini memunculkan peringatan; lompat ke baris itu untuk memperbaikinya, atau lanjutkan apa adanya.
+- **v0.15.6:** Ke-860 nama teknik di halaman Indonesia dan Vietnam kini diterjemahkan, dan nama yang janggal atau ganda dalam bahasa Korea, Inggris, dan Tionghoa diperbaiki.
+- **v0.15.5:** Antarmuka Korea kini menampilkan nama Korea untuk 315 teknik yang sebelumnya tampil sebagai kunci bahasa Inggris.
+- **v0.15.4:** Pengulangan pratinjau kini mati secara bawaan; tombol Ulang berganti: semua → baris → cut → mati.
+- **v0.15.3:** Tombol impor SRT dan pesannya, yang masih berbahasa Jepang di halaman Tionghoa, Indonesia, dan Vietnam, kini diterjemahkan.
+- **v0.15.2:** Saat menyimpan proyek, JSON AE, dan LRC, nama file kini bisa diubah; tanpa judul lagu, nama file audio yang dimuat dipakai.
+- **v0.15.1:** Jeda di antara subtitle SRT kini hanya menampilkan latar dan dekorasi, tanpa angka hitung mundur.
+- **v0.15.0:** Cut ke-2 dan ke-4 pada contoh bawaan bahasa Korea kini lebih lama; urutan dan jumlah cut tetap sama.
+- **v0.14.9:** Susunan cut otomatis pada contoh dikembalikan; hanya durasi kalimat yang diatur di antara versi awal dan versi yang lebih lambat.
+- **v0.14.8:** Contoh bawaan kini menampilkan setiap kalimat lebih lama dan mengurangi pergantian cut yang terlalu cepat.
+- **v0.14.7:** Bilah atas bahasa Indonesia dan Vietnam kini tetap satu baris pada layar desktop meskipun labelnya lebih panjang.
+- **v0.14.6:** Kontrol dan tautan di bagian atas kini berada dalam satu baris pada layar lebar. Judul dan tombol panel lirik membungkus dengan rapi pada kolom sempit.
+- **v0.14.5:** Pemilih bahasa dipersingkat menjadi `🌐 LN` dan nama bahasa yang dipilih. Tautan GitHub dan GoverseTV kini berada di sisi kanan tombol bilah atas.
+- **v0.14.4:** Menambahkan tautan ke repositori GitHub GULZA dan kanal YouTube GoverseTV di bilah atas situs. Di ponsel, buka menu untuk menemukannya.
+- **v0.14.3:** Video contoh dalam tujuh bahasa mengikuti kisah yang sama: asal nama GULZA, huruf yang mulai bergerak, takarir yang menjadi adegan, dan kata-kata yang menjadi video.
+- **v0.14.2:** Menambahkan video contoh GULZA untuk setiap bahasa. Contoh yang belum diedit ikut berubah saat bahasa antarmuka diganti.
+- **v0.14.1:** Melengkapi panduan dalam enam bahasa dan membuat pemilih bahasa lebih mudah ditemukan.
+- **v0.14.0:** Menerbitkan kembali situs dalam tujuh bahasa, dengan bahasa Korea sebagai pilihan awal.
+
+[Riwayat lengkap (bahasa Korea)](CHANGELOG.md) · [Rilis GitHub v0.16.0](https://github.com/ruruoni1/gulza/releases/tag/v0.16.0)
 
 ## Kontributor dan Lisensi Asli
 

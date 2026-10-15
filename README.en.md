@@ -12,31 +12,7 @@ It builds on [JIZURA](https://github.com/852wa/JIZURA)'s 860 expression parts an
 
 This fork imports SRT subtitle files directly, without converting them to LRC.
 
-**Current version: v0.16.0** · Use the [website](https://ruruoni1.github.io/gulza/en/) without installing anything or creating an account. The root URL opens in Korean; switch the interface language at the top.
-
-## Recent updates
-
-- **v0.16.0:** Themes in the simple mode now have two levels: 9 main themes and 35 sub themes. A sub theme drives the moods, styles and techniques of the randomizer and turns on the switches it needs.
-- **v0.15.7:** Lines longer than 20 characters (spaces excluded) now show a warning; jump to the line to edit it, or keep it and continue.
-- **v0.15.6:** Translated all 860 technique names on the Indonesian and Vietnamese pages, and polished awkward or duplicate names in Korean, English and Chinese.
-- **v0.15.5:** The Korean interface now shows Korean names for 315 techniques that were displayed as English keys.
-- **v0.15.4:** Preview looping is now off by default; the Loop button cycles whole → line → cut → off.
-- **v0.15.3:** Translated the SRT import button and messages that were still in Japanese on the Chinese, Indonesian and Vietnamese pages.
-- **v0.15.2:** Project, AE JSON and LRC saves now let you rename the file; without a song title, the loaded audio file name is suggested.
-- **v0.15.1:** Gaps between SRT subtitles now show only the background and decorations instead of a countdown.
-- **v0.15.0:** Gave cuts 2 and 4 in the Korean default sample more time while keeping the cut order and count.
-- **v0.14.9:** Restored the original sample cut sequence and set its sentence timing between the earlier and slower versions.
-- **v0.14.8:** The default sample now holds each sentence longer and avoids rapid cuts within a sentence.
-- **v0.14.7:** Adjusted the Indonesian and Vietnamese toolbars so their longer labels stay on one row on desktop.
-- **v0.14.6:** The top controls and links share one row on wide screens. The lyrics panel heading and buttons wrap cleanly in narrow columns.
-- **v0.14.5:** Shortened the language menu to `🌐 LN` and the selected language. The GitHub and GoverseTV links now align to the right of the toolbar actions.
-- **v0.14.4:** Added links to the GULZA GitHub repository and GoverseTV YouTube channel in the website toolbar. On mobile, open the menu to find them.
-- **v0.14.3:** The sample video in all seven languages follows the same story: where GULZA's name comes from, a letter starting to move, subtitles becoming a scene, and words becoming a video.
-- **v0.14.2:** Added a GULZA sample video for each language. Changing the interface language also changes the untouched sample.
-- **v0.14.1:** Expanded all six translated guides and made the language selector easier to find.
-- **v0.14.0:** Restored seven web editions, with Korean as the default.
-
-[Full changelog (Korean)](CHANGELOG.md) · [v0.16.0 GitHub release](https://github.com/ruruoni1/gulza/releases/tag/v0.16.0)
+**Current version: v0.16.0** · Use the [website](https://ruruoni1.github.io/gulza/en/) without installing anything or creating an account. The root URL opens in Korean; switch the interface language at the top. · [Changelog](CHANGELOG.md)
 
 ## Features added in this fork
 
@@ -375,6 +351,30 @@ The browser version is in [`VERSION`](VERSION), and changes are recorded in [`CH
 To add expression parts, see [`docs/EXPRESSION_PACKS.md`](docs/EXPRESSION_PACKS.md).
 
 Rebuilt AE/CEP outputs still need to be checked inside After Effects.
+
+## Recent updates
+
+- **v0.16.0:** Themes in the simple mode now have two levels: 9 main themes and 35 sub themes. A sub theme drives the moods, styles and techniques of the randomizer and turns on the switches it needs.
+- **v0.15.7:** Lines longer than 20 characters (spaces excluded) now show a warning; jump to the line to edit it, or keep it and continue.
+- **v0.15.6:** Translated all 860 technique names on the Indonesian and Vietnamese pages, and polished awkward or duplicate names in Korean, English and Chinese.
+- **v0.15.5:** The Korean interface now shows Korean names for 315 techniques that were displayed as English keys.
+- **v0.15.4:** Preview looping is now off by default; the Loop button cycles whole → line → cut → off.
+- **v0.15.3:** Translated the SRT import button and messages that were still in Japanese on the Chinese, Indonesian and Vietnamese pages.
+- **v0.15.2:** Project, AE JSON and LRC saves now let you rename the file; without a song title, the loaded audio file name is suggested.
+- **v0.15.1:** Gaps between SRT subtitles now show only the background and decorations instead of a countdown.
+- **v0.15.0:** Gave cuts 2 and 4 in the Korean default sample more time while keeping the cut order and count.
+- **v0.14.9:** Restored the original sample cut sequence and set its sentence timing between the earlier and slower versions.
+- **v0.14.8:** The default sample now holds each sentence longer and avoids rapid cuts within a sentence.
+- **v0.14.7:** Adjusted the Indonesian and Vietnamese toolbars so their longer labels stay on one row on desktop.
+- **v0.14.6:** The top controls and links share one row on wide screens. The lyrics panel heading and buttons wrap cleanly in narrow columns.
+- **v0.14.5:** Shortened the language menu to `🌐 LN` and the selected language. The GitHub and GoverseTV links now align to the right of the toolbar actions.
+- **v0.14.4:** Added links to the GULZA GitHub repository and GoverseTV YouTube channel in the website toolbar. On mobile, open the menu to find them.
+- **v0.14.3:** The sample video in all seven languages follows the same story: where GULZA's name comes from, a letter starting to move, subtitles becoming a scene, and words becoming a video.
+- **v0.14.2:** Added a GULZA sample video for each language. Changing the interface language also changes the untouched sample.
+- **v0.14.1:** Expanded all six translated guides and made the language selector easier to find.
+- **v0.14.0:** Restored seven web editions, with Korean as the default.
+
+[Full changelog (Korean)](CHANGELOG.md) · [v0.16.0 GitHub release](https://github.com/ruruoni1/gulza/releases/tag/v0.16.0)
 
 ## Original contributors and license
 

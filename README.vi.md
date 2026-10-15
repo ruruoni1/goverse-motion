@@ -12,31 +12,7 @@ Dự án dựa trên 860 thành phần hiệu ứng và 27 phong cách của [JI
 
 Bản fork này nhập trực tiếp tệp phụ đề SRT mà không cần chuyển sang LRC trước.
 
-**Phiên bản hiện tại: v0.16.0** · Dùng [trang web](https://ruruoni1.github.io/gulza/vi/) mà không cần cài đặt hay tạo tài khoản. Địa chỉ chính mở bằng tiếng Hàn; bạn có thể đổi ngôn ngữ giao diện ở đầu trang.
-
-## Cập nhật gần đây
-
-- **v0.16.0:** Chủ đề ở chế độ đơn giản giờ có hai cấp: 9 chủ đề chính và 35 chủ đề phụ. Chủ đề phụ quyết định không khí, phong cách và kỹ thuật khi tạo ngẫu nhiên, đồng thời bật các công tắc cần thiết.
-- **v0.15.7:** Dòng dài hơn 20 ký tự (không tính khoảng trắng) giờ sẽ hiện cảnh báo; có thể nhảy đến dòng đó để sửa hoặc giữ nguyên và tiếp tục.
-- **v0.15.6:** Đã dịch toàn bộ 860 tên kỹ thuật trên giao diện tiếng Indonesia và tiếng Việt, đồng thời sửa các tên gượng gạo hoặc trùng lặp trong tiếng Hàn, tiếng Anh và tiếng Trung.
-- **v0.15.5:** Giao diện tiếng Hàn giờ hiển thị tên tiếng Hàn cho 315 kỹ thuật trước đây còn để khóa tiếng Anh.
-- **v0.15.4:** Lặp lại khi xem trước giờ tắt theo mặc định; nút Lặp chuyển lần lượt: toàn bộ → dòng → cảnh → tắt.
-- **v0.15.3:** Đã dịch nút nhập SRT và các thông báo còn để tiếng Nhật trên giao diện tiếng Trung, tiếng Indonesia và tiếng Việt.
-- **v0.15.2:** Khi lưu dự án, JSON cho AE và LRC, giờ có thể đổi tên tệp; nếu chưa có tên bài, tên tệp âm thanh đã tải sẽ được dùng.
-- **v0.15.1:** Khoảng trống giữa các phụ đề SRT giờ chỉ hiện nền và họa tiết, không còn số đếm ngược.
-- **v0.15.0:** Cảnh thứ 2 và thứ 4 trong video mẫu tiếng Hàn được kéo dài, còn thứ tự và số cảnh vẫn giữ nguyên.
-- **v0.14.9:** Khôi phục cách chia cảnh tự động của video mẫu; chỉ điều chỉnh thời lượng mỗi câu ở giữa bản cũ và bản chậm hơn.
-- **v0.14.8:** Video mẫu mặc định giữ mỗi câu lâu hơn và giảm chuyển cảnh quá nhanh giữa câu.
-- **v0.14.7:** Thanh công cụ tiếng Indonesia và tiếng Việt nay nằm trên một hàng ở màn hình máy tính dù nhãn dài hơn.
-- **v0.14.6:** Các nút điều khiển và liên kết phía trên nằm trên cùng một hàng ở màn hình rộng. Tiêu đề và nút trong bảng lời bài hát xuống dòng gọn gàng khi cột hẹp.
-- **v0.14.5:** Thu gọn bộ chọn ngôn ngữ thành `🌐 LN` và tên ngôn ngữ đang chọn. Liên kết GitHub và GoverseTV được căn về bên phải các nút trên thanh công cụ.
-- **v0.14.4:** Thêm liên kết đến kho GitHub GULZA và kênh YouTube GoverseTV ở thanh trên cùng của trang. Trên điện thoại, mở menu để tìm các liên kết này.
-- **v0.14.3:** Video mẫu ở cả bảy ngôn ngữ kể cùng một câu chuyện: nguồn gốc tên GULZA, con chữ bắt đầu chuyển động, phụ đề trở thành cảnh phim và lời nói trở thành video.
-- **v0.14.2:** Thêm video mẫu GULZA cho từng ngôn ngữ. Mẫu chưa chỉnh sửa sẽ đổi theo ngôn ngữ giao diện.
-- **v0.14.1:** Hoàn thiện hướng dẫn bằng sáu ngôn ngữ và giúp người dùng dễ tìm bộ chọn ngôn ngữ hơn.
-- **v0.14.0:** Phát hành lại trang web bằng bảy ngôn ngữ, mặc định là tiếng Hàn.
-
-[Toàn bộ lịch sử thay đổi (tiếng Hàn)](CHANGELOG.md) · [Bản phát hành GitHub v0.16.0](https://github.com/ruruoni1/gulza/releases/tag/v0.16.0)
+**Phiên bản hiện tại: v0.16.0** · Dùng [trang web](https://ruruoni1.github.io/gulza/vi/) mà không cần cài đặt hay tạo tài khoản. Địa chỉ chính mở bằng tiếng Hàn; bạn có thể đổi ngôn ngữ giao diện ở đầu trang. · [Lịch sử thay đổi](CHANGELOG.md)
 
 ## Các tính năng được bổ sung trong bản fork
 
@@ -381,6 +357,30 @@ Phiên bản trình duyệt là [`VERSION`](VERSION), lịch sử thay đổi l�
 Để thêm một phần biểu thức [`docs/EXPRESSION_PACKS.md`](docs/EXPRESSION_PACKS.md)Vui lòng tham khảo.
 
 Nếu bạn đã tạo lại đầu ra AE·CEP, bạn phải kiểm tra riêng nó trong After Effects.
+
+## Cập nhật gần đây
+
+- **v0.16.0:** Chủ đề ở chế độ đơn giản giờ có hai cấp: 9 chủ đề chính và 35 chủ đề phụ. Chủ đề phụ quyết định không khí, phong cách và kỹ thuật khi tạo ngẫu nhiên, đồng thời bật các công tắc cần thiết.
+- **v0.15.7:** Dòng dài hơn 20 ký tự (không tính khoảng trắng) giờ sẽ hiện cảnh báo; có thể nhảy đến dòng đó để sửa hoặc giữ nguyên và tiếp tục.
+- **v0.15.6:** Đã dịch toàn bộ 860 tên kỹ thuật trên giao diện tiếng Indonesia và tiếng Việt, đồng thời sửa các tên gượng gạo hoặc trùng lặp trong tiếng Hàn, tiếng Anh và tiếng Trung.
+- **v0.15.5:** Giao diện tiếng Hàn giờ hiển thị tên tiếng Hàn cho 315 kỹ thuật trước đây còn để khóa tiếng Anh.
+- **v0.15.4:** Lặp lại khi xem trước giờ tắt theo mặc định; nút Lặp chuyển lần lượt: toàn bộ → dòng → cảnh → tắt.
+- **v0.15.3:** Đã dịch nút nhập SRT và các thông báo còn để tiếng Nhật trên giao diện tiếng Trung, tiếng Indonesia và tiếng Việt.
+- **v0.15.2:** Khi lưu dự án, JSON cho AE và LRC, giờ có thể đổi tên tệp; nếu chưa có tên bài, tên tệp âm thanh đã tải sẽ được dùng.
+- **v0.15.1:** Khoảng trống giữa các phụ đề SRT giờ chỉ hiện nền và họa tiết, không còn số đếm ngược.
+- **v0.15.0:** Cảnh thứ 2 và thứ 4 trong video mẫu tiếng Hàn được kéo dài, còn thứ tự và số cảnh vẫn giữ nguyên.
+- **v0.14.9:** Khôi phục cách chia cảnh tự động của video mẫu; chỉ điều chỉnh thời lượng mỗi câu ở giữa bản cũ và bản chậm hơn.
+- **v0.14.8:** Video mẫu mặc định giữ mỗi câu lâu hơn và giảm chuyển cảnh quá nhanh giữa câu.
+- **v0.14.7:** Thanh công cụ tiếng Indonesia và tiếng Việt nay nằm trên một hàng ở màn hình máy tính dù nhãn dài hơn.
+- **v0.14.6:** Các nút điều khiển và liên kết phía trên nằm trên cùng một hàng ở màn hình rộng. Tiêu đề và nút trong bảng lời bài hát xuống dòng gọn gàng khi cột hẹp.
+- **v0.14.5:** Thu gọn bộ chọn ngôn ngữ thành `🌐 LN` và tên ngôn ngữ đang chọn. Liên kết GitHub và GoverseTV được căn về bên phải các nút trên thanh công cụ.
+- **v0.14.4:** Thêm liên kết đến kho GitHub GULZA và kênh YouTube GoverseTV ở thanh trên cùng của trang. Trên điện thoại, mở menu để tìm các liên kết này.
+- **v0.14.3:** Video mẫu ở cả bảy ngôn ngữ kể cùng một câu chuyện: nguồn gốc tên GULZA, con chữ bắt đầu chuyển động, phụ đề trở thành cảnh phim và lời nói trở thành video.
+- **v0.14.2:** Thêm video mẫu GULZA cho từng ngôn ngữ. Mẫu chưa chỉnh sửa sẽ đổi theo ngôn ngữ giao diện.
+- **v0.14.1:** Hoàn thiện hướng dẫn bằng sáu ngôn ngữ và giúp người dùng dễ tìm bộ chọn ngôn ngữ hơn.
+- **v0.14.0:** Phát hành lại trang web bằng bảy ngôn ngữ, mặc định là tiếng Hàn.
+
+[Toàn bộ lịch sử thay đổi (tiếng Hàn)](CHANGELOG.md) · [Bản phát hành GitHub v0.16.0](https://github.com/ruruoni1/gulza/releases/tag/v0.16.0)
 
 ## Người đóng góp và giấy phép ban đầu
 
