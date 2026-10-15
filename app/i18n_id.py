@@ -1,7 +1,7 @@
 """Indonesian copy for the browser edition. The Japanese source stays authoritative."""
 
 TITLE = 'JIZURA — Pembuat video lirik bergerak'
-DESCRIPTION = 'Buat video lirik bergerak dari lirik di browser, lalu ekspor ke MP4.'
+DESCRIPTION = 'Alat browser gratis untuk mengubah subtitle SRT atau lirik LRC menjadi video teks dan lirik bergerak, lalu ekspor MP4. Tanpa instalasi atau akun; desain otomatis dengan 35 tema.'
 
 SAMPLE = 'Aku masih ingat/warna fajar\nSuara yang terurai terdengar jauh\nHei, masih sempatkah?\nTak bisa berakhir dalam keadaan *transparan*!'
 

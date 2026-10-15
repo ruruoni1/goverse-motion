@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>GULZA — 動態歌詞影片製作工具</title>
-<meta name="description" content="在瀏覽器中把歌詞做成動態歌詞影片，並匯出 MP4。">
+<meta name="description" content="免費瀏覽器工具：把 SRT 字幕或 LRC 歌詞做成動態字幕、歌詞影片並匯出 MP4。免安裝、免註冊，35 種主題自動生成。">
 <link rel="canonical" href="https://ruruoni1.github.io/gulza/zh-hant/">
 <link rel="alternate" hreflang="ko" href="https://ruruoni1.github.io/gulza/">
 <link rel="alternate" hreflang="ja" href="https://ruruoni1.github.io/gulza/ja/">
@@ -13,11 +13,32 @@
 <link rel="alternate" hreflang="zh-Hans" href="https://ruruoni1.github.io/gulza/zh-hans/">
 <link rel="alternate" hreflang="id-ID" href="https://ruruoni1.github.io/gulza/id/">
 <link rel="alternate" hreflang="vi" href="https://ruruoni1.github.io/gulza/vi/">
+<link rel="alternate" hreflang="x-default" href="https://ruruoni1.github.io/gulza/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="GULZA — 動態歌詞影片製作工具">
-<meta property="og:description" content="在瀏覽器中把歌詞做成動態歌詞影片，並匯出 MP4。">
+<meta property="og:description" content="免費瀏覽器工具：把 SRT 字幕或 LRC 歌詞做成動態字幕、歌詞影片並匯出 MP4。免安裝、免註冊，35 種主題自動生成。">
 <meta property="og:url" content="https://ruruoni1.github.io/gulza/zh-hant/">
-<meta name="twitter:card" content="summary">
+<meta property="og:site_name" content="GULZA">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:locale:alternate" content="ko_KR">
+<meta property="og:locale:alternate" content="ja_JP">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:locale:alternate" content="id_ID">
+<meta property="og:locale:alternate" content="vi_VN">
+<meta property="og:image" content="https://ruruoni1.github.io/gulza/og/og-zh-hant.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="GULZA — 動態歌詞影片製作工具">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GULZA — 動態歌詞影片製作工具">
+<meta name="twitter:description" content="免費瀏覽器工具：把 SRT 字幕或 LRC 歌詞做成動態字幕、歌詞影片並匯出 MP4。免安裝、免註冊，35 種主題自動生成。">
+<meta name="twitter:image" content="https://ruruoni1.github.io/gulza/og/og-zh-hant.jpg">
+<meta name="theme-color" content="#0c0c0e">
+<link rel="icon" type="image/png" sizes="48x48" href="https://ruruoni1.github.io/gulza/icons/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="https://ruruoni1.github.io/gulza/icons/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="https://ruruoni1.github.io/gulza/icons/apple-touch-icon.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "GULZA", "url": "https://ruruoni1.github.io/gulza/zh-hant/", "description": "免費瀏覽器工具：把 SRT 字幕或 LRC 歌詞做成動態字幕、歌詞影片並匯出 MP4。免安裝、免註冊，35 種主題自動生成。", "inLanguage": "zh-Hant", "image": "https://ruruoni1.github.io/gulza/og/og-zh-hant.jpg", "applicationCategory": "MultimediaApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires a modern web browser", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "softwareVersion": "0.16.1", "license": "https://opensource.org/licenses/MIT", "codeRepository": "https://github.com/ruruoni1/gulza", "isBasedOn": {"@type": "SoftwareSourceCode", "name": "JIZURA", "codeRepository": "https://github.com/852wa/JIZURA"}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
@@ -499,7 +520,7 @@ button.small.primary { padding: 4px 12px; }
 </div>
 <div id="app">
   <header class="bar">
-    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">動態字幕工作室</span><span class="ver">v0.16.0</span></div>
+    <div class="brand"><span class="mark" aria-hidden="true">GZ</span><span class="word">GULZA</span><span class="tag">動態字幕工作室</span><span class="ver">v0.16.1</span></div>
     <div class="proj">
       <input id="songTitle" type="text" placeholder="歌名（顯示在標題卡與 HUD）" aria-label="歌名">
       <input id="songArtist" type="text" placeholder="演唱者" aria-label="演唱者">
@@ -3802,7 +3823,7 @@ J.plan = (project, audio) => {
   const zoneOf = () => (zones ? Object.assign({}, zones[0]) : null);
   if (zones && en.bg) en.bg.bigChar = false;               // the one background that draws the lyric itself (big, centred)
   const plan = {
-    version: 1, generator: 'JIZURA', appVersion: '0.16.0', title, artist, W, H, fps: project.fps || 24,
+    version: 1, generator: 'JIZURA', appVersion: '0.16.1', title, artist, W, H, fps: project.fps || 24,
     duration: tm.duration, styleKey: project.style, style: st, fx, seed: project.seed,
     lines: [], cuts: [], events: [], beats: audio && audio.beats ? audio.beats.slice() : [],
     hud: fx.hud === 'on' ? true : fx.hud === 'off' ? false : !!st.hud,
@@ -38481,7 +38502,7 @@ function bind() {
   const openTerms = () => { if (dlg.showModal) { if (!dlg.open) dlg.showModal(); } else dlg.setAttribute('open', ''); };
   document.querySelectorAll('.terms-open').forEach(b => b.addEventListener('click', openTerms));
   dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close ? dlg.close() : dlg.removeAttribute('open'); });   // click on the backdrop
-  $('btnSave').addEventListener('click', () => saveAs(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.16.0' }), null, 1), 'application/json'));
+  $('btnSave').addEventListener('click', () => saveAs(baseName() + '.project.json', JSON.stringify(Object.assign({}, S.project, { appVersion: '0.16.1' }), null, 1), 'application/json'));
   $('btnAE').addEventListener('click', () => saveAs(baseName() + rangeSuffix() + '_ae.json', JSON.stringify(J.planForAE(S.plan, S.project, exportRange()), null, 1), 'application/json'));
   audioNameDefault = $('audioName').textContent;
   $('btnClearLyrics').addEventListener('click', clearLyrics);

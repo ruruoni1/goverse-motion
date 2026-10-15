@@ -12,7 +12,7 @@ Proyek ini menggunakan 860 komponen animasi dan 27 gaya dari [JIZURA](https://gi
 
 Fork ini dapat mengimpor file subtitle SRT secara langsung tanpa mengubahnya menjadi LRC.
 
-**Versi saat ini: v0.16.0** · Gunakan [situs web](https://ruruoni1.github.io/gulza/id/) tanpa instalasi atau akun. Alamat utama dibuka dalam bahasa Korea; bahasa antarmuka dapat diganti di bagian atas halaman. · [Riwayat perubahan](CHANGELOG.md)
+**Versi saat ini: v0.16.1** · Gunakan [situs web](https://ruruoni1.github.io/gulza/id/) tanpa instalasi atau akun. Alamat utama dibuka dalam bahasa Korea; bahasa antarmuka dapat diganti di bagian atas halaman. · [Riwayat perubahan](CHANGELOG.md)
 
 ## Fitur yang ditambahkan di fork ini
 
@@ -360,6 +360,7 @@ Jika Anda membuat ulang keluaran AE·CEP, Anda harus memeriksanya secara terpisa
 
 ## Pembaruan terbaru
 
+- **v0.16.1:** Situs web kini memiliki gambar pratinjau berbagi per bahasa, favicon, dan data terstruktur, serta deskripsi pencarian yang lebih lengkap.
 - **v0.16.0:** Tema di mode sederhana kini dua tingkat: 9 tema utama dan 35 subtema. Subtema menentukan suasana, gaya, dan teknik variasi otomatis serta menyalakan sakelar yang dibutuhkan.
 - **v0.15.7:** Baris yang lebih dari 20 karakter (tanpa spasi) kini memunculkan peringatan; lompat ke baris itu untuk memperbaikinya, atau lanjutkan apa adanya.
 - **v0.15.6:** Ke-860 nama teknik di halaman Indonesia dan Vietnam kini diterjemahkan, dan nama yang janggal atau ganda dalam bahasa Korea, Inggris, dan Tionghoa diperbaiki.
@@ -380,7 +381,7 @@ Jika Anda membuat ulang keluaran AE·CEP, Anda harus memeriksanya secara terpisa
 - **v0.14.1:** Melengkapi panduan dalam enam bahasa dan membuat pemilih bahasa lebih mudah ditemukan.
 - **v0.14.0:** Menerbitkan kembali situs dalam tujuh bahasa, dengan bahasa Korea sebagai pilihan awal.
 
-[Riwayat lengkap (bahasa Korea)](CHANGELOG.md) · [Rilis GitHub v0.16.0](https://github.com/ruruoni1/gulza/releases/tag/v0.16.0)
+[Riwayat lengkap (bahasa Korea)](CHANGELOG.md) · [Rilis GitHub v0.16.1](https://github.com/ruruoni1/gulza/releases/tag/v0.16.1)
 
 ## Kontributor dan Lisensi Asli
 

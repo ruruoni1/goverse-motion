@@ -12,7 +12,7 @@ Dự án dựa trên 860 thành phần hiệu ứng và 27 phong cách của [JI
 
 Bản fork này nhập trực tiếp tệp phụ đề SRT mà không cần chuyển sang LRC trước.
 
-**Phiên bản hiện tại: v0.16.0** · Dùng [trang web](https://ruruoni1.github.io/gulza/vi/) mà không cần cài đặt hay tạo tài khoản. Địa chỉ chính mở bằng tiếng Hàn; bạn có thể đổi ngôn ngữ giao diện ở đầu trang. · [Lịch sử thay đổi](CHANGELOG.md)
+**Phiên bản hiện tại: v0.16.1** · Dùng [trang web](https://ruruoni1.github.io/gulza/vi/) mà không cần cài đặt hay tạo tài khoản. Địa chỉ chính mở bằng tiếng Hàn; bạn có thể đổi ngôn ngữ giao diện ở đầu trang. · [Lịch sử thay đổi](CHANGELOG.md)
 
 ## Các tính năng được bổ sung trong bản fork
 
@@ -360,6 +360,7 @@ Nếu bạn đã tạo lại đầu ra AE·CEP, bạn phải kiểm tra riêng n
 
 ## Cập nhật gần đây
 
+- **v0.16.1:** Trang web đã có ảnh xem trước khi chia sẻ theo từng ngôn ngữ, favicon, dữ liệu có cấu trúc và mô tả tìm kiếm đầy đủ hơn.
 - **v0.16.0:** Chủ đề ở chế độ đơn giản giờ có hai cấp: 9 chủ đề chính và 35 chủ đề phụ. Chủ đề phụ quyết định không khí, phong cách và kỹ thuật khi tạo ngẫu nhiên, đồng thời bật các công tắc cần thiết.
 - **v0.15.7:** Dòng dài hơn 20 ký tự (không tính khoảng trắng) giờ sẽ hiện cảnh báo; có thể nhảy đến dòng đó để sửa hoặc giữ nguyên và tiếp tục.
 - **v0.15.6:** Đã dịch toàn bộ 860 tên kỹ thuật trên giao diện tiếng Indonesia và tiếng Việt, đồng thời sửa các tên gượng gạo hoặc trùng lặp trong tiếng Hàn, tiếng Anh và tiếng Trung.
@@ -380,7 +381,7 @@ Nếu bạn đã tạo lại đầu ra AE·CEP, bạn phải kiểm tra riêng n
 - **v0.14.1:** Hoàn thiện hướng dẫn bằng sáu ngôn ngữ và giúp người dùng dễ tìm bộ chọn ngôn ngữ hơn.
 - **v0.14.0:** Phát hành lại trang web bằng bảy ngôn ngữ, mặc định là tiếng Hàn.
 
-[Toàn bộ lịch sử thay đổi (tiếng Hàn)](CHANGELOG.md) · [Bản phát hành GitHub v0.16.0](https://github.com/ruruoni1/gulza/releases/tag/v0.16.0)
+[Toàn bộ lịch sử thay đổi (tiếng Hàn)](CHANGELOG.md) · [Bản phát hành GitHub v0.16.1](https://github.com/ruruoni1/gulza/releases/tag/v0.16.1)
 
 ## Người đóng góp và giấy phép ban đầu
 

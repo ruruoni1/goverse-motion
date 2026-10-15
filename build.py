@@ -1,7 +1,7 @@
 """Build the seven localized single-file browser editions from src/, app/ and vendor/.
 usage: python3 build.py            -> Korean index.html and six language folders
        python3 build.py --dev      -> also dev/www/jizura.js + dev/www/test.html for the test tools"""
-import glob, os, sys
+import glob, json, os, sys
 from app.english import localize_body, localize_js
 from app import i18n
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -18,8 +18,8 @@ def build(lang):
     title = ('GULZA — ' + m.TITLE.split(' — ', 1)[-1]) if local else (
         'GULZA — Lyric Motion Video Maker' if english else 'GULZA — 歌詞モーション動画メーカー')
     description = m.DESCRIPTION if local else (
-        'Create motion lyric videos from SRT subtitles or lyrics in your browser.' if english
-        else 'SRT字幕や歌詞からモーション動画をブラウザーで作成できます。')
+        'Free browser tool that turns SRT subtitles or LRC lyrics into motion caption and lyric videos and exports MP4. No install or sign-up; auto design with 35 themes.' if english
+        else 'SRT字幕やLRC歌詞から、ブラウザーでモーション字幕・歌詞動画を作ってMP4で書き出せる無料ツール。インストール・登録不要、35種のテーマでおまかせ作成。')
     folder = dict((c, f) for c, f, _, _ in i18n.EDITIONS)[lang]
     canonical = i18n.BASE + (folder + '/' if folder else '')
     language_nav = i18n.nav(lang)
@@ -45,7 +45,38 @@ def build(lang):
     inject = (read('app/english.js') + ('\n' + i18n.labels_js(lang) if local else '') + '\n') if english or local else ''
     script = script.replace(marker, inject + i18n.demo_js(lang) + '\n' + marker, 1)
     alternates = '\n'.join(f'<link rel="alternate" hreflang="{hl}" href="{i18n.BASE}{f + "/" if f else ""}">' for c, f, hl, _ in i18n.EDITIONS)
+    alternates += f'\n<link rel="alternate" hreflang="x-default" href="{i18n.BASE}">'
     html_lang = dict((c, hl) for c, _, hl, _ in i18n.EDITIONS)[lang]
+    # share card (tools/make_social.py renders og/og-<edition>.jpg), Open Graph locales, icons and structured data
+    LOCALE = {'ko': 'ko_KR', 'ja': 'ja_JP', 'en': 'en_US', 'zh-Hant': 'zh_TW', 'zh-Hans': 'zh_CN', 'id': 'id_ID', 'vi': 'vi_VN'}
+    image = f'{i18n.BASE}og/og-{folder or "ko"}.jpg'
+    locales = '\n'.join(f'<meta property="og:locale:alternate" content="{v}">' for k, v in LOCALE.items() if k != lang)
+    ld = json.dumps({
+        '@context': 'https://schema.org', '@type': 'WebApplication', 'name': 'GULZA', 'url': canonical,
+        'description': description, 'inLanguage': html_lang, 'image': image,
+        'applicationCategory': 'MultimediaApplication', 'operatingSystem': 'Any (web browser)',
+        'browserRequirements': 'Requires a modern web browser',
+        'isAccessibleForFree': True, 'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'USD'},
+        'softwareVersion': VERSION, 'license': 'https://opensource.org/licenses/MIT',
+        'codeRepository': 'https://github.com/ruruoni1/gulza',
+        'isBasedOn': {'@type': 'SoftwareSourceCode', 'name': 'JIZURA', 'codeRepository': 'https://github.com/852wa/JIZURA'},
+    }, ensure_ascii=False)
+    head_extra = f'''<meta property="og:site_name" content="GULZA">
+<meta property="og:locale" content="{LOCALE[lang]}">
+{locales}
+<meta property="og:image" content="{image}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{title}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{title}">
+<meta name="twitter:description" content="{description}">
+<meta name="twitter:image" content="{image}">
+<meta name="theme-color" content="#0c0c0e">
+<link rel="icon" type="image/png" sizes="48x48" href="{i18n.BASE}icons/favicon-48.png">
+<link rel="icon" type="image/png" sizes="192x192" href="{i18n.BASE}icons/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="{i18n.BASE}icons/apple-touch-icon.png">
+<script type="application/ld+json">{ld}</script>'''
     html = f'''<!doctype html>
 <html lang="{html_lang}">
 <head>
@@ -59,7 +90,7 @@ def build(lang):
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{canonical}">
-<meta name="twitter:card" content="summary">
+{head_extra}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <style>
